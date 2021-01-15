@@ -1,7 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import MarketSummary from './MarketSummary';
-import Scoreboard from './Scoreboard';
+import Homepage from './Homepage/Homepage'
 
 function App(props) {
   // console.log(props);
@@ -12,31 +11,8 @@ function App(props) {
   // const url = props.url;
 
   return (
-    <div className="App">
-      <header className="App-header">
-        Stock Simulator
-      </header>
-      <div className="flexRow">
-        <div className="flexColumn">
-          <p>
-            Instructions to play game
-          </p>
-          <MarketSummary/>
-          <MarketSummary/>
-          <MarketSummary/>
-          <MarketSummary/>
-        </div>
-
-        <div className="flexColumn">
-          <p>
-            Scoreboard
-          </p>
-          <Scoreboard/>
-          <Scoreboard/>
-          <Scoreboard/>
-          <Scoreboard/>
-        </div>
-      </div>
+    <div>
+      <Homepage/>
     </div>
   );
 }
