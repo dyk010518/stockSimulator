@@ -1,20 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
 import Homepage from './Homepage/Homepage'
+import React, { Component } from "react";
 
-function App(props) {
-  // console.log(props);
-  // ES6
-  const {text, url} = props; 
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+  }
 
   // const text = props.text;
   // const url = props.url;
-
-  return (
-    <div>
-      <Homepage/>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <Homepage />
+      </div>
+    );
+  }
 }
 
 export default App;

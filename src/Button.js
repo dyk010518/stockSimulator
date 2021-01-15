@@ -1,23 +1,31 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import React, { Component } from "react";
 
 
-function Button(props){
-	const {text} = props;
-	//let count = 0;
-	const [count, setCount] = useState(0);
+class Button extends Component {
+	// makes props available in this component
+	constructor(props) {
+		super(props);
+		this.state = {
+			clicks: 0,
+		}
+	}
 
 
-	const clickHandler = function(){
-		console.log("inside click handler");
-		setCount(count + 1);
-		console.log(count);
+	clicked = (numClicks) => {
+		this.setState({
+			clicks: numClicks + 1,
+		})
 	};
-	return (
-		<div>
-			<button onClick={clickHandler}>Clicks: {count}</button>
-		</div>
+	// required method: whatever is returned defines what
+	// shows up on screen
+	render() {
+		return (
+			<div>
+				<button onClick={this.clicked(this.state.clicks)}>Clicks: {this.state.clicks}</button>
+			</div>
 		);
-
+	}
 }
 
 export default Button;

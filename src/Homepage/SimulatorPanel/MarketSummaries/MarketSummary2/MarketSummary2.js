@@ -1,19 +1,27 @@
-import './MarketSummary2.css'
+import './MarketSummary2.css';
+import React, { Component } from "react";
 
-function MarketSummary2(props){
-	
-	const clickHandler = function(){
+class MarketSummary2 extends Component {
+	// makes props available in this component
+	constructor(props) {
+		super(props);
+	}
 
+	clickHandler = () => {
+		console.log("fill me pls")
 	};
 
-	return (
-		<div>
-			<div onClick={clickHandler}>
-			Market Summary2
-		</div>
-	</div>
-	);
-
+	// required method: whatever is returned defines what
+	// shows up on screen
+	render() {
+		return (
+			<div>
+				<div onClick={this.clickHandler}>
+					Market Summary2
+			</div>
+			</div>
+		);
+	}
 }
 
 export default MarketSummary2;

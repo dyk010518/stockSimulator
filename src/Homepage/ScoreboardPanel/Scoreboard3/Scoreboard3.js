@@ -1,21 +1,29 @@
 import './Scoreboard3.css'
-import {useState} from 'react';
+import { useState } from 'react';
+import React, { Component } from "react";
 
 
-function Scoreboard3(props){
-	
-	const clickHandler = function(){
+class Scoreboard3 extends Component {
+	// makes props available in this component
+	constructor(props) {
+		super(props);
+	}
 
+	clickHandler = () => {
+		console.log("fill me pls")
 	};
 
-	return (
-		<div>
-			<div onClick={clickHandler}>
-			Scoreboard3
-		</div>
-	</div>
-	);
-
+	// required method: whatever is returned defines what
+	// shows up on screen
+	render() {
+		return (
+			<div>
+				<div onClick={this.clickHandler}>
+					Scoreboard3
+			</div>
+			</div>
+		);
+	}
 }
 
 export default Scoreboard3;

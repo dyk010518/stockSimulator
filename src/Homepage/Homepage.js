@@ -1,26 +1,30 @@
 import './Homepage.css';
+import React, { Component } from "react";
 import TopBar from './TopBar/TopBar'
 import ScoreboardPanel from './ScoreboardPanel/ScoreboardPanel.js';
 import utilities from '../utilities.css'
 import SimulatorPanel from './SimulatorPanel/SimulatorPanel.js';
 
-function Homepage(props) {
-  // console.log(props);
-  // ES6
-  const {text, url} = props; 
+class Homepage extends Component {
+
+  constructor(props) {
+    super(props);
+  }
 
   // const text = props.text;
   // const url = props.url;
-
-  return (
-    <div className="Homepage-basics">
-      <TopBar/>
-      <div className="Homepage-flexRow">
-        <SimulatorPanel/>
-        <ScoreboardPanel/>
+  render() {
+    return (
+      <div className="Homepage-basics">
+        <TopBar />
+        <div className="Homepage-flexRow">
+          <SimulatorPanel />
+          <ScoreboardPanel />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
 }
 
 export default Homepage;
