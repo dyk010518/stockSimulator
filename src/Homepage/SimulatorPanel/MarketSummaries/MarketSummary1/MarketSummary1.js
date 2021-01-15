@@ -1,7 +1,6 @@
-import {useState} from 'react';
+import './MarketSummary1.css'
 
-
-function Scoreboard(props){
+function MarketSummary1(props){
 	
 	const clickHandler = function(){
 
@@ -10,11 +9,11 @@ function Scoreboard(props){
 	return (
 		<div>
 			<div onClick={clickHandler}>
-			Scoreboard
+			Market Summary1
 		</div>
 	</div>
 	);
 
 }
 
-export default Scoreboard;
+export default MarketSummary1;

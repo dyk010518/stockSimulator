@@ -1,9 +1,8 @@
 import './Homepage.css';
 import TopBar from './TopBar/TopBar'
-import MarketSummary from '../MarketSummary';
-import Scoreboard from '../Scoreboard';
+import ScoreboardPanel from './ScoreboardPanel/ScoreboardPanel.js';
 import utilities from '../utilities.css'
-import SimulatorPanel from './SimulatorPanel/SimulatorPanel';
+import SimulatorPanel from './SimulatorPanel/SimulatorPanel.js';
 
 function Homepage(props) {
   // console.log(props);
@@ -18,16 +17,7 @@ function Homepage(props) {
       <TopBar/>
       <div className="Homepage-flexRow">
         <SimulatorPanel/>
-
-        <div className="Homepage-flexColumn">
-          <p>
-            Scoreboard
-          </p>
-          <Scoreboard/>
-          <Scoreboard/>
-          <Scoreboard/>
-          <Scoreboard/>
-        </div>
+        <ScoreboardPanel/>
       </div>
     </div>
   );
