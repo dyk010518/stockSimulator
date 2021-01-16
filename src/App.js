@@ -2,6 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import Homepage from './Homepage/Homepage'
 import React, { Component } from "react";
+import { Router } from '@reach/router';
+import NotFound from './Pages/NotFound.js';
+import MarketOne from './Pages/Markets/MarketOne/MarketOne.js';
 
 class App extends Component {
 
@@ -14,7 +17,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Homepage />
+        <Router>
+          <Homepage path="/"/>
+          <MarketOne path="/MarketOne"/>
+          <NotFound default />
+        </Router>
       </div>
     );
   }

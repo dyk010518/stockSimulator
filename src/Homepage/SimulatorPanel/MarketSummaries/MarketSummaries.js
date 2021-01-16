@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import MarketSummary1 from './MarketSummary1/MarketSummary1.js'
-import MarketSummary2 from './MarketSummary2/MarketSummary2.js'
-import MarketSummary3 from './MarketSummary3/MarketSummary3.js'
-import MarketSummary4 from './MarketSummary4/MarketSummary4.js'
 import './MarketSummaries.css';
 import React, { Component } from "react";
+import '../../../buttonStyles.css';
+import {Link} from '@reach/router';
 
 class MarketSummaries extends Component {
 	// makes props available in this component
@@ -21,10 +19,10 @@ class MarketSummaries extends Component {
 					Markets
         	</p>
 				<div className="MarketPanel-grid">
-					<MarketSummary1 />
-					<MarketSummary2 />
-					<MarketSummary3 />
-					<MarketSummary4 />
+				<Link to="/MarketOne" class="marketButton" onClick={this.marketOneSelect}>Market 1</Link>
+				<Link to="/MarketTwo" class="marketButton" onClick={this.marketTwoSelect}>Market 2</Link>
+				<Link to="/MarketThree" class="marketButton" onClick={this.marketThreeSelect}>Market 3</Link>
+				<Link to="/MarketFour" class="marketButton" onClick={this.marketFourSelect}>Market 4</Link>
 				</div>
 			</div>
 		);
