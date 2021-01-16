@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { Router } from '@reach/router';
 import {Link} from '@reach/router';
 import MarketNavBar from './MarketNavBar/MarketNavBar.js';
+import '../../utilities.css'
+import './Market.css'
 
 class Market extends Component {
 
@@ -13,12 +15,6 @@ class Market extends Component {
     }
   }
 
-  updateMarket = (num) => {
-		this.setState({
-			marketNumber: num
-		}, () => {
-		console.log(this.state.marketNumber)})
-	}
 
   // const text = props.text;
   // const url = props.url;
@@ -27,9 +23,15 @@ class Market extends Component {
     
     return (
       <div>
-        <MarketNavBar />
-        {console.log(this.state.currentMarket)}
-        {this.state.currentMarket}
+        {/* <MarketNavBar /> */}
+        <p className = "Market-timrframeSummary">
+          {this.state.currentMarket}
+        </p>
+        <Link to="/Game/Dashboard"><button className = "Market-button" onClick={()=>{
+					
+				}}>Start</button></Link>
+        {/* {console.log(this.state.currentMarket)}
+        {this.state.currentMarket} */}
         
       </div>
     );

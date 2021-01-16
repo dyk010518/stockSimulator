@@ -1,0 +1,13 @@
+.Market-timrframeSummary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: x-large;
+}
+
+.Market-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

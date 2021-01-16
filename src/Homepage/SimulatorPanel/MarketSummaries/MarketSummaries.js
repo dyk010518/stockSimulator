@@ -19,7 +19,7 @@ class MarketSummaries extends Component {
 			<div className="MarketPanel-flexColumn">
 				<p className="MarketPanel-head">
 					Markets
-        	</p>
+        		</p>
 				<div className="MarketPanel-grid">
 				<Link to="/Game" class="marketButton" ><button onClick={()=>{
 					this.props.setMarketNum("One")
