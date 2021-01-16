@@ -2,6 +2,7 @@ import './MarketOne.css';
 import React, { Component } from "react";
 import { Router } from '@reach/router';
 import {Link} from '@reach/router'
+import MarketNavBar from '../MarketNavBar/MarketNavBar.js';
 
 class MarketOne extends Component {
 
@@ -14,7 +15,7 @@ class MarketOne extends Component {
   render() {
     return (
       <div>
-        Market 1
+        <MarketNavBar />
       </div>
     );
   }
