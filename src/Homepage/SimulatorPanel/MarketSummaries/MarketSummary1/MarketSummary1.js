@@ -7,6 +7,20 @@ class MarketSummary1 extends Component {
 	// makes props available in this component
 	constructor(props) {
 		super(props);
+		this.state = {
+			stockPrices: {},
+		}
+	}
+
+	componentDidMount(){
+		//get request to api
+		/*
+		get(API URL FOR STOCK PRICES).then((stockPObj) => {
+			this.setState({
+				stockPrices: stockPObj
+			})
+		});
+		*/
 	}
 
 	marketOneSelect = () => {

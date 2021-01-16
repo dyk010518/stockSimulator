@@ -1,6 +1,6 @@
 import './Login.css';
 import React, { Component, Fragment } from "react";
-import GoogleLogin from 'react-google-login';
+//import GoogleLogin from 'react-google-login';
 
 
 class Login extends Component {
@@ -10,18 +10,23 @@ class Login extends Component {
     this.loginRequest = this.loginRequest.bind(this);
   }
 
-  loginRequest = (response) => {
-		console.log("Successfully logged in");
+  loginRequest = (event, response) => {
+    console.log("Successfully logged in");
     console.log(response);
-	};
+  };
   // required method: whatever is returned defines what
   // shows up on screen
   render() {
     return (
+      <button className="loginButton" onClick={(e) => {
+        this.loginRequest(e, "test")
+      }}>Login</button>
+      /*
       <Fragment>
         <GoogleLogin className="loginButton" clientId="861706660529-n3glom9el42gfl6pcs34ll6adf1v4ci2.apps.googleusercontent.com"
           buttonText= "Login" onSuccess={this.loginRequest} onFailure={this.longinRequest}/>
       </Fragment>
+      */
     );
   }
 }
