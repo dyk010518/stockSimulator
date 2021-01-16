@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import '../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
+import MarketNavBar from './MarketNavBar';
 
 class MarketPortfolio extends Component {
     // makes props available in this component
@@ -14,7 +15,7 @@ class MarketPortfolio extends Component {
     render() {
         return (
             <>
-                <Link to="/Game/Portfolio" >Portfolio</Link>
+                <MarketNavBar />
             </>
         );
     }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import '../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
+import MarketNavBar from './MarketNavBar';
 
 class MarketTrade extends Component {
     // makes props available in this component
@@ -14,7 +15,7 @@ class MarketTrade extends Component {
     render() {
         return (
             <>
-                <Link to="/Game/Trade" >Trade</Link>
+                <MarketNavBar />
             </>
         );
     }
