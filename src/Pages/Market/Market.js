@@ -1,17 +1,24 @@
 import './Market.css';
 import React, { Component } from "react";
 import { Router } from '@reach/router';
-import {Link} from '@reach/router'
+import {Link} from '@reach/router';
 import MarketNavBar from './MarketNavBar/MarketNavBar.js';
 
-class MarketOne extends Component {
+class Market extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      currentView: "test",
+      currentMarket: this.props.marketName,
     }
   }
+
+  updateMarket = (num) => {
+		this.setState({
+			marketNumber: num
+		}, () => {
+		console.log(this.state.marketNumber)})
+	}
 
   // const text = props.text;
   // const url = props.url;
@@ -20,12 +27,13 @@ class MarketOne extends Component {
     
     return (
       <div>
-        
-        {this.state.currentView}
+        <MarketNavBar />
+        {console.log(this.state.currentMarket)}
+        {this.state.currentMarket}
         
       </div>
     );
   }
 }
 
-export default MarketOne;
+export default Market;

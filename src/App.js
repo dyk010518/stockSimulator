@@ -14,7 +14,11 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      marketName: undefined
+    }
   }
+
 
   // const text = props.text;
   // const url = props.url;
@@ -23,7 +27,7 @@ class App extends Component {
       <div>
         <Router>
           <Homepage path="/"/>
-          <Market path="/Game"/>
+          <Market path="/Game" marketName = {this.state.marketName}/>
           <MarketDashboard path="/Game/Dashboard"/>
           <MarketPortfolio path="/Game/Portfolio"/>
           <MarketResearch path="/Game/Research"/>
