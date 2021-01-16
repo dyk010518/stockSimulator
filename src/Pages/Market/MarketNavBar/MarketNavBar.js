@@ -3,10 +3,10 @@ import React, { Component } from "react";
 import '../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
-import Dashboard from './Dashboard.js';
-import Portfolio from './Portfolio.js';
-import StockResearch from './StockResearch.js';
-import Trade from './Trade.js';
+import MarketDashboard from './MarketDashboard.js';
+import MarketPortfolio from './MarketPortfolio.js';
+import MarketResearch from './MarketResearch.js';
+import MarketTrade from './MarketTrade.js';
 
 class MarketNavBar extends Component {
     // makes props available in this component
@@ -22,25 +22,25 @@ class MarketNavBar extends Component {
                 <header className="MNavBar-header">
                     <div className ="allButtons">
                     <div className="section">
-                        <Dashboard />
+                        <MarketDashboard />
                     </div>
                     <div className="section">
                         |
                     </div>
                     <div className="section">
-                        <Portfolio />
+                        <MarketPortfolio />
                     </div>
                     <div className="section">
                         |
                     </div>
                     <div className="section">
-                        <StockResearch />
+                        <MarketResearch />
                     </div >
                     <div className="section">
                         |
                     </div>
                     <div className="section">
-                        <Trade />
+                        <MarketTrade />
                     </div>
                     </div>
                 </header>

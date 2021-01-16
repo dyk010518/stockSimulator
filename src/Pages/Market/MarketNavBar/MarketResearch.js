@@ -3,7 +3,7 @@ import '../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 
-class Dashboard extends Component {
+class MarketResearch extends Component {
     // makes props available in this component
     constructor(props) {
         super(props);
@@ -14,10 +14,10 @@ class Dashboard extends Component {
     render() {
         return (
             <>
-                <Link to="/MarketOne/Dashboard" >Dashboard</Link>
+                <Link to="/Game/StockResearch" >Stock Research</Link>
             </>
         );
     }
 }
 
-export default Dashboard;
+export default MarketResearch;

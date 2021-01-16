@@ -3,7 +3,7 @@ import '../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 
-class StockResearch extends Component {
+class MarketTrade extends Component {
     // makes props available in this component
     constructor(props) {
         super(props);
@@ -14,10 +14,10 @@ class StockResearch extends Component {
     render() {
         return (
             <>
-                <Link to="/MarketOne/StockResearch" >Stock Research</Link>
+                <Link to="/Game/Trade" >Trade</Link>
             </>
         );
     }
 }
 
-export default StockResearch;
+export default MarketTrade;
