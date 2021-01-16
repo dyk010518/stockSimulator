@@ -1,7 +1,7 @@
 .Scoreboard4-basics{
     display: flex;
-    width: 400px;
-    height: 300px;
+    width: 300px;
+    height: 240px;
     background-color: khaki;
     margin: 8px;
 }
