@@ -14,7 +14,7 @@ class Instruction extends Component {
         return (
             <>
             <h1 className="instructionHead">
-                Instructions:
+                Instructions
             </h1>
             <p className="instructionBody">
                 blah blah blah
