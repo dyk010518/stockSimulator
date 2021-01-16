@@ -22,13 +22,15 @@ class Scoreboard extends Component {
   render() {
     return (
       <div className="ScoreboardPanel-flexColumn">
-        <p>
+        <p className="ScoreboardPanel-head">
           Scoreboard
-            </p>
-        <Scoreboard1 />
-        <Scoreboard2 />
-        <Scoreboard3 />
-        <Scoreboard4 />
+        </p>
+        <div className="ScoreboardPanel-grid">
+          <Scoreboard1 />
+          <Scoreboard2 />
+          <Scoreboard3 />
+          <Scoreboard4 />
+        </div>
       </div>
     );
   }

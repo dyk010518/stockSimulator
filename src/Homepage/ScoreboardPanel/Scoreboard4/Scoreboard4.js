@@ -18,7 +18,7 @@ class Scoreboard4 extends Component {
 	render() {
 		return (
 			<div>
-				<div onClick={this.clickHandler}>
+				<div onClick={this.clickHandler} className = "Scoreboard4-basics">
 					Scoreboard4
 			</div>
 			</div>

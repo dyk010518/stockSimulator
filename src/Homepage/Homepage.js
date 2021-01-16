@@ -18,8 +18,12 @@ class Homepage extends Component {
       <div className="Homepage-basics">
         <TopBar />
         <div className="Homepage-flexRow">
-          <SimulatorPanel />
-          <ScoreboardPanel />
+          <div className="Homepage-width">
+            <SimulatorPanel/>
+          </div>
+          <div className="Homepage-width">
+            <ScoreboardPanel/>
+          </div>
         </div>
       </div>
     );

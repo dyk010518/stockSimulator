@@ -1,0 +1,7 @@
+.Scoreboard3-basics{
+    display: flex;
+    width: 400px;
+    height: 300px;
+    background-color: khaki;
+    margin: 8px;
+}
