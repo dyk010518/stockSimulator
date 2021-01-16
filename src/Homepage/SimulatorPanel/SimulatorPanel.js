@@ -8,7 +8,9 @@ class SimulatorPanel extends Component {
   // makes props available in this component
   constructor(props) {
     super(props);
+    
   }
+
 
   // required method: whatever is returned defines what
   // shows up on screen
@@ -16,7 +18,7 @@ class SimulatorPanel extends Component {
     return (
       <div className="SimulatorPanel-flexColumn">
         <Instruction />
-        <MarketSummaries />
+        <MarketSummaries marketName = {this.setMarketNum} setMarketNum = {this.props.setMarketNum}/>
       </div>
     )
   }

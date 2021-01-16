@@ -9,6 +9,7 @@ class Homepage extends Component {
 
   constructor(props) {
     super(props);
+    
   }
 
   // const text = props.text;
@@ -19,7 +20,7 @@ class Homepage extends Component {
         <TopBar />
         <div className="Homepage-flexRow">
           <div className="Homepage-width">
-            <SimulatorPanel/>
+            <SimulatorPanel marketName = {this.setMarketNum} setMarketNum = {this.props.setMarketNum}/>
           </div>
           <div className="Homepage-width">
             <ScoreboardPanel/>

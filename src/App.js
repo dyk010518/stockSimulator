@@ -17,8 +17,14 @@ class App extends Component {
     this.state = {
       marketName: undefined
     }
+    
   }
 
+  setMarketNum = (name) => {
+    this.setState({
+      marketName: name,
+    })
+  }
 
   // const text = props.text;
   // const url = props.url;
@@ -26,7 +32,7 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <Homepage path="/"/>
+          <Homepage path="/" marketName = {this.state.marketName} setMarketNum = {this.setMarketNum}/>
           <Market path="/Game" marketName = {this.state.marketName}/>
           <MarketDashboard path="/Game/Dashboard"/>
           <MarketPortfolio path="/Game/Portfolio"/>
