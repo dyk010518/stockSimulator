@@ -10,7 +10,6 @@ class Scoreboard1 extends Component {
 
 	clickHandler = () => {
 		console.log("fill me pls")
-		console.log(screen.width);
 	};
 
 	// required method: whatever is returned defines what

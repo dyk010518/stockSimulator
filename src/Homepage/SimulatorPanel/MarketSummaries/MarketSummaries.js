@@ -3,6 +3,7 @@ import MarketSummary1 from './MarketSummary1/MarketSummary1.js'
 import MarketSummary2 from './MarketSummary2/MarketSummary2.js'
 import MarketSummary3 from './MarketSummary3/MarketSummary3.js'
 import MarketSummary4 from './MarketSummary4/MarketSummary4.js'
+import './MarketSummaries.css';
 import React, { Component } from "react";
 
 class MarketSummaries extends Component {
@@ -15,11 +16,16 @@ class MarketSummaries extends Component {
 	// shows up on screen
 	render() {
 		return (
-			<div>
-				<MarketSummary1 />
-				<MarketSummary2 />
-				<MarketSummary3 />
-				<MarketSummary4 />
+			<div className="MarketPanel-flexColumn">
+				<p className="MarketPanel-head">
+					Markets
+        	</p>
+				<div className="MarketPanel-grid">
+					<MarketSummary1 />
+					<MarketSummary2 />
+					<MarketSummary3 />
+					<MarketSummary4 />
+				</div>
 			</div>
 		);
 	}

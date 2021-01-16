@@ -7,19 +7,17 @@ class MarketSummary3 extends Component {
 		super(props);
 	}
 
-	clickHandler = () => {
-		console.log("fill me pls")
+	marketThreeSelect = () => {
+		alert("market 3 selected!")
 	};
 
 	// required method: whatever is returned defines what
 	// shows up on screen
 	render() {
 		return (
-			<div>
-				<div onClick={this.clickHandler}>
-					Market Summary3
-			</div>
-			</div>
+			<>
+			<button className="marketThree" onClick={this.marketThreeSelect}>Market 3</button>
+			</>
 		);
 	}
 }
