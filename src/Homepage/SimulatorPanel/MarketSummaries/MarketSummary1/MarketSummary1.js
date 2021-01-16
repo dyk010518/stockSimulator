@@ -1,5 +1,6 @@
 import './MarketSummary1.css';
 import React, { Component } from "react";
+import '../../../../clickButton.css';
 
 
 class MarketSummary1 extends Component {
@@ -17,7 +18,7 @@ class MarketSummary1 extends Component {
 	render() {
 		return (
 			<>
-			<button className="marketOne" onClick={this.marketOneSelect}>Market 1</button>
+				<button class="buttonClass" onClick={this.marketOneSelect}>Market 1</button>
 			</>
 		);
 	}

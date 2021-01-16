@@ -1,5 +1,6 @@
 import './MarketSummary3.css';
 import React, { Component } from "react";
+import '../../../../clickButton.css';
 
 class MarketSummary3 extends Component {
 	// makes props available in this component
@@ -16,7 +17,7 @@ class MarketSummary3 extends Component {
 	render() {
 		return (
 			<>
-			<button className="marketThree" onClick={this.marketThreeSelect}>Market 3</button>
+				<button class="buttonClass" onClick={this.marketThreeSelect}>Market 3</button>
 			</>
 		);
 	}
