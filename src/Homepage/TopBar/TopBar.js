@@ -17,6 +17,7 @@ class TopBar extends Component {
       <header className="TopBar-header">
         <Title />
         <Login />
+        
       </header>
       </>
     );
