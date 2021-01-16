@@ -1,9 +1,7 @@
-import './TopBar.css';
-import Login from './Login/Login.js';
-import Title from './Title/Title.js';
+import './Login.css';
 import React, { Component } from "react";
 
-class TopBar extends Component {
+class Login extends Component {
   // makes props available in this component
   constructor(props) {
     super(props);
@@ -14,13 +12,10 @@ class TopBar extends Component {
   render() {
     return (
       <>
-      <header className="TopBar-header">
-        <Title />
-        <Login />
-      </header>
+      <button className="loginButton" >Login</button>
       </>
     );
   }
 }
 
-export default TopBar;
+export default Login;

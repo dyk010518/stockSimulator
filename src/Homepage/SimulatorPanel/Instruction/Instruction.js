@@ -12,9 +12,14 @@ class Instruction extends Component {
     // shows up on screen
     render() {
         return (
-            <p>
-                Instructions to play game
+            <>
+            <h1 className="instructionHead">
+                Instructions:
+            </h1>
+            <p className="instructionBody">
+                blah blah blah
             </p>
+            </>
         );
     }
 }

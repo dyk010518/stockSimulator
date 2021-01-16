@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+button{
+  font-family: "Open Sans";
+}
+
+.loginButton{
+    text-align: end;
+    font-weight: normal;
+    font-size: 30px;
+    position: absolute;
+    top: 30px;
+    right: 1%;
+
+  }
