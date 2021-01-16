@@ -1,9 +1,9 @@
-import './MarketOne.css';
+import './MarketThree.css';
 import React, { Component } from "react";
 import { Router } from '@reach/router';
 import {Link} from '@reach/router'
 
-class MarketOne extends Component {
+class MarketThree extends Component {
 
   constructor(props) {
     super(props);
@@ -14,10 +14,10 @@ class MarketOne extends Component {
   render() {
     return (
       <div>
-        Market 1
+        Market 3
       </div>
     );
   }
 }
 
-export default MarketOne;
+export default MarketThree;
