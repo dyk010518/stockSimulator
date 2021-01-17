@@ -1,0 +1,25 @@
+.Market-number {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: x-large;
+}
+
+
+.Market-summary{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: x-large;
+}
+
+.center{
+    text-align: center;
+}
+
+.rm_decor{
+    text-decoration: none;
+}
+

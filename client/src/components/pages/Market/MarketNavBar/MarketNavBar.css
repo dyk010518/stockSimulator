@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+header{
+  font-family: "Open Sans";
+}
+
+.MNavBar-header {
+    background-color: #282c34;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 16px;
+    color: white;
+    font-weight: bolder;
+    height: 40px;
+    left: 5px;
+}
+
+.section{
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+
+}
+
+.allButtons{
+  display: flex;
+  position: absolute;
+  text-decoration: none;
+  left: 10px;
+  top: 3px;
+}
+
+.rm_decor{
+  text-decoration: none;
+}

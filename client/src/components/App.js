@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
+import Homepage from './Pages/Homepage/Homepage.js';
+import Market from './Pages/Market/Market.js';
+import MarketDashboard from './Pages/Market/MarketDashboard/MarketDashboard.js';
+import MarketPortfolio from './Pages/Market/MarketNavBar/MarketPortfolio.js';
+import MarketResearch from './Pages/Market/MarketNavBar/MarketResearch.js';
+import MarketTrade from './Pages/Market/MarketNavBar/MarketTrade.js';
 
 import "../utilities.css";
 
@@ -18,7 +24,14 @@ class App extends Component {
     super(props);
     this.state = {
       userId: undefined,
+      marketName: undefined,
     };
+  }
+
+  setMarketNum = (name) => {
+    this.setState({
+      marketName: name,
+    })
   }
 
   componentDidMount() {
@@ -48,12 +61,18 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Skeleton
-            path="/"
+          <Homepage path="/" 
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
+            userId={this.state.userId} 
+            marketName={this.state.marketName} 
+            setMarketNum={this.setMarketNum} 
           />
+          <Market path="/Game" marketName={this.state.marketName} />
+          <MarketDashboard path="/Game/Dashboard" />
+          <MarketPortfolio path="/Game/Portfolio" />
+          <MarketResearch path="/Game/Research" />
+          <MarketTrade path="/Game/Trade" />
           <NotFound default />
         </Router>
       </>
