@@ -18,7 +18,7 @@ class TopBar extends Component {
         <Title />
       </header>
       <div className='TopBar-right'>
-        <Login className="right"
+        <Login 
             handleLogin={this.props.handleLogin}
             handleLogout={this.props.handleLogout}
             userId={this.props.userId}
