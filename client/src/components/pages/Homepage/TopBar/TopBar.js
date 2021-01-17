@@ -16,13 +16,14 @@ class TopBar extends Component {
       <>
       <header className="TopBar-header">
         <Title />
-        <Login className="right"
-          handleLogin={this.props.handleLogin}
-          handleLogout={this.props.handleLogout}
-          userId={this.props.userId}
-          />
-        
       </header>
+      <div className='TopBar-right'>
+        <Login className="right"
+            handleLogin={this.props.handleLogin}
+            handleLogout={this.props.handleLogout}
+            userId={this.props.userId}
+        />
+      </div>
       </>
     );
   }

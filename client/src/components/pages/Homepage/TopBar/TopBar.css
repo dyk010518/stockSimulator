@@ -15,9 +15,12 @@ header{
     height: 56px;
 }
 
-.right{
+.TopBar-right{
   align-items: right;
   text-align: right;
+  position: absolute;
+  right: 10px;
+  top: 7px;
 }
 
   
