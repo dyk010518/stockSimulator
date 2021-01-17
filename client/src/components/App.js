@@ -4,7 +4,7 @@ import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
 import Homepage from './Pages/Homepage/Homepage.js';
 import Market from './Pages/Market/Market.js';
-import MarketDashboard from './Pages/Market/MarketDashboard/MarketDashboard.js';
+import MarketDashboard from './Pages/Market/MarketNavBar/MarketDashboard.js';
 import MarketPortfolio from './Pages/Market/MarketNavBar/MarketPortfolio.js';
 import MarketResearch from './Pages/Market/MarketNavBar/MarketResearch.js';
 import MarketTrade from './Pages/Market/MarketNavBar/MarketTrade.js';
