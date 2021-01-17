@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import '../../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
+import './StockSymbolSearch.css'
 
 
 class StockSymbolSearch extends Component {
@@ -14,11 +15,20 @@ class StockSymbolSearch extends Component {
     // shows up on screen
     render() {
         return (
-            <>
-                <div>
-                    StockSymbolSearch
+            <div className="StockSymbolSearch-container">
+                <h3>
+                    Stock Symbol Search
+                </h3>
+                <div className='StockSymbolSearch-searchAndSubmit'>
+                    <textarea>
+                        Search
+                    </textarea>
+                    <button>
+                        Submit
+                    </button>
                 </div>
-            </>
+                    
+            </div>
         );
     }
 }

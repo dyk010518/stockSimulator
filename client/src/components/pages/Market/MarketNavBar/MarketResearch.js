@@ -19,9 +19,9 @@ class MarketResearch extends Component {
         return (
             <>
                 <MarketNavBar />
+                <StockSymbolSearch />
                 <StockList />
                 <StockScreener />
-                <StockSymbolSearch />
             </>
         );
     }
