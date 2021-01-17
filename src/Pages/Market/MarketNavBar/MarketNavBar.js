@@ -22,25 +22,25 @@ class MarketNavBar extends Component {
                 <header className="MNavBar-header">
                     <div className ="allButtons">
                     <div className="section">
-                        <Link to="/Game/Dashboard" >Dashboard</Link>
+                        <Link to="/Game/Dashboard" className="rm_decor">Dashboard</Link>
                     </div>
                     <div className="section">
                         |
                     </div>
                     <div className="section">
-                        <Link to="/Game/Portfolio" >Portfolio</Link>
+                        <Link to="/Game/Portfolio" className="rm_decor">Portfolio</Link>
                     </div>
                     <div className="section">
                         |
                     </div>
                     <div className="section">
-                        <Link to="/Game/Research" >Stock Research</Link>
+                        <Link to="/Game/Research" className="rm_decor">Stock Research</Link>
                     </div >
                     <div className="section">
                         |
                     </div>
                     <div className="section">
-                    <Link to="/Game/Trade" >Trade</Link>
+                    <Link to="/Game/Trade" className="rm_decor">Trade</Link>
                     </div>
                     </div>
                 </header>

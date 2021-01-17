@@ -27,6 +27,11 @@ header{
 .allButtons{
   display: flex;
   position: absolute;
+  text-decoration: none;
   left: 10px;
   top: 3px;
+}
+
+.rm_decor{
+  text-decoration: none;
 }
