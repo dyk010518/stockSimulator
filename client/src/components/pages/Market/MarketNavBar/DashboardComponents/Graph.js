@@ -47,7 +47,7 @@ class Graph extends Component {
             
             <>
                 
-                <div>
+                <div >
                     <Scatter 
                         data = {{
                             datasets:[{
