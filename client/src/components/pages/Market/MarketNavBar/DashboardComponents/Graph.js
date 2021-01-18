@@ -2,45 +2,78 @@ import React, { Component } from "react";
 import '../../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
-import {Bar} from 'react-chartjs-2';
+import {Scatter} from 'react-chartjs-2';
 
 
 class Graph extends Component {
     // makes props available in this component
     constructor(props) {
         super(props);
+        this.state = {
+            //pass in as props, hard coded for now
+            year: "2015",
+            month: "3",
+            yourP: [{
+                x: 2,
+                y: 10
+            }, {
+                x: 3,
+                y: 5
+            }, {
+                x: 10,
+                y: 5
+            }],
+            marketP: [{
+                x: 2,
+                y: 20
+            }, {
+                x: 3,
+                y: 7
+            }, {
+                x: 10,
+                y: 8 
+            }],
+
+
+        }
     }
 
     // required method: whatever is returned defines what
     // shows up on screen
     render() {
+        let month = this.state.month
+        let year = this.state.year
         return (
+            
             <>
+                
                 <div>
-                    <Bar 
+                    <Scatter 
                         data = {{
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                             datasets:[{
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3],
+                                label: 'Your Performance',
+                                //data format: points
+                                data: this.state.yourP,
+                                pointBackgroundColor: "white",
                                 backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)',
-                                    'rgba(255, 159, 64, 0.2)'
+                                    'rgba(0, 0, 0, 0)',
                                 ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
+                                showLine: true,
+                                borderColor: 'black',
                                 borderWidth: 1
-                            }]
+                            },
+                            {
+                                label: 'Market Performance',
+                                //data format: points
+                                data: this.state.marketP,
+                                pointBackgroundColor: "red",
+                                backgroundColor: [
+                                    'rgba(255, 0, 0, 0.5)',
+                                ],
+                                showLine: true,
+                                borderColor: 'black',
+                                borderWidth: 1
+                                }]
                         }}
                         height={400}
                         width={600}
@@ -49,10 +82,28 @@ class Graph extends Component {
                             scales: {
                                 yAxes: [{
                                     ticks: {
-                                        beginAtZero: true
+                                        beginAtZero: true,
+                                        callback: function(value, index, values) {
+                                            return '$' + value;
+                                        }
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        beginAtZero: false,
+                                        callback: function(value, index, values) {
+                                            return month + '/' + value + '/' + year;
+                                        }
                                     }
                                 }]
-                            }
+                            },
+                            legend: {
+                                display: true,
+                                labels: {
+                                    fontColor: 'rgb(255, 99, 132)'
+                                },
+                                
+                            },
                         }}
                     />
                 </div>
