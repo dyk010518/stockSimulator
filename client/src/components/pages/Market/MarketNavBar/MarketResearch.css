@@ -4,6 +4,16 @@ header{
   font-family: "Open Sans";
 }
 
+.MarketResearch-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.MarketResearch-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .MNavBar-header {
     background-color: #282c34;
     display: flex;

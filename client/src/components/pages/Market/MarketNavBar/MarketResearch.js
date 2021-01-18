@@ -6,6 +6,7 @@ import MarketNavBar from './MarketNavBar';
 import StockList from './ResearchComponents/StockList.js';
 import StockScreener from './ResearchComponents/StockScreener.js';
 import StockSymbolSearch from './ResearchComponents/StockSymbolSearch.js';
+import "./MarketResearch.css"
 
 class MarketResearch extends Component {
     // makes props available in this component
@@ -19,9 +20,13 @@ class MarketResearch extends Component {
         return (
             <>
                 <MarketNavBar />
-                <StockSymbolSearch />
-                <StockList />
-                <StockScreener />
+                <div className="MarketResearch-row">
+                    <div className="MarketResearch-column">
+                        <StockSymbolSearch />
+                        <StockScreener />
+                    </div>
+                    <StockList />
+                </div>
             </>
         );
     }

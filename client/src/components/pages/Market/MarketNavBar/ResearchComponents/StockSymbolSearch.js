@@ -16,11 +16,11 @@ class StockSymbolSearch extends Component {
     render() {
         return (
             <div className="StockSymbolSearch-container">
-                <h3>
+                <h2 className="StockSymbolSearch-header">
                     Stock Symbol Search
-                </h3>
+                </h2>
                 <div className='StockSymbolSearch-searchAndSubmit'>
-                    <textarea>
+                    <textarea className='StockSymbolSearch-textArea'>
                         Search
                     </textarea>
                     <button>

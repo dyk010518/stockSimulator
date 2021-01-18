@@ -14,11 +14,9 @@ class StockList extends Component {
     // shows up on screen
     render() {
         return (
-            <>
-                <div>
-                    StockList
-                </div>
-            </>
+            <div classname="StockList-container">
+
+            </div>
         );
     }
 }

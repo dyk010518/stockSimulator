@@ -1,0 +1,31 @@
+.StockScreener-container {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color:  #282c34;
+    margin: 10px;
+    width: 500px;
+    height: 800px;
+    border-radius: 10%;
+}
+
+.StockScreener-header {
+    text-align: center;
+}
+
+.StockScreener-labelSelect {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15pt;
+    margin-bottom: 30px;
+}
+
+.StockScreener-label {
+    font-weight: bold;
+    margin-left: 20px;
+
+}
+
+.StockScreener-select {
+    margin-right: 20px;
+}
