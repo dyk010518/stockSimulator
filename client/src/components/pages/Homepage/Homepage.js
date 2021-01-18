@@ -31,6 +31,7 @@ class Homepage extends Component {
           handleLogin={this.props.handleLogin}
           handleLogout={this.props.handleLogout}
           userId={this.props.userId}
+          username = {this.props.username}
         />
         <div className="Homepage-flexRow">
           <div className="Homepage-width">

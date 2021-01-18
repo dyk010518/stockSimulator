@@ -9,3 +9,9 @@ h1{
     color: white;
     font-weight: bold;
 }
+
+.loggedInAs{
+  text-align: left;
+  color: white;
+  font-weight: bold;
+}

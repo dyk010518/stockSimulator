@@ -15,13 +15,14 @@ class TopBar extends Component {
     return (
       <>
       <header className="TopBar-header">
-        <Title />
+        <Title username={this.props.username}/>
       </header>
       <div className='TopBar-right'>
         <Login 
             handleLogin={this.props.handleLogin}
             handleLogout={this.props.handleLogout}
             userId={this.props.userId}
+            
         />
       </div>
       </>

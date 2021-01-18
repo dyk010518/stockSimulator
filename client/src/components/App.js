@@ -25,6 +25,7 @@ class App extends Component {
     this.state = {
       userId: undefined,
       marketName: undefined,
+      username: undefined,
     };
   }
 
@@ -47,13 +48,19 @@ class App extends Component {
     console.log(`Logged in as ${res.profileObj.name}`);
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
-      this.setState({ userId: user._id });
+      this.setState({ 
+        userId: user._id,
+        username: res.profileObj.name
+      });
       post("/api/initsocket", { socketid: socket.id });
     });
   };
 
   handleLogout = () => {
-    this.setState({ userId: undefined });
+    this.setState({ 
+      userId: undefined,
+      username: undefined
+    });
     post("/api/logout");
   };
 
@@ -67,6 +74,7 @@ class App extends Component {
             userId={this.state.userId} 
             marketName={this.state.marketName} 
             setMarketNum={this.setMarketNum} 
+            username = {this.state.username}
           />
           <Market path="/Game" marketName={this.state.marketName} />
           <MarketDashboard path="/Game/Dashboard" />

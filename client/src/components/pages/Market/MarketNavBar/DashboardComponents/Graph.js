@@ -68,7 +68,7 @@ class Graph extends Component {
                                 data: this.state.marketP,
                                 pointBackgroundColor: "red",
                                 backgroundColor: [
-                                    'rgba(255, 0, 0, 0.5)',
+                                    'rgba(255, 0, 0, 0.75)',
                                 ],
                                 showLine: true,
                                 borderColor: 'black',
