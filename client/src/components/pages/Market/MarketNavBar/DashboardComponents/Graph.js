@@ -20,7 +20,6 @@ class Graph extends Component {
 
     componentDidMount() {
         get("/api/stockdata").then((stockObjs) => {
-            console.log(stockObjs)
             this.setState({
                 name: stockObjs[0].stockName,
                 stocks: stockObjs,

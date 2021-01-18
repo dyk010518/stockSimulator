@@ -45,11 +45,12 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 router.get("/stockdata", (req, res) => {
-  console.log("hit")
   Stockdata.find({}).then((stockObjs) => {
     res.send(stockObjs);
   });
 });
+//type(stockObjs) is [{},{},...]
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

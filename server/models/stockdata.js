@@ -7,4 +7,4 @@ const StockSchema = new mongoose.Schema({
 });
 
 // compile model from schema
-module.exports = mongoose.model("stock", StockSchema);
+module.exports = mongoose.model("stocks", StockSchema);
