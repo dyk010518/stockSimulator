@@ -7,6 +7,19 @@
     width: 500px;
     height: 800px;
     border-radius: 10%;
+    margin-left: 100px;
+}
+
+@media (max-width: 1500px){
+    .StockScreener-container {
+        margin-left: 10px;
+    }
+}
+
+@media (max-width: 1000px){
+    .StockScreener-container {
+        width: 300px;
+    }
 }
 
 .StockScreener-header {
@@ -23,9 +36,9 @@
 .StockScreener-label {
     font-weight: bold;
     margin-left: 20px;
-
 }
 
 .StockScreener-select {
     margin-right: 20px;
+    width: 130px;
 }
