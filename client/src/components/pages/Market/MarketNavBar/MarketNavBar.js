@@ -21,21 +21,24 @@ class MarketNavBar extends Component {
     // required method: whatever is returned defines what
     // shows up on screen
     render() {
+        let bar = "|";
         return (
+            
+
             <>
                 <header className="MNavBar-header">
                     <div className ="allButtons">
                       {
-                        routes.map((route) => (
+                        routes.map((route, index, array) => (
                           <>
                             <div className="section">
                                 <Link to={route.link} className="rm_decor">{route.text}</Link>
                             </div>
                             <div className="section">
-                                |
+                                {(index<4) ? bar : null}
                             </div>
                           </>
-                          ))
+                        ))
                       }
                     </div>
                 </header>
