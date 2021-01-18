@@ -16,7 +16,7 @@ class AccountDetails extends Component {
         return (
             <>
                 <div>
-                    AccountDetails
+                    AccountDetails 
                 </div>
             </>
         );
