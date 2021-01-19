@@ -26,12 +26,29 @@ class App extends Component {
       userId: undefined,
       marketName: undefined,
       username: undefined,
+      cashOne: undefined,
+      cashTwo: undefined,
+      cashThree: undefined,
+      cashFour: undefined,
     };
   }
 
   setMarketNum = (name) => {
+    let tcash = undefined;
+    if (name === "One"){
+      tcash=this.state.cashOne;
+    } else if (name === "Two"){
+      tcash=this.state.cashTwo;
+    } else if (name === "Three"){
+      tcash=this.state.cashThree;
+    } else if (name === "Four"){
+      tcash=this.state.cashFour;
+    }
     this.setState({
       marketName: name,
+      cash: tcash,
+    }, () => {
+      console.log("marketName set")
     })
   }
 
@@ -39,27 +56,46 @@ class App extends Component {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.
-        this.setState({ userId: user._id });
+        this.setState({
+          userId: user._id,
+          username: user.name,
+          cashOne: user.cashOne,
+          cashTwo: user.cashTwo,
+          cashThree: user.cashThree,
+          cashFour: user.cashFour,
+        }, () => {
+          console.log("state set")
+        });
+
       }
     });
+
   }
 
   handleLogin = (res) => {
     console.log(`Logged in as ${res.profileObj.name}`);
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
-      this.setState({ 
+      this.setState({
         userId: user._id,
-        username: res.profileObj.name
+        username: res.profileObj.name,
+        cashOne: user.cashOne,
+        cashTwo: user.cashTwo,
+        cashThree: user.cashThree,
+        cashFour: user.cashFour,
       });
       post("/api/initsocket", { socketid: socket.id });
     });
   };
 
   handleLogout = () => {
-    this.setState({ 
+    this.setState({
       userId: undefined,
-      username: undefined
+      username: undefined,
+      cashOne: undefined,
+      cashTwo: undefined,
+      cashThree: undefined,
+      cashFour: undefined,
     });
     post("/api/logout");
   };
@@ -68,16 +104,20 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Homepage path="/" 
+          <Homepage path="/"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId} 
-            marketName={this.state.marketName} 
-            setMarketNum={this.setMarketNum} 
-            username = {this.state.username}
+            userId={this.state.userId}
+            setMarketNum={this.setMarketNum}
+            username={this.state.username}
           />
-          <Market path="/Game" marketName={this.state.marketName} />
-          <MarketDashboard path="/Game/Dashboard" />
+          <Market path="/Game"
+            marketName={this.state.marketName}
+          />
+          <MarketDashboard path="/Game/Dashboard" 
+            username={this.state.username}
+            cash={this.state.cash}
+          />
           <MarketPortfolio path="/Game/Portfolio" />
           <MarketResearch path="/Game/Research" />
           <MarketTrade path="/Game/Trade" />

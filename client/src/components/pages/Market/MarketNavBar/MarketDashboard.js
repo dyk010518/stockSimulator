@@ -17,7 +17,7 @@ class MarketDashboard extends Component {
     render() {
         return (
             <>
-                <MarketNavBar />
+                <MarketNavBar cash={this.props.cash} username={this.props.username}/>
                 <Graph />
                 <RecentActivity />
             </>

@@ -28,7 +28,10 @@ class MarketSummaries extends Component {
           {
             marketTypes.map((marketNumber) => (
               <Link to="/Game" class="marketButton" >
-                <button onClick={()=>{this.props.setMarketNum(marketNumber)}}>
+                <button onClick={()=>{
+					console.log("hit")
+					this.props.setMarketNum(marketNumber)
+					}}>
                   Market {marketNumber}
                 </button>
               </Link>

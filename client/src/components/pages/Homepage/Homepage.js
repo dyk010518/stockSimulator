@@ -35,7 +35,7 @@ class Homepage extends Component {
         />
         <div className="Homepage-flexRow">
           <div className="Homepage-width">
-            <SimulatorPanel marketName={this.setMarketNum} setMarketNum={this.props.setMarketNum} />
+            <SimulatorPanel setMarketNum={this.props.setMarketNum} />
           </div>
           <div className="Homepage-width">
             <ScoreboardPanel />

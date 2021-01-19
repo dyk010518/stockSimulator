@@ -48,3 +48,11 @@ header{
   text-decoration: none;
   color: white;
 }
+
+.balance{
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  right: 10px;
+}

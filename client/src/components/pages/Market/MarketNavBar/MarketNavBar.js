@@ -22,6 +22,8 @@ class MarketNavBar extends Component {
     // shows up on screen
     render() {
         let bar = "|";
+        let showText = this.props.username + "'s balance: $" + this.props.cash;
+
         return (
             
 
@@ -42,6 +44,9 @@ class MarketNavBar extends Component {
                           </>
                         ))
                       }
+                    </div>
+                    <div className = "balance">
+                      {showText}
                     </div>
                 </header>
             </>

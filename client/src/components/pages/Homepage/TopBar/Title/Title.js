@@ -10,10 +10,12 @@ class Title extends Component {
   // required method: whatever is returned defines what
   // shows up on screen
   render() {
-    let showString = this.props.username
+    let loggedIn = "Logged in as: " + this.props.username;
+    let notLoggedIn = "Not logged in"
     return (
       <>
-      <div className="loggedInAs">{showString}</div>
+      
+      <div className="loggedInAs">{this.props.username ? loggedIn : notLoggedIn}</div>
       <h1 className="title" >Stock Simulator</h1>
       
       </>

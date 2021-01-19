@@ -16,12 +16,14 @@ class Market extends Component {
   }
 
 
+
   // const text = props.text;
   // const url = props.url;
   render() {
 
     let errorMsg = "Go back to the homepage you hacker! There isn't a market selected! >:(";
     let history = "";
+    let cash = undefined;
     if (this.state.currentMarket !== undefined) {
       if (this.state.currentMarket === "One") {
         history = "DON'T BUY AIG!!!!!!!";

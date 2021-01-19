@@ -18,7 +18,7 @@ class SimulatorPanel extends Component {
     return (
       <div className="SimulatorPanel-flexColumn">
         <Instruction />
-        <MarketSummaries marketName = {this.setMarketNum} setMarketNum = {this.props.setMarketNum}/>
+        <MarketSummaries setMarketNum = {this.props.setMarketNum}/>
       </div>
     )
   }

@@ -12,6 +12,8 @@ const express = require("express");
 // import models so we can interact with the database
 const User = require("./models/user");
 const Stockdata = require("./models/stockdata");
+const Recentactivity = require("./models/recentactivity");
+const Boughtstocks = require("./models/boughtstocks");
 
 // import authentication library
 const auth = require("./auth");
@@ -51,6 +53,17 @@ router.get("/stockdata", (req, res) => {
 });
 //type(stockObjs) is [{},{},...]
 
+router.get("/recentactivity", (req, res) => {
+  Recentactivity.find({}).then((activityObjs) => {
+    res.send(activityObjs);
+  });
+});
+
+router.get("/boughtstocks", (req, res) => {
+  Boughtstocks.find({}).then((boughtStockObjs) => {
+    res.send(boughtStockObjs);
+  });
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
