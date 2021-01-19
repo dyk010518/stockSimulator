@@ -1,4 +1,4 @@
-.RecentActivity-container {
+.MarketActivity-container {
     display: flex;
     flex-direction: column;
     color: white;
@@ -7,5 +7,5 @@
     width: 600px;
     height: 360px;
     border-radius: 10%;
-    margin-right: 50px;
+    margin-left: 50px;
 }

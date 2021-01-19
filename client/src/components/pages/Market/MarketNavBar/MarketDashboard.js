@@ -4,7 +4,9 @@ import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 import MarketNavBar from './MarketNavBar';
 import Graph from './DashboardComponents/Graph.js';
-import RecentActivity from './DashboardComponents/RecentActivity.js'
+import RecentActivity from './DashboardComponents/RecentActivity.js';
+import MarketActivity from './DashboardComponents/MarketActivity.js';
+import './MarketDashboard.css';
 
 class MarketDashboard extends Component {
     // makes props available in this component
@@ -19,7 +21,10 @@ class MarketDashboard extends Component {
             <>
                 <MarketNavBar cash={this.props.cash} username={this.props.username}/>
                 <Graph />
-                <RecentActivity />
+                <div className="MarketDashboard-row">
+                    <MarketActivity />
+                    <RecentActivity />
+                </div>
             </>
         );
     }

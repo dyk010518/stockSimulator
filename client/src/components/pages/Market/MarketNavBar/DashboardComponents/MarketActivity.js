@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import '../../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
-import './RecentActivity.css';
+import './MarketActivity.css';
 
 
-class RecentActivity extends Component {
+class MarketActivity extends Component {
     // makes props available in this component
     constructor(props) {
         super(props);
@@ -16,12 +16,12 @@ class RecentActivity extends Component {
     render() {
         return (
             <>
-                <div className="RecentActivity-container">
-                    RecentActivity
+                <div className="MarketActivity-container">
+                    MarketActivity
                 </div>
             </>
         );
     }
 }
 
-export default RecentActivity;
+export default MarketActivity;
