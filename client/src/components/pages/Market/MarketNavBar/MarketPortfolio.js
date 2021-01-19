@@ -3,6 +3,8 @@ import '../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 import MarketNavBar from './MarketNavBar';
+import StockPortfolio from './PortfolioComponents/StockPortfolio.js';
+import BroadMarketIndexes from './PortfolioComponents/BroadMarketIndexes.js';
 
 class MarketPortfolio extends Component {
     // makes props available in this component
@@ -16,6 +18,8 @@ class MarketPortfolio extends Component {
         return (
             <>
                 <MarketNavBar />
+                <StockPortfolio />
+                <BroadMarketIndexes />
             </>
         );
     }
