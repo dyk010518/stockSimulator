@@ -24,12 +24,24 @@ header{
 
 }
 
+.bar{
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+
+}
+
+.top-align{
+  top:2px;
+}
+
 .allButtons{
   display: flex;
   position: absolute;
   text-decoration: none;
   left: 10px;
-  top: 3px;
+  top: 0px;
 }
 
 .rm_decor{

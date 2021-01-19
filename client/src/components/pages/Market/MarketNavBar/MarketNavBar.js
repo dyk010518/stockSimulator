@@ -32,9 +32,11 @@ class MarketNavBar extends Component {
                         routes.map((route, index, array) => (
                           <>
                             <div className="section">
-                                <Link to={route.link} className="rm_decor">{route.text}</Link>
+                                <Link to={route.link} className="rm_decor">
+                                  <button className="top-align">{route.text}</button>
+                                </Link>
                             </div>
-                            <div className="section">
+                            <div className="bar">
                                 {(index<4) ? bar : null}
                             </div>
                           </>
