@@ -20,9 +20,7 @@ class StockSymbolSearch extends Component {
                     Stock Symbol Search
                 </h2>
                 <div className='StockSymbolSearch-searchAndSubmit'>
-                    <textarea className='StockSymbolSearch-textArea'>
-                        Search
-                    </textarea>
+                    <input type="text" id="symbolSearch" name="symbolSearch" className='StockSymbolSearch-textArea'></input>
                     <button>
                         Submit
                     </button>

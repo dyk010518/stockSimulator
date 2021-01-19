@@ -1,0 +1,55 @@
+.BuySell-container {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color:  #282c34;
+    margin: 10px;
+    width: 600px;
+    height: 360px;
+    border-radius: 10%;
+    margin-left: 100px;
+}
+
+.BuySell-header {
+    text-align: center;
+}
+
+.BuySell-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15pt;
+    margin-bottom: 30px;
+}
+
+.BuySell-label {
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.BuySell-stockSymbol {
+    margin-right: 20px;
+    width: 128px;
+}
+
+.BuySell-select {
+    margin-right: 20px;
+    width: 136px;
+}
+
+.BuySell-quantity {
+    margin-right: 20px;
+    width: 128px;
+}
+
+.BuySell-submit{
+    width: 100px;
+    height: 36px;
+    font-size: large;
+    text-align: center;
+    margin-left: 460px
+  }
+
+.BuySell-info {
+    font-size: large;
+    margin-right: 20px;
+}

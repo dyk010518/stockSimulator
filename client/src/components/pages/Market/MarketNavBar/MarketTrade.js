@@ -6,6 +6,7 @@ import MarketNavBar from './MarketNavBar';
 import BuySell from './TradeComponents/BuySell.js';
 import AccountDetails from './TradeComponents/AccountDetails.js';
 import StockStats from './TradeComponents/StockStats.js';
+import './MarketTrade.css'
 
 class MarketTrade extends Component {
     // makes props available in this component
@@ -19,9 +20,13 @@ class MarketTrade extends Component {
         return (
             <>
                 <MarketNavBar />
-                <AccountDetails />
-                <BuySell />
-                <StockStats />
+                <div className="MarketTrade-row">
+                    <div className="MarketTrade-column">
+                        <BuySell />
+                        <StockStats />
+                    </div>
+                    <AccountDetails />
+                </div>
             </>
         );
     }

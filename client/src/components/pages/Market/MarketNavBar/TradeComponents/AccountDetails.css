@@ -1,0 +1,50 @@
+.AccountDetails-container {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color:  #282c34;
+    margin: 10px;
+    width: 800px;
+    height: 920px;
+    border-radius: 10%;
+    margin-right: 100px;
+}
+
+.AccountDetails-beforeContainer {
+    height:50%;
+}
+
+.AccountDetails-afterContainer {
+    height:50%;
+}
+
+.AccountDetails-before {
+    margin-left: 40px;
+    margin-bottom: 40px;
+}
+
+.AccountDetails-after {
+    margin-left: 40px;
+    margin-bottom: 40px;
+}
+
+.AccountDetails-line {
+    width: 90%;
+}
+
+.AccountDetails-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13pt;
+    margin-bottom: 30px;
+}
+
+.AccountDetails-label {
+    font-weight: bold;
+    margin-left: 80px;
+    margin-bottom: 10px;
+}
+
+.AccountDetails-info {
+    margin-right: 80px;
+}

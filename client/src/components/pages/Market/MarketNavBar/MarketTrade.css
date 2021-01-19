@@ -4,15 +4,27 @@ header{
   font-family: "Open Sans";
 }
 
+.MarketTrade-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.MarketTrade-row {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .MNavBar-header {
-    background-color: #282c34;
-    display: flex;
-    align-items: left;
-    justify-content: center;
-    font-size: 16px;
-    color: white;
-    font-weight: bolder;
-    height: 40px;
+  background-color: #282c34;
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bolder;
+  height: 40px;
 }
 
 .section{
