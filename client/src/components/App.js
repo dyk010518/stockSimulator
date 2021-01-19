@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
-import Homepage from './Pages/Homepage/Homepage.js';
-import Market from './Pages/Market/Market.js';
-import MarketDashboard from './Pages/Market/MarketNavBar/MarketDashboard.js';
-import MarketPortfolio from './Pages/Market/MarketNavBar/MarketPortfolio.js';
-import MarketResearch from './Pages/Market/MarketNavBar/MarketResearch.js';
-import MarketTrade from './Pages/Market/MarketNavBar/MarketTrade.js';
+import Homepage from './pages/Homepage/Homepage.js';
+import Market from './pages/Market/Market.js';
+import MarketDashboard from './pages/Market/MarketNavBar/MarketDashboard.js';
+import MarketPortfolio from './pages/Market/MarketNavBar/MarketPortfolio.js';
+import MarketResearch from './pages/Market/MarketNavBar/MarketResearch.js';
+import MarketTrade from './pages/Market/MarketNavBar/MarketTrade.js';
 
 import "../utilities.css";
 
