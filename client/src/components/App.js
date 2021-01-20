@@ -35,14 +35,14 @@ class App extends Component {
 
   setMarketNum = (name) => {
     let tcash = undefined;
-    if (name === "One"){
-      tcash=this.state.cashOne;
-    } else if (name === "Two"){
-      tcash=this.state.cashTwo;
-    } else if (name === "Three"){
-      tcash=this.state.cashThree;
-    } else if (name === "Four"){
-      tcash=this.state.cashFour;
+    if (name === "One") {
+      tcash = this.state.cashOne;
+    } else if (name === "Two") {
+      tcash = this.state.cashTwo;
+    } else if (name === "Three") {
+      tcash = this.state.cashThree;
+    } else if (name === "Four") {
+      tcash = this.state.cashFour;
     }
     this.setState({
       marketName: name,
@@ -114,13 +114,26 @@ class App extends Component {
           <Market path="/Game"
             marketName={this.state.marketName}
           />
-          <MarketDashboard path="/Game/Dashboard" 
+          <MarketDashboard path="/Game/Dashboard"
             username={this.state.username}
             cash={this.state.cash}
+            marketName={this.state.marketName}
           />
-          <MarketPortfolio path="/Game/Portfolio" />
-          <MarketResearch path="/Game/Research" />
-          <MarketTrade path="/Game/Trade" />
+          <MarketPortfolio path="/Game/Portfolio"
+            username={this.state.username}
+            cash={this.state.cash}
+            marketName={this.state.marketName}
+          />
+          <MarketResearch path="/Game/Research"
+            username={this.state.username}
+            cash={this.state.cash}
+            marketName={this.state.marketName}
+          />
+          <MarketTrade path="/Game/Trade"
+            username={this.state.username}
+            cash={this.state.cash}
+            marketName={this.state.marketName}
+          />
           <NotFound default />
         </Router>
       </>

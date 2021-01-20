@@ -23,7 +23,7 @@ class MarketNavBar extends Component {
     render() {
         let bar = "|";
         let showText = this.props.username + "'s balance: $" + this.props.cash;
-
+        let titleText = "Market " + this.props.marketName;
         return (
             
 
@@ -44,6 +44,9 @@ class MarketNavBar extends Component {
                           </>
                         ))
                       }
+                    </div>
+                    <div className="title">
+                      {titleText}
                     </div>
                     <div className = "balance">
                       {showText}

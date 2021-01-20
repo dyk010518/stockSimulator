@@ -19,7 +19,7 @@ class MarketDashboard extends Component {
     render() {
         return (
             <>
-                <MarketNavBar cash={this.props.cash} username={this.props.username}/>
+                <MarketNavBar cash={this.props.cash} username={this.props.username} marketName={this.props.marketName}/>
                 <Graph />
                 <div className="MarketDashboard-row">
                     <MarketActivity />
