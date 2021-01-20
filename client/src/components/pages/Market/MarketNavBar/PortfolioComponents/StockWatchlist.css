@@ -1,0 +1,50 @@
+.StockWatchlist-container {
+	display: flex;
+	flex-direction: column;
+	color: white;
+	background-color: #282c34;
+	margin: 10px;
+	width: 360px;
+	height: 900px;
+	border-radius: 5%;
+	margin-left: 40px;
+}
+
+.StockWatchlist-header {
+    text-align: center;
+}
+
+.StockWatchlist-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13pt;
+    margin-bottom: 24px;
+}
+
+.StockWatchlist-label {
+    font-weight: bold;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.StockWatchlist-line {
+    width: 90%;
+}
+
+
+.StockWatchlist-addContainer {
+	display: flex;
+	justify-content: center;
+	margin-top: auto;
+	margin-bottom: 30px;
+}
+
+.StockWatchlist-textArea {
+    font-size: medium;
+	height: 24px;
+	width: 100px;
+}
+
+.StockWatchlist-add {
+    height: 30px;
+}

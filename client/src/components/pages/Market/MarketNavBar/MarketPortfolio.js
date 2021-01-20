@@ -4,7 +4,7 @@ import { Router } from "@reach/router";
 import { Link } from "@reach/router";
 import MarketNavBar from "./MarketNavBar";
 import StockPortfolio from "./PortfolioComponents/StockPortfolio.js";
-import BroadMarketIndexes from "./PortfolioComponents/BroadMarketIndexes.js";
+import StockWatchlist from "./PortfolioComponents/StockWatchlist.js";
 import "./MarketPortfolio.css";
 
 class MarketPortfolio extends Component {
@@ -25,7 +25,7 @@ class MarketPortfolio extends Component {
         />
         <div className="MarketPortfolio-row">
           <StockPortfolio />
-          <BroadMarketIndexes />
+          <StockWatchlist />
         </div>
       </>
     );

@@ -16,16 +16,20 @@ class StockPortfolio extends Component {
     return (
       <>
         <div className="StockPortfolio-container">
-          <h1> StockPortfolio </h1>
-          <ul>
-            <li>User’s Stock Portfolio:</li>
-            <li>User’s total stock valuation:</li>
-            <li>Percentage Allocation: 2 shares of Tim’s Damn Group</li>
-            <li>
-              (Valuation: 2*420.69) Each stock’s cost basis Each stock’s gains/loss (both dollar
-              amount and percentage)
-            </li>
-          </ul>
+          <h2 className="StockPortfolio-header"> Stock Portfolio </h2>
+          <div className="StockPortfolio-resultHeader">
+            <div className="StockPortfolio-resultDesctiption"> Symbol</div>
+            <div className="StockPortfolio-resultDesctiption"> Last Price</div>
+            <div className="StockPortfolio-resultDesctiption"> $ Today's Gain/Loss</div>
+            <div className="StockPortfolio-resultDesctiption"> % Today's Gain/Loss</div>
+            <div className="StockPortfolio-resultDesctiption"> $ Total Gain/Loss</div>
+            <div className="StockPortfolio-resultDesctiption"> % Total Gain/Loss</div>
+            <div className="StockPortfolio-resultDesctiption"> Current Value</div>
+            <div className="StockPortfolio-resultDesctiption"> % of Account</div>
+            <div className="StockPortfolio-resultDesctiption"> Quantity</div>
+            <div className="StockPortfolio-resultDesctiption"> Cost Basis Per Share</div>
+            <div className="StockPortfolio-resultDesctiption"> Cost Basis</div>
+          </div>
         </div>
       </>
     );

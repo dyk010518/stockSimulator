@@ -1,13 +1,27 @@
 .StockPortfolio-container {
 	display: flex;
-	flex: 2;
 	flex-direction: column;
 	color: white;
 	background-color: #282c34;
-	margin: 10px;
-	width: 500px;
-	height: 800px;
-	border-radius: 10%;
+	width: 67%;
+	height: 900px;
+	border-radius: 3%;
+	margin-top: 10px;
 	margin-left: 100px;
-	text-align: center;
+}
+
+.StockPortfolio-header {
+    text-align: center;
+}
+
+.StockPortfolio-resultHeader {
+	display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin: 16px;
+}
+
+.StockPortfolio-resultDesctiption {
+    font-weight: bold;
+    border: 1px solid white;
+    text-align: left;
 }
