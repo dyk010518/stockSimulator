@@ -56,3 +56,9 @@ header{
   position: absolute;
   right: 10px;
 }
+
+.title{
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+}
