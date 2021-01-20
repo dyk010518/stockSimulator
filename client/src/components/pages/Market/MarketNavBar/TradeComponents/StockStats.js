@@ -5,12 +5,12 @@ import { Link } from '@reach/router';
 import './StockStats.css';
 import info from '../info.png';
 
-
 class StockStats extends Component {
     // makes props available in this component
     constructor(props) {
         super(props);
     }
+
 
     state = {
         stockSymbol: "PFE",
@@ -23,16 +23,18 @@ class StockStats extends Component {
         stock52Low: 100.00,
     }
 
-    alertInfo = (term) => {
-        if (term === "PPS"){
-            alert("Price Per Share is the amount of money that one stock share costs.")
-        }
-    }
+
     
+    componentDidMount() {
+        document.getElementById("PPSbutton").addEventListener("click", function() {
+            alert("Price Per Share is the amount of money that one stock share costs.")
+        });
+    }
 
     // required method: whatever is returned defines what
     // shows up on screen
     render() {
+
         
         return (
             <>
@@ -41,11 +43,13 @@ class StockStats extends Component {
 
                     <div className="StockStats-item">
                         <label className="StockStats-label">
-                            <button onClick={this.alertInfo("PPS")}>
+                            <button id="PPSbutton">
                                 <img src={info} width={"15px"} height={"15px"}/>
                             </button>
                             Price per share:
-                            </label>
+
+                            
+                        </label>
                         <div className="StockStats-info">{this.state.stockPrice}</div>
                     </div>
 
