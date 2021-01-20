@@ -34,7 +34,7 @@ class StockStats extends Component {
     // required method: whatever is returned defines what
     // shows up on screen
     render() {
-
+        let space = " "
         
         return (
             <>
@@ -46,7 +46,7 @@ class StockStats extends Component {
                             <button id="PPSbutton">
                                 <img src={info} width={"15px"} height={"15px"}/>
                             </button>
-                            Price per share:
+                            {space}Price per share:
 
                             
                         </label>
