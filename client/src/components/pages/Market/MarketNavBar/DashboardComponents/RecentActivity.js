@@ -35,12 +35,8 @@ class RecentActivity extends Component {
     // required method: whatever is returned defines what
     // shows up on screen
     render() {
-        let bought = this.state.boughts;
-        let buyp = this.state.buypr;
-        let sold = this.state.solds;
-        let sellp = this.state.sellpr;
-        let boughtInfo = this.getInfoStr(bought, buyp);
-        let soldInfo = this.getInfoStr(sold, sellp)
+        let boughtInfo = this.getInfoStr(this.state.boughts, this.state.buypr);
+        let soldInfo = this.getInfoStr(this.state.solds, this.state.sellpr)
         return (
             <>
                 <div className="RecentActivity-container">
