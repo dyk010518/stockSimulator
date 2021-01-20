@@ -53,6 +53,10 @@ router.get("/stockdata", (req, res) => {
 });
 //type(stockObjs) is [{},{},...]
 
+router.post('/recentactivity', (req, res) => {
+  Recentactivity.findOne({googleid: user.sub})
+})
+
 router.get("/recentactivity", (req, res) => {
   Recentactivity.find({}).then((activityObjs) => {
     res.send(activityObjs);

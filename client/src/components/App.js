@@ -24,6 +24,7 @@ class App extends Component {
     super(props);
     this.state = {
       userId: undefined,
+      googleid: undefined,
       marketName: undefined,
       username: undefined,
       cashOne: undefined,
@@ -58,6 +59,7 @@ class App extends Component {
         // they are registed in the database, and currently logged in.
         this.setState({
           userId: user._id,
+          googleid: user.googleid,
           username: user.name,
           cashOne: user.cashOne,
           cashTwo: user.cashTwo,
@@ -78,6 +80,7 @@ class App extends Component {
     post("/api/login", { token: userToken }).then((user) => {
       this.setState({
         userId: user._id,
+        googleid: user.googleid,
         username: res.profileObj.name,
         cashOne: user.cashOne,
         cashTwo: user.cashTwo,
@@ -91,6 +94,7 @@ class App extends Component {
   handleLogout = () => {
     this.setState({
       userId: undefined,
+      googleid: undefined,
       username: undefined,
       cashOne: undefined,
       cashTwo: undefined,
@@ -118,6 +122,7 @@ class App extends Component {
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
+            googleid={this.state.googleid}
           />
           <MarketPortfolio path="/Game/Portfolio"
             username={this.state.username}

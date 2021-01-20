@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const RecentActivitySchema = new mongoose.Schema({
-    username: String,
+    googleid: String,
     bought: String,
     bPrice: String,
     sold: String,

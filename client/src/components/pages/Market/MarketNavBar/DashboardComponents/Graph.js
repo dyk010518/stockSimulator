@@ -26,7 +26,7 @@ class Graph extends Component {
                 stateDate: stockObjs[0].date,
                 price: stockObjs[0].stockPrice,
             })
-          });
+        });
       }
     
     // required method: whatever is returned defines what

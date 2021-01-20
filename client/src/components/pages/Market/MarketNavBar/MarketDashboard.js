@@ -23,7 +23,7 @@ class MarketDashboard extends Component {
                 <Graph />
                 <div className="MarketDashboard-row">
                     <MarketActivity />
-                    <RecentActivity username={this.props.username}/>
+                    <RecentActivity username={this.props.username} googleid={this.props.googleid}/>
                 </div>
             </>
         );

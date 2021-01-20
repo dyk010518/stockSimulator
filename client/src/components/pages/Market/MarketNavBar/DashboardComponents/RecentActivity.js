@@ -3,6 +3,7 @@ import '../../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 import './RecentActivity.css';
+import '../../../../../utilities.js'
 
 
 class RecentActivity extends Component {
@@ -18,18 +19,31 @@ class RecentActivity extends Component {
     }
 
     componentDidMount() {
-        //get stock data
+        /*
+        get("/api/recentactivity").then((activityObj) => {
+            this.setState({
+                boughts: activityObj[0].bought,
+                buypr: activityObj[0].bPrice,
+                solds: activityObj[0].sold,
+                sellpr: activityObj[0].sPrice,
+            })
+        });
+        */
     }
 
     getInfoStr = (names, prices) => {
-        let ans = "";
-        for (let i = 0; i < names.length; i++) {
-            ans += (names[i] + " ($" + prices[i] + ")")
-            if (!(i === names.length - 1)) {
-                ans += (", ")
+        if (names.length > 0){
+            let ans = "";
+            for (let i = 0; i < names.length; i++) {
+                ans += (names[i] + " ($" + prices[i] + ")")
+                if (!(i === names.length - 1)) {
+                    ans += (", ")
+                }
             }
+            return ans
+        } else{
+            return "No recent activity! Get to work trading!"
         }
-        return ans
     }
 
     // required method: whatever is returned defines what
@@ -40,7 +54,7 @@ class RecentActivity extends Component {
         return (
             <>
                 <div className="RecentActivity-container">
-                    <h2 className="RecentActivity-header">{this.props.username + "'s Recent Activity"}</h2>
+                    <h2 className="RecentActivity-header">{this.props.googleid + "'s Recent Activity"}</h2>
 
                     <div className="RecentActivity-item">
                         <label className="RecentActivity-label">
