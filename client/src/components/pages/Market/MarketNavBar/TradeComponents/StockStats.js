@@ -43,7 +43,7 @@ class StockStats extends Component {
 
                     <div className="StockStats-item">
                         <label className="StockStats-label">
-                            <button id="PPSbutton">
+                            <button id="PPSbutton" class="equalbutton">
                                 <img src={info} width={"15px"} height={"15px"}/>
                             </button>
                             {space}Price per share:
