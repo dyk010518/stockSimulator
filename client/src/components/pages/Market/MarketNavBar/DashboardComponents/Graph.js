@@ -11,8 +11,8 @@ class Graph extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            stocks: undefined,
-            stateDate: "3/10/2038",
+            cash: undefined,
+            day: undefined,
             name: undefined,
             price: undefined,
         }
@@ -45,22 +45,10 @@ class Graph extends Component {
         let yourP = [{
             x: 2,
             y: 10
-        }, {
-            x: 3,
-            y: 5
-        }, {
-            x: 10,
-            y: 5
         }]
         let marketP = [{
             x: 2,
             y: 20
-        }, {
-            x: 3,
-            y: 7
-        }, {
-            x: 10,
-            y: 8 
         }]
         return (
             
