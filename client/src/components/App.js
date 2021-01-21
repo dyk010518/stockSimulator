@@ -68,7 +68,7 @@ class App extends Component {
         }, () => {
           console.log("state set")
         });
-
+        
       }
     });
 
@@ -86,7 +86,10 @@ class App extends Component {
         cashTwo: user.cashTwo,
         cashThree: user.cashThree,
         cashFour: user.cashFour,
-      });
+      }), () => {
+        
+      };
+      post("/api/recentactivities", { id: this.state.userId })
       post("/api/initsocket", { socketid: socket.id });
     });
   };
@@ -122,7 +125,7 @@ class App extends Component {
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
-            googleid={this.state.googleid}
+            id={this.state.userId}
           />
           <MarketPortfolio path="/Game/Portfolio"
             username={this.state.username}

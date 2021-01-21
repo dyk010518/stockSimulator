@@ -53,13 +53,29 @@ router.get("/stockdata", (req, res) => {
 });
 //type(stockObjs) is [{},{},...]
 
-router.post('/recentactivity', (req, res) => {
-  Recentactivity.findOne({googleid: user.sub})
+router.post('/recentactivities', (req, res) => {
+
+  Recentactivity.findOne({ userId: req.body.id }).then((activityObj) => {
+    if (activityObj) {
+      res.send(activityObj)
+    } else {
+
+      const newRA = new Recentactivity({
+        userId: req.body.id,
+        bought: "",
+        bPrice: "",
+        sold: "",
+        sPrice: "",
+      });
+
+      return newRA.save()
+    }
+  })
 })
 
-router.get("/recentactivity", (req, res) => {
-  Recentactivity.find({}).then((activityObjs) => {
-    res.send(activityObjs);
+router.get("/getRA", (req, res) => {
+  Recentactivity.findOne({ userId: req.query.id }).then((activityObj) => {
+    res.send(activityObj);
   });
 });
 

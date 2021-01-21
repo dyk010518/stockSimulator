@@ -3,7 +3,7 @@ import '../../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 import './RecentActivity.css';
-import '../../../../../utilities.js'
+import { get, post } from '../../../../../utilities.js'
 
 
 class RecentActivity extends Component {
@@ -19,20 +19,25 @@ class RecentActivity extends Component {
     }
 
     componentDidMount() {
-        /*
-        get("/api/recentactivity").then((activityObj) => {
-            this.setState({
-                boughts: activityObj[0].bought,
-                buypr: activityObj[0].bPrice,
-                solds: activityObj[0].sold,
-                sellpr: activityObj[0].sPrice,
-            })
-        });
-        */
+
+        if (this.props.id) {
+            get("/api/getRA", { id: this.props.id }).then((activityObj) => {
+
+                this.setState({
+                    boughts: activityObj.bought.split(","),
+                    buypr: activityObj.bPrice.split(","),
+                    solds: activityObj.sold.split(","),
+                    sellpr: activityObj.sPrice.split(","),
+                }, () => {
+                    console.log("got recent activities from database")
+                })
+            });
+        }
     }
 
     getInfoStr = (names, prices) => {
-        if (names.length > 0){
+        
+        if (!(names[0] === "")) {
             let ans = "";
             for (let i = 0; i < names.length; i++) {
                 ans += (names[i] + " ($" + prices[i] + ")")
@@ -41,7 +46,7 @@ class RecentActivity extends Component {
                 }
             }
             return ans
-        } else{
+        } else {
             return "No recent activity! Get to work trading!"
         }
     }
@@ -54,7 +59,7 @@ class RecentActivity extends Component {
         return (
             <>
                 <div className="RecentActivity-container">
-                    <h2 className="RecentActivity-header">{this.props.googleid + "'s Recent Activity"}</h2>
+                    <h2 className="RecentActivity-header">{this.props.username + "'s Recent Activity"}</h2>
 
                     <div className="RecentActivity-item">
                         <label className="RecentActivity-label">

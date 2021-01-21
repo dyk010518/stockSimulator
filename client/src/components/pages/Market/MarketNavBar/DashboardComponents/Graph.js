@@ -27,7 +27,7 @@ class Graph extends Component {
                 price: stockObjs[0].stockPrice,
             })
         });
-      }
+    }
     
     // required method: whatever is returned defines what
     // shows up on screen

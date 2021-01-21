@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const RecentActivitySchema = new mongoose.Schema({
-    googleid: String,
+    userId: String,
     bought: String,
     bPrice: String,
     sold: String,
@@ -9,4 +9,4 @@ const RecentActivitySchema = new mongoose.Schema({
 });
 
 // compile model from schema
-module.exports = mongoose.model("recentactivity", RecentActivitySchema);
+module.exports = mongoose.model("recentactivities", RecentActivitySchema);
