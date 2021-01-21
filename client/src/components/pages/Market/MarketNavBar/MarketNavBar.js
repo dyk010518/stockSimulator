@@ -7,7 +7,7 @@ import MarketDashboard from './MarketDashboard.js';
 import MarketPortfolio from './MarketPortfolio.js';
 import MarketResearch from './MarketResearch.js';
 import MarketTrade from './MarketTrade.js';
-import { get, post } from '../../../../utilities.js';
+import { get, post} from '../../../../utilities.js';
 
 const routes = [{ link: "/", text: "Home" }, { link: "/Game/Dashboard", text: "Dashboard" },
 { link: "/Game/Portfolio", text: "Portfolio" }, { link: "/Game/Research", text: "Stock Research" },
@@ -54,9 +54,50 @@ class MarketNavBar extends Component {
       })
     });
     document.getElementById("nextDay").addEventListener("click", () => {
-      console.log("pressed next day")
+      this.goToNextDay()
     });
   }
+
+  goToNextDay = () => {
+    let tempDay;
+    if (this.props.marketName === "One") {
+      tempDay = parseInt(this.state.dayOne) + 1
+      tempDay = tempDay.toString()
+      this.setState({
+        dayOne: tempDay
+      }, () => {
+
+      })
+    } else if (this.props.marketName === "Two") {
+      tempDay = parseInt(this.state.dayTwo) + 1
+      tempDay = tempDay.toString()
+      this.setState({
+        dayTwo: tempDay
+      }, () => {
+
+      })
+    } else if (this.props.marketName === "Three") {
+      tempDay = parseInt(this.state.dayThree) + 1
+      tempDay = tempDay.toString()
+      this.setState({
+        dayThree: tempDay
+      }, () => {
+
+      })
+    } else if (this.props.marketName === "Four") {
+      tempDay = parseInt(this.state.dayFour) + 1
+      tempDay = tempDay.toString()
+      this.setState({
+        dayFour: tempDay
+      }, () => {
+
+      })
+    }
+    post('/api/nextday', { id: this.props.id, marketName: this.props.marketName, newDate: tempDay }).then((dayObj) => {
+      console.log([dayObj.one, dayObj.two, dayObj.three, dayObj.four])
+    }).catch((err) => console.log(err))
+  }
+
   // required method: whatever is returned defines what
   // shows up on screen
   render() {
@@ -73,6 +114,7 @@ class MarketNavBar extends Component {
       day = this.state.dayFour
     }
     if (!(this.state.exist)) {
+      alert("Please Login to Play Simple Stock Simulator")
       return <Redirect to={"/"} noThrow />
     }
     let titleText;

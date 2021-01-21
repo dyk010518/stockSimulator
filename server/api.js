@@ -80,6 +80,23 @@ router.get("/getdate", (req, res) => {
   });
 });
 
+router.post("/nextday", (req, res) => {
+  date.findOne({ userId: req.body.id }).then((dateObj) => {
+    if (req.body.marketName === "One"){
+      dateObj.one = req.body.newDate
+    } else if (req.body.marketName === "Two"){
+      dateObj.two = req.body.newDate
+    } else if (req.body.marketName === "Three"){
+      dateObj.three = req.body.newDate
+    } else if (req.body.marketName === "Four"){
+      dateObj.four = req.body.newDate
+    }
+    dateObj.save()
+    res.send(dateObj)
+  });
+  
+});
+
 router.post('/recentactivities', (req, res) => {
 
   Recentactivity.findOne({ userId: req.body.id }).then((activityObj) => {
