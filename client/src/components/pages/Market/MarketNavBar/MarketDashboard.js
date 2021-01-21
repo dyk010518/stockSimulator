@@ -19,11 +19,16 @@ class MarketDashboard extends Component {
     render() {
         return (
             <>
-                <MarketNavBar cash={this.props.cash} username={this.props.username} marketName={this.props.marketName}/>
+                <MarketNavBar
+                    cash={this.props.cash}
+                    username={this.props.username}
+                    marketName={this.props.marketName}
+                    id={this.props.id}
+                />
                 <Graph />
                 <div className="MarketDashboard-row">
                     <MarketActivity />
-                    <RecentActivity username={this.props.username} id={this.props.id}/>
+                    <RecentActivity username={this.props.username} id={this.props.id} />
                 </div>
             </>
         );

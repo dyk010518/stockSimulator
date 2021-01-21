@@ -14,6 +14,7 @@ const User = require("./models/user");
 const Stockdata = require("./models/stockdata");
 const Recentactivity = require("./models/recentactivity");
 const Boughtstocks = require("./models/boughtstocks");
+const date = require("./models/dates");
 
 // import authentication library
 const auth = require("./auth");
@@ -52,6 +53,32 @@ router.get("/stockdata", (req, res) => {
   });
 });
 //type(stockObjs) is [{},{},...]
+
+router.post('/marketdate', (req, res) => {
+
+  date.findOne({ userId: req.body.id }).then((dateObj) => {
+    if (dateObj) {
+      res.send(dateObj)
+    } else {
+
+      const newDO = new date({
+        userId: req.body.id,
+        one: "1",
+        two: "1",
+        three: "1",
+        four: "1",
+      });
+
+      return newDO.save()
+    }
+  })
+})
+
+router.get("/getdate", (req, res) => {
+  date.findOne({ userId: req.query.id }).then((dateObj) => {
+    res.send(dateObj);
+  });
+});
 
 router.post('/recentactivities', (req, res) => {
 

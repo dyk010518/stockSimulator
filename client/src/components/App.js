@@ -90,6 +90,7 @@ class App extends Component {
         
       };
       post("/api/recentactivities", { id: this.state.userId })
+      post("/api/marketdate", { id: this.state.userId })
       post("/api/initsocket", { socketid: socket.id });
     });
   };
