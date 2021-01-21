@@ -132,16 +132,19 @@ class App extends Component {
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
+            id={this.state.userId}
           />
           <MarketResearch path="/Game/Research"
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
+            id={this.state.userId}
           />
           <MarketTrade path="/Game/Trade"
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
+            id={this.state.userId}
           />
           <NotFound default />
         </Router>

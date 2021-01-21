@@ -62,3 +62,12 @@ header{
   font-size: 25px;
   font-weight: bold;
 }
+
+.nextButton{
+  font-weight:600;
+  font-size: 15px;
+}
+
+.nextContainer{
+  margin: 10px;
+}

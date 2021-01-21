@@ -72,7 +72,13 @@ class MarketNavBar extends Component {
     if (!(this.state.exist)){
       return <Redirect to={"/"} noThrow/>
     }
-    let titleText = "Market " + this.props.marketName + ": Day " + day;
+    let titleText;
+    if (day){
+      titleText = "Market " + this.props.marketName + ": Day " + day;
+    } else {
+      titleText = "Market " + this.props.marketName + ": Day ";
+    }
+    let nextButton = "Next Day =>"
     return (
       <>
         <header className="MNavBar-header">
@@ -94,6 +100,11 @@ class MarketNavBar extends Component {
           </div>
           <div className="title">
             {titleText}
+          </div>
+          <div className="nextContainer">
+            <button className="nextButton">
+              {nextButton}
+            </button>
           </div>
           <div className="balance">
             {showText}

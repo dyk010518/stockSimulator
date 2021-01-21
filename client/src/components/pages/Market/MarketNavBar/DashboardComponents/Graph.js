@@ -38,16 +38,17 @@ class Graph extends Component {
         for (let i=0; i<this.state.stocks.length; i++){
             continue
         }
+        
         let date = this.state.stateDate.split("/")
         let month = date[0];
         let day = date[1];
         let year = date[2]
         let yourP = [{
-            x: 2,
+            x: 1,
             y: 10
         }]
         let marketP = [{
-            x: 2,
+            x: 1,
             y: 20
         }]
         return (
@@ -98,6 +99,8 @@ class Graph extends Component {
                                 xAxes: [{
                                     ticks: {
                                         beginAtZero: false,
+                                        min: 1,
+                                        stepSize: 1,
                                         callback: function(value, index, values) {
                                             return month + '/' + value + '/' + year;
                                         }
