@@ -2,12 +2,12 @@ import './MarketNavBar.css';
 import React, { Component } from "react";
 import '../../../buttonStyles.css';
 import { Router } from '@reach/router';
-import { Link , Redirect } from '@reach/router';
+import { Link, Redirect } from '@reach/router';
 import MarketDashboard from './MarketDashboard.js';
 import MarketPortfolio from './MarketPortfolio.js';
 import MarketResearch from './MarketResearch.js';
 import MarketTrade from './MarketTrade.js';
-import {get, post} from '../../../../utilities.js';
+import { get, post } from '../../../../utilities.js';
 
 const routes = [{ link: "/", text: "Home" }, { link: "/Game/Dashboard", text: "Dashboard" },
 { link: "/Game/Portfolio", text: "Portfolio" }, { link: "/Game/Research", text: "Stock Research" },
@@ -28,7 +28,7 @@ class MarketNavBar extends Component {
 
   componentDidMount() {
     get("/api/getdate", { id: this.props.id }).then((dateObj) => {
-      if (dateObj){
+      if (dateObj) {
         this.setState({
           dayOne: dateObj.one,
           dayTwo: dateObj.two,
@@ -45,13 +45,16 @@ class MarketNavBar extends Component {
           console.log("not existent")
         })
       }
-      
+
     }).catch((err) => {
       this.setState({
         exist: false,
       }, () => {
         console.log("not existent")
       })
+    });
+    document.getElementById("nextDay").addEventListener("click", () => {
+      console.log("pressed next day")
     });
   }
   // required method: whatever is returned defines what
@@ -60,7 +63,7 @@ class MarketNavBar extends Component {
     let bar = "|";
     let showText = this.props.username + "'s balance: $" + this.props.cash;
     let day = undefined;
-    if (this.props.marketName === "One"){
+    if (this.props.marketName === "One") {
       day = this.state.dayOne
     } else if (this.props.marketName === "Two") {
       day = this.state.dayTwo
@@ -68,12 +71,12 @@ class MarketNavBar extends Component {
       day = this.state.dayThree
     } else if (this.props.marketName === "Four") {
       day = this.state.dayFour
-    } 
-    if (!(this.state.exist)){
-      return <Redirect to={"/"} noThrow/>
+    }
+    if (!(this.state.exist)) {
+      return <Redirect to={"/"} noThrow />
     }
     let titleText;
-    if (day){
+    if (day) {
       titleText = "Market " + this.props.marketName + ": Day " + day;
     } else {
       titleText = "Market " + this.props.marketName + ": Day ";
@@ -102,7 +105,7 @@ class MarketNavBar extends Component {
             {titleText}
           </div>
           <div className="nextContainer">
-            <button className="nextButton">
+            <button id="nextDay" className="nextButton">
               {nextButton}
             </button>
           </div>
