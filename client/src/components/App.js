@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
-import Homepage from './pages/Homepage/Homepage.js';
-import Market from './pages/Market/Market.js';
-import MarketDashboard from './pages/Market/MarketNavBar/MarketDashboard.js';
-import MarketPortfolio from './pages/Market/MarketNavBar/MarketPortfolio.js';
-import MarketResearch from './pages/Market/MarketNavBar/MarketResearch.js';
-import MarketTrade from './pages/Market/MarketNavBar/MarketTrade.js';
+import Homepage from "./pages/Homepage/Homepage.js";
+import Market from "./pages/Market/Market.js";
+import MarketDashboard from "./pages/Market/MarketNavBar/MarketDashboard.js";
+import MarketPortfolio from "./pages/Market/MarketNavBar/MarketPortfolio.js";
+import MarketResearch from "./pages/Market/MarketNavBar/MarketResearch.js";
+import MarketTrade from "./pages/Market/MarketNavBar/MarketTrade.js";
+import MarketImport from "./pages/Market/MarketNavBar/MarketImport.js";
 
 import "../utilities.css";
 
@@ -45,33 +46,37 @@ class App extends Component {
     } else if (name === "Four") {
       tcash = this.state.cashFour;
     }
-    this.setState({
-      marketName: name,
-      cash: tcash,
-    }, () => {
-      console.log("marketName set")
-    })
-  }
+    this.setState(
+      {
+        marketName: name,
+        cash: tcash,
+      },
+      () => {
+        console.log("marketName set");
+      }
+    );
+  };
 
   componentDidMount() {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.
-        this.setState({
-          userId: user._id,
-          googleid: user.googleid,
-          username: user.name,
-          cashOne: user.cashOne,
-          cashTwo: user.cashTwo,
-          cashThree: user.cashThree,
-          cashFour: user.cashFour,
-        }, () => {
-          console.log("state set")
-        });
-        
+        this.setState(
+          {
+            userId: user._id,
+            googleid: user.googleid,
+            username: user.name,
+            cashOne: user.cashOne,
+            cashTwo: user.cashTwo,
+            cashThree: user.cashThree,
+            cashFour: user.cashFour,
+          },
+          () => {
+            console.log("state set");
+          }
+        );
       }
     });
-
   }
 
   handleLogin = (res) => {
@@ -86,11 +91,10 @@ class App extends Component {
         cashTwo: user.cashTwo,
         cashThree: user.cashThree,
         cashFour: user.cashFour,
-      }), () => {
-        
-      };
-      post("/api/recentactivities", { id: this.state.userId })
-      post("/api/marketdate", { id: this.state.userId })
+      }),
+        () => {};
+      post("/api/recentactivities", { id: this.state.userId });
+      post("/api/marketdate", { id: this.state.userId });
       post("/api/initsocket", { socketid: socket.id });
     });
   };
@@ -112,35 +116,45 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Homepage path="/"
+          <Homepage
+            path="/"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
             setMarketNum={this.setMarketNum}
             username={this.state.username}
           />
-          <Market path="/Game"
-            marketName={this.state.marketName}
-          />
-          <MarketDashboard path="/Game/Dashboard"
+          <Market path="/Game" marketName={this.state.marketName} />
+          <MarketDashboard
+            path="/Game/Dashboard"
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
             id={this.state.userId}
           />
-          <MarketPortfolio path="/Game/Portfolio"
+          <MarketPortfolio
+            path="/Game/Portfolio"
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
             id={this.state.userId}
           />
-          <MarketResearch path="/Game/Research"
+          <MarketResearch
+            path="/Game/Research"
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
             id={this.state.userId}
           />
-          <MarketTrade path="/Game/Trade"
+          <MarketTrade
+            path="/Game/Trade"
+            username={this.state.username}
+            cash={this.state.cash}
+            marketName={this.state.marketName}
+            id={this.state.userId}
+          />
+          <MarketImport
+            path="/Game/Import"
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
