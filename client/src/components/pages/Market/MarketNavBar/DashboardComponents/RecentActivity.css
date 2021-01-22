@@ -33,3 +33,49 @@
     font-size: 13pt;
     margin-bottom: 24px;
 }
+
+
+@media (max-width: 1150px){
+    .RecentActivity-header{
+        font-size: 14pt;
+    }
+    .RecentActivity-item {
+        font-size: 10pt;
+    }
+    .RecentActivity-label {
+        margin-left: 10px;
+    }
+    .RecentActivity-info {
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 1000px){
+    .RecentActivity-header{
+        font-size: 12pt;
+    }
+    .RecentActivity-item {
+        font-size: 8pt;
+    }
+}
+
+@media (max-height: 800px){
+    .RecentActivity-container {
+        height: 200px;
+    }
+    .RecentActivity-header{
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-height: 630px){
+    .RecentActivity-container {
+        height: 180px;
+    }
+    .RecentActivity-header{
+        margin-bottom: 20px;
+    }
+    .RecentActivity-item {
+        margin-bottom: 18px;
+    }
+}

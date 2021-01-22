@@ -83,7 +83,7 @@
     }
 }
 
-@media (max-height: 850px){
+@media (max-height: 900px){
     .StockStats-container {
         height: 360px;
     }
@@ -104,7 +104,7 @@
     }
 }
 
-@media (max-height: 700px){
+@media (max-height: 750px){
     .StockStats-container {
         height: 240px;
     }

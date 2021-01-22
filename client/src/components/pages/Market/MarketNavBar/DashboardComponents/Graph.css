@@ -1,0 +1,16 @@
+.Graph-size{
+    height: 400px;             
+    width: 100%
+}
+
+@media (max-height: 800px){
+    .Graph-size{
+        height: 320px;             
+    }
+}
+
+@media (max-height: 630px){
+    .Graph-size{
+        height: 240px;             
+    }
+}

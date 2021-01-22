@@ -14,7 +14,6 @@
     margin: 20px;
     text-align: center;
     margin-bottom: 60px;
-
 }
 
 .MarketActivity-label {
@@ -32,4 +31,56 @@
     justify-content: space-between;
     font-size: 13pt;
     margin-bottom: 24px;
+}
+
+
+@media (max-width: 1150px){
+    .MarketActivity-header{
+        font-size: 14pt;
+    }
+    .MarketActivity-item {
+        font-size: 10pt;
+    }
+    .MarketActivity-label {
+        margin-left: 10px;
+    }
+    .MarketActivity-info {
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 1000px){
+    .MarketActivity-header{
+        font-size: 12pt;
+    }
+    .MarketActivity-item {
+        font-size: 8pt;
+    }
+    .MarketActivity-label {
+        margin-left: 4px;
+    }
+    .MarketActivity-info {
+        margin-right: 4px;
+    }
+}
+
+@media (max-height: 800px){
+    .MarketActivity-container {
+        height: 200px;
+    }
+    .MarketActivity-header{
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-height: 630px){
+    .MarketActivity-container {
+        height: 180px;
+    }
+    .MarketActivity-header{
+        margin-bottom: 20px;
+    }
+    .MarketActivity-item {
+        margin-bottom: 18px;
+    }
 }

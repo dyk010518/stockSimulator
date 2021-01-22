@@ -110,7 +110,7 @@
     }
 }
 
-@media (max-height: 850px){
+@media (max-height: 900px){
     .BuySell-container {
         height: 240px;
     }
@@ -141,7 +141,7 @@
     }
 }
 
-@media (max-height: 700px){
+@media (max-height: 750px){
     .BuySell-container {
         height: 164px;
     }

@@ -59,7 +59,7 @@
     }
 }
 
-@media (max-height: 650px){
+@media (max-height: 700px){
     .StockSymbolSearch-container {
         height: 88px;
     }

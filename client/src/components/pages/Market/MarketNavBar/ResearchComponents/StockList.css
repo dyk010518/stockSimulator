@@ -69,7 +69,7 @@
     }
 }
 
-@media (max-height: 850px){
+@media (max-height: 880px){
     .StockList-container {
         height: 570px;
     }
@@ -78,7 +78,7 @@
     }
 }
 
-@media (max-height: 650px){
+@media (max-height: 700px){
     .StockList-container {
         height: 450px;
     }

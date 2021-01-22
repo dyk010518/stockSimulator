@@ -95,7 +95,7 @@
     }
 }
 
-@media (max-height: 850px){
+@media (max-height: 880px){
     .StockScreener-container {
         height: 400px;
     }
@@ -108,7 +108,7 @@
     }
 }
 
-@media (max-height: 650px){
+@media (max-height: 700px){
     .StockScreener-container {
         height: 336px;
     }
