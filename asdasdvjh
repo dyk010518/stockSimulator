@@ -1,0 +1,465 @@
+import React, { Component } from 'react';
+import Aux from '../../hoc/Auxillary';
+import SlidePanel from '../../components/SlidePanel/SlidePanel';
+import TextPanel from '../../components/TextPanel/TextPanel';
+import "./ContentEditor.css"
+import "../../utilities.css";
+import AuthContext from '../../context/auth-context';
+
+// let Promise = require('promise');
+
+class ContentEditor extends Component {
+    //change from here
+
+    state = {
+        textRaw: "Level 1\n>>Level 2\n>>>>Level 3",
+        totalSlides: 0,
+
+        block: {},
+
+        // textProccessed is what the SlidePanel will show on its text panel
+        textProcessed: "",
+
+        // textClassified is the array of proccessed textRaw with different classifications
+        // textClassified: [{
+        //     template: "",
+        //     header: undefined,
+        //     subheading1: undefined,
+        //     body1: undefined,
+        // },
+        // {
+        //     template: "",
+        //     header: undefined,
+        //     subheading1: undefined,
+        //     body1: undefined,
+        // },
+        // {
+        //     template: "",
+        //     header: undefined,
+        //     subheading1: undefined,
+        //     body1: undefined,
+        // },
+        // ],
+
+        textClassified: [{}],
+
+        // testInput: [{
+        //     template: "twoPanelIcon",
+        //     header: "This is the first header",
+        //     subheading1: "Subheading 1",
+        //     subheading2: "Subheading 2",
+        //     body1: "this is a test body for the first panel",
+        //     body2: "this is a test body for the second panel"
+        // },
+        // {
+        //     template: "twoPanelIcon",
+        //     header: "This is the second header",
+        //     subheading1: "Custom subheading",
+        //     subheading2: "Custom subheading right",
+        //     body1: "Some more text that should be extracted from raw input and end up in the left side",
+        //     body2: "Some more text that should be extracted from raw input and end up in the right side"
+        // },
+        // {
+        //     template: "threePanelIcon",
+        //     header: "This is the third header",
+        //     subheading1: "Subheading 1",
+        //     subheading2: "Subheading 2",
+        //     subheading3: "Third subheading to find",
+        //     body1: "this is a test body for the first panel",
+        //     body2: "this is a test body for the second panel",
+        //     body3: "another set of content"
+        // },
+
+
+        // ]
+    }
+
+
+
+    onChangeHandler = (event) => {
+        this.setState({
+            textRaw: event.target.value,
+        },
+
+            // () => this.textProcessor()
+            () => this.testTextHandler()
+
+        );
+
+    };
+
+    //to here
+
+    // TEST HANDLERS
+    testTextHandler = () => {
+        /*
+        This executes all of the functions in order. The state is updated with multiTemplateFiller and numberOfSlidesFinder.
+        The order of functions is:
+        Take the raw text and determine where the new lines are by searching for '/n'
+        Change the raw text to an array. Each element is a line
+        Create another array of same length with the depth of each line as each element
+        Determine number of slides as count of level 1 lines. Now '----' is no longer needed 
+        Split text array into array of arrays. Each element is a slide, which contains array of text with each element line
+        Split text array into array of arrays. Each element is a slide, which contains array of depths with each element depth
+        Loop over each of first arrays. Then within each slide choose the template, then populate the Object state 
+        Each template chosen is always a panelIcon, which is now more dynamic. Later on, the depth array can be a lookup library
+        Each object element populated using array of object values. E.g. subheading: [] contains all subheadings
+        Parent child relationships of content are ignored 
+        */
+
+        const richTextInput = this.state.block;
+        const textInput = this.state.textRaw;
+
+        //New line identification may be different with rich text 
+        // let newLineIndices = this.newLineIdentifier(textInput);
+        // let lineSplitText = this.textLineSplitter(textInput, newLineIndices);
+        let lineSplitText = this.textLineSplitter(richTextInput);
+
+        //Depth identification will change
+        // let depthList = this.depthList(lineSplitText);
+        // let numSlides = this.numberOfSlidesFinder(depthList);
+        let numSlides = this.numberOfSlidesFinder(richTextInput);
+
+        let dividedText = this.textSlideDivider(richTextInput, numSlides);
+        let dividedDepth = this.depthSlideDivider(richTextInput, numSlides);
+
+        this.multiTemplateFiller(numSlides, dividedDepth, dividedText);
+    }
+
+
+
+
+    // newLineIdentifier = (textInput) => {
+    //     // Split the raw text into lines
+    //     let newLineIndices = [];
+    //     for (let i = 0; i < textInput.length; i++) {
+    //         if (textInput.charAt(i) === "\n") {
+    //             newLineIndices.push(i);
+    //             console.log("newLineIndices:" + newLineIndices);
+    //         }
+    //     }
+    //     return newLineIndices;
+    // }
+
+    // textLineSplitter = (textInput, newLineIndices) => {
+    //     let lineSplitText = [];
+    //     let startingIndex = 0;
+    //     for (let i = 0; i < newLineIndices.length; i++) {
+    //         lineSplitText.push(textInput.substring(startingIndex, newLineIndices[i]));
+    //         startingIndex = newLineIndices[i] + 1;
+
+    //     }
+    //     lineSplitText.push(textInput.substring(startingIndex, textInput.length));
+
+    //     console.log("lineSplitText:" + lineSplitText);
+    //     return lineSplitText;
+
+    // }
+
+    //rich text version of textLineSplitter
+    textLineSplitter = (richTextInput) => {
+        let lineSplitText = [];
+        for (let i = 0; i < richTextInput.length; i++) {
+            lineSplitText.push(richTextInput[i].text);
+        }
+
+        console.log("lineSplitText:" + lineSplitText);
+        return lineSplitText;
+
+    }
+
+    
+    // depthList = (lineSplitText) => {
+    //     let depthList = [];
+    //     let currentLine = "";
+
+    //     for (let i = 0; i < lineSplitText.length; i++) {
+    //         currentLine = lineSplitText[i];
+
+    //         if (currentLine.substring(0, 4) === ">>>>") {
+    //             depthList.push(3);
+    //         } else if (currentLine.substring(0, 2) === ">>") {
+    //             depthList.push(2);
+    //         } else {
+    //             depthList.push(1);
+    //         }
+    //     }
+    //     console.log("inDepthList: " + depthList);
+
+    //     return depthList;
+    // }
+
+    // numberOfSlidesFinder = (depthList) => {
+    //     //Count number of level 1 headings
+    //     let num1s = 0;
+    //     num1s = Math.max(depthList.filter(x => x === 1).length, 1);
+
+    //     console.log("numberOfSlidesFinder: " + num1s);
+    //     this.setState({
+    //         totalSlides: num1s,
+    //     });
+
+    //     return num1s;
+    // }
+
+    //richtext version
+    numberOfSlidesFinder = (richTextInput) => {
+        //Count number of type of unstyled
+        let unstyledNum = 0;
+        for(let i=0; i<richTextInput.length; i++){
+            if(richTextInput[i].type === "unstyled"){
+                unstyledNum++;
+            }
+        }
+        return unstyledNum;
+    }
+
+    // textSlideDivider = (lineSplitText, depthList, numSlides) => {
+    //     let startIndices = [];
+    //     let dividedText = Array(numSlides).fill([]);
+
+    //     for (let i = 0; i < depthList.length; i++) {
+    //         if (depthList[i] === 1) {
+    //             // Start of new slide
+    //             startIndices.push(i);
+    //         }
+    //     }
+
+    //     for (let i = 0; i < startIndices.length; i++) {
+    //         //Check whether end of array
+    //         if (startIndices[i] === lineSplitText.length) {
+
+    //             dividedText[i] = (lineSplitText[startIndices[i]]);
+
+    //         } else {
+    //             dividedText[i] = (lineSplitText.slice(startIndices[i], startIndices[i + 1]));
+    //         }
+    //     }
+
+    //     console.log("dividedText: " + JSON.stringify(dividedText));
+    //     return dividedText;
+    // }
+
+    //rich text version
+    textSlideDivider = (richTextInput, numSlides) => {
+        let headerIndex = -1;
+        let dividedText = Array(numSlides).fill([]);
+
+        for (let i = 0; i < richTextInput.length; i++) {
+            if (richTextInput[i].type === "unstyled") {
+                headerIndex = i;
+                break;
+            }
+        }
+
+        let count=-1;
+
+        if(headerIndex > -1){
+            for(let i=headerIndex; i<richTextInput.length; i++){
+                if(richTextInput[i].type === "unstyled"){
+                    count++;
+                    dividedText[count] = [richTextInput[i].text];
+                }else{
+                    dividedText[count].push(richTextInput[i].text);
+                }
+            }
+        }
+            
+
+
+
+        console.log("dividedText: " + JSON.stringify(dividedText));
+        return dividedText;
+    }
+
+
+    // depthSlideDivider = (depthList, numSlides) => {
+    //     let startIndices = [];
+    //     let dividedDepth = Array(numSlides).fill([]);
+
+    //     for (let i = 0; i < depthList.length; i++) {
+    //         if (depthList[i] === 1) {
+    //             // Start of new slide
+    //             startIndices.push(i);
+    //         }
+    //     }
+
+    //     for (let i = 0; i < startIndices.length; i++) {
+    //         //Check whether end of array
+    //         if (startIndices[i] === depthList.length) {
+
+    //             dividedDepth[i] = (depthList[startIndices[i]]);
+
+    //         } else {
+    //             dividedDepth[i] = (depthList.slice(startIndices[i], startIndices[i + 1]));
+    //         }
+    //     }
+
+    //     console.log("dividedDepth: " + JSON.stringify(dividedDepth));
+    //     return dividedDepth;
+    // }
+
+    //rich text version
+    depthSlideDivider = (richTextInput, numSlides) => {
+        let headerIndex = -1;
+        let dividedDepth = Array(numSlides).fill([]);
+
+        for (let i = 0; i < richTextInput.length; i++) {
+            if (richTextInput[i].type === "unstyled") {
+                headerIndex = i;
+                break;
+            }
+        }
+
+        let count=-1;
+
+        if(headerIndex > -1){
+            for(let i=headerIndex; i<richTextInput.length; i++){
+                if(richTextInput[i].type === "unstyled"){
+                    count++;
+                    dividedDepth[count] = [richTextInput[i].depth+1];
+                }else{
+                    if(richTextInput[i].depth == 0){
+                        dividedDepth[count].push(2);
+                    }else{
+                        dividedDepth[count].push(3);
+                    }
+                }
+            }
+        }
+
+        console.log("dividedDepth: " + JSON.stringify(dividedDepth));
+        return dividedDepth;
+    }
+
+    templateSelector = (depthList) => {
+        //Count number of level 2 headings
+        // let num2s = 0;
+        let selectedTemplate = "panelIcon";
+        // num2s = Math.min(depthList.filter(x => x === 2).length, 3);
+        // switch (num2s) {
+        //     case 1:
+        //         selectedTemplate = "onePanelIcon";
+        //         break;
+        //     case 2:
+        //         selectedTemplate = "twoPanelIcon";
+        //         break;
+        //     case 3:
+        //         selectedTemplate = "threePanelIcon";
+        //         break;
+        //     default:
+        //         selectedTemplate = "headerOnly";
+        //         break;
+        // }
+        console.log("selectedTemplate: " + selectedTemplate);
+        return selectedTemplate;
+    }
+
+    multiTemplateFiller = (numSlides, dividedDepth, dividedText) => {
+        let selectedTemplate = "";
+        let multiTemplates = [];
+
+        for (let i = 0; i < numSlides; i++) {
+            selectedTemplate = this.templateSelector(dividedDepth[i]);
+            multiTemplates.push(this.templateFiller(selectedTemplate, dividedText[i], dividedDepth[i]));
+        }
+
+        this.setState({
+            textClassified: multiTemplates,
+        });
+
+        console.log("multiTemplates: ", multiTemplates);
+
+    }
+
+    templateFiller = (selectedTemplate, lineSplitText, depthList) => {
+        // let updatedTextProcessed = { ...this.state.textClassified };
+        let updatedTextProcessed = { template: selectedTemplate };
+        updatedTextProcessed = {
+            ...updatedTextProcessed,
+            ...{ header: lineSplitText[0] }
+        };
+
+        switch (selectedTemplate) {
+            case "panelIcon":
+                updatedTextProcessed = {
+                    ...updatedTextProcessed,
+                    ...{
+                        subheading: [],
+                        body: []
+                    }
+                };
+
+                for (let i = 0; i < depthList.length; i++) {
+                    if (depthList[i] === 2) {
+                        updatedTextProcessed.subheading.push(lineSplitText[i]);
+                    } else if (depthList[i] === 3) {
+                        updatedTextProcessed.body.push(lineSplitText[i]);
+                    }
+                }
+
+                break;
+
+            default:
+                break;
+        }
+        console.log("updatedTextProcessed: ", { ...updatedTextProcessed });
+
+        return { ...updatedTextProcessed };
+
+    }
+
+
+    //Every time rich text input changes, this code runs
+    //block is the object version of rich text input
+    update(value){
+        this.setState({
+            block: value,
+        }, () => 
+        {this.textProcessor(this.state.block)}
+        );
+    }
+
+    textProcessor(richTextInput){
+        let theText = "";
+        for(let i = 0; i < richTextInput.length; i++){
+            theText += richTextInput[i].text;
+            theText += "\n"
+        }
+        this.setState({
+            textProcessed: theText,
+        })
+    }
+
+    render() {
+        // const eventHandler = data => console.log(data);
+
+        return (
+            <AuthContext.Provider value={{ testContent: this.state.textClassified, totalSlidesNum: this.state.totalSlides }}>
+
+                <Aux>
+
+                    <div className="Content-textPanelContainer u-textCenter">
+                        {/* <TextPanel onChange={eventHandler}></TextPanel> */}
+                        <TextPanel
+                            textRaw={this.state.textRaw}
+                            handleChange={this.onChangeHandler}
+                            data={this.update.bind(this)}
+                        />
+                    </div>
+                    <hr className="Content-line" />
+                    <div className="Content-slidePanelContainer u-textCenter">
+                        <SlidePanel
+                            textProcessed={this.state.textProcessed}
+                        />
+                    </div>
+                </Aux>
+            </AuthContext.Provider>
+
+        );
+    }
+
+}
+
+export default ContentEditor;
+

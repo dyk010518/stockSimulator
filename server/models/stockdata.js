@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const StockSchema = new mongoose.Schema({
     stockName: String,
+    stockSymbol: String,
     stockPrice: String,
     date: String,
 });

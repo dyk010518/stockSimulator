@@ -52,6 +52,13 @@ router.get("/stockdata", (req, res) => {
     res.send(stockObjs);
   });
 });
+
+router.get("/specificstock", (req, res) => {
+  console.log(req.query.stockSymbol);
+  Stockdata.findOne({ stockSymbol: req.query.stockSymbol }).then((stockObj) => {
+    res.send(stockObj);
+  });
+});
 //type(stockObjs) is [{},{},...]
 
 router.post('/marketdate', (req, res) => {

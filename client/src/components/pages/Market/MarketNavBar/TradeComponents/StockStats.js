@@ -4,6 +4,8 @@ import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 import './StockStats.css';
 import info from '../info.png';
+import { get, post} from '../../../../../utilities.js';
+
 
 class StockStats extends Component {
     // makes props available in this component
@@ -11,9 +13,8 @@ class StockStats extends Component {
         super(props);
     }
 
-
     state = {
-        stockSymbol: "PFE",
+        stockSymbol: this.props.stockSymbol,
         stockPrice: 123.45,
         stockMarketCap: "420.69B",
         stockEPS: 12.32,
@@ -22,7 +23,6 @@ class StockStats extends Component {
         stock52High: 177.77,
         stock52Low: 100.00,
     }
-
 
     
     componentDidMount() {
@@ -47,6 +47,13 @@ class StockStats extends Component {
         document.getElementById("52LButton").addEventListener("click", function() {
             alert("52-week Low is the lowest Price Per Share recorded for a company during the last 52 weeks.")
         });
+
+    }
+
+    componentDidUpdate() {
+        get('/api/specificstock', { stockSymbol: this.props.stockSymbol}).then((stockObj) => {
+            console.log(stockObj);
+        });
     }
 
     // required method: whatever is returned defines what
@@ -57,7 +64,7 @@ class StockStats extends Component {
         return (
             <>
                 <div className="StockStats-container">
-                    <h2 className="StockStats-header">{"Stock Symbol: " + this.state.stockSymbol}</h2>
+                    <h2 className="StockStats-header">{"Stock Symbol: " + this.props.stockSymbol}</h2>
 
                     <div className="StockStats-item">
                         <label className="StockStats-label">

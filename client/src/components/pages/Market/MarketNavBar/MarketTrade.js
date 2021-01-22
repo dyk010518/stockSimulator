@@ -12,7 +12,21 @@ class MarketTrade extends Component {
   // makes props available in this component
   constructor(props) {
     super(props);
+    this.state = ({
+      stockSymbol: "",
+      transaction: "buy",
+      quantity: -1,
+    });
   }
+
+  update = (infoList) => {
+    this.setState({
+      stockSymbol: infoList[0],
+      transaction: infoList[1],
+      quantity: infoList[2],
+    })
+  }
+
 
   // required method: whatever is returned defines what
   // shows up on screen
@@ -27,8 +41,13 @@ class MarketTrade extends Component {
         />
         <div className="MarketTrade-row">
           <div className="MarketTrade-column">
-            <BuySell />
-            <StockStats />
+            <BuySell 
+              data={this.update.bind(this)}
+            />
+            <StockStats 
+              stockSymbol={this.state.stockSymbol}
+              quantity={this.state.quantity}
+            />
           </div>
           <AccountDetails />
         </div>
