@@ -10,18 +10,6 @@
     margin-left: 100px;
 }
 
-@media (max-width: 1500px){
-    .StockSymbolSearch-container {
-        margin-left: 10px;
-    }
-}
-
-@media (max-width: 1000px){
-    .StockSymbolSearch-container {
-        width: 300px;
-    }
-}
-
 .StockSymbolSearch-searchAndSubmit {
     display: flex;
     flex: row;
@@ -35,4 +23,53 @@
 .StockSymbolSearch-textArea {
     font-size: large;
     height: 32px;
+}
+
+
+@media (max-width: 1750px){
+    .StockSymbolSearch-container {
+        margin-left: 10px;
+    }
+}
+
+@media (max-width: 1550px){
+    .StockSymbolSearch-container {
+        width: 400px;
+    }
+}
+
+@media (max-width: 1250px){
+    .StockSymbolSearch-container {
+        width: 300px;
+    }
+}
+
+@media (max-width: 1000px){
+    .StockSymbolSearch-container {
+        width: 250px;
+    }
+    .StockSymbolSearch-header {
+        font-size: 14pt;
+        margin-bottom: 32px;
+    }
+    .StockSymbolSearch-textArea {
+        font-size: medium;
+        height: 26px;
+        width: 100px;
+    }
+}
+
+@media (max-height: 650px){
+    .StockSymbolSearch-container {
+        height: 88px;
+    }
+    .StockSymbolSearch-header {
+        font-size: large;
+        margin: 12px;
+    }
+    .StockSymbolSearch-textArea {
+        font-size: 10pt;
+        height: 20px;
+        width: 100px;
+    }
 }

@@ -10,27 +10,16 @@
     margin-left: 100px;
 }
 
-@media (max-width: 1500px){
-    .StockScreener-container {
-        margin-left: 10px;
-    }
-}
-
-@media (max-width: 1000px){
-    .StockScreener-container {
-        width: 300px;
-    }
-}
-
 .StockScreener-header {
     text-align: center;
+    margin-bottom: 60px;
 }
 
 .StockScreener-labelSelect {
     display: flex;
     justify-content: space-between;
     font-size: 15pt;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .StockScreener-label {
@@ -41,4 +30,94 @@
 .StockScreener-select {
     margin-right: 20px;
     width: 130px;
+}
+
+
+
+@media (max-width: 1750px){
+    .StockScreener-container {
+        margin-left: 10px;
+    }
+}
+
+@media (max-width: 1550px){
+    .StockScreener-container {
+        width: 400px;
+    }
+}
+
+@media (max-width: 1250px){
+    .StockScreener-container {
+        width: 300px;
+    }
+    .StockScreener-labelSelect {
+        font-size: 13pt;
+    }
+    .StockScreener-label {
+        margin-left: 16px;
+    }
+}
+
+@media (max-width: 1000px){
+    .StockScreener-container {
+        width: 250px;
+    }
+    .StockScreener-header {
+        font-size: 14pt;
+        margin-bottom: 16px;
+    }
+    
+    .StockScreener-labelSelect {
+        font-size: 12pt;
+    }
+    .StockScreener-label {
+        margin-left: 16px;
+    }
+    
+    .StockScreener-select {
+        margin-right: 16px;
+        width: 100px;
+    }
+}
+
+
+
+@media (max-height: 1050px){
+    .StockScreener-container {
+        height: 570px;
+    }
+    .StockScreener-header {
+        margin-bottom: 40px;
+    }
+    .StockScreener-labelSelect {
+        font-size: 15pt;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-height: 850px){
+    .StockScreener-container {
+        height: 400px;
+    }
+    .StockScreener-header {
+        margin-bottom: 20px;
+    }
+    .StockScreener-labelSelect {
+        font-size: 12pt;
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-height: 650px){
+    .StockScreener-container {
+        height: 336px;
+    }
+    .StockScreener-header {
+        font-size: large;
+        margin: 12px;
+    }
+    .StockScreener-labelSelect {
+        font-size: 10pt;
+        margin-bottom: 16px;
+    }
 }

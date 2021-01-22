@@ -30,6 +30,18 @@ class StockScreener extends Component {
                         <option value="transportatiob">transportation</option>
                     </select>
                 </div>
+
+                <div className="StockScreener-labelSelect">
+                    <label for="marketCap" className="StockScreener-label">Market Cap:</label>
+                    <select name="marketCap" id="marketCap" className="StockScreener-select">
+                        <option value="any">any</option>
+                        <option value="lower than 1B">lower than 1B</option>
+                        <option value="1B-10B">1B-10B</option>
+                        <option value="10B-50B">10B-50B</option>
+                        <option value="50B-100B">50B-100B</option>
+                        <option value="higher than 100B">higher than 100B</option>
+                    </select>
+                </div>
                 
 
                 <div className="StockScreener-labelSelect">
@@ -57,8 +69,20 @@ class StockScreener extends Component {
                 </div>
 
                 <div className="StockScreener-labelSelect">
-                    <label for="marketCap" className="StockScreener-label">Market Cap:</label>
-                    <select name="marketCap" id="marketCap" className="StockScreener-select">
+                    <label for="p/s" className="StockScreener-label">P/S:</label>
+                    <select name="p/s" id="p/s" className="StockScreener-select">
+                        <option value="any">any</option>
+                        <option value="lower than 1">lower than 1</option>
+                        <option value="1-3">1-3</option>
+                        <option value="3-5">3-5</option>
+                        <option value="5-10">5-10</option>
+                        <option value="higher than 10">higher than 10</option>
+                    </select>
+                </div>
+
+                <div className="StockScreener-labelSelect">
+                    <label for="debt/equity" className="StockScreener-label">Debt/Equity:</label>
+                    <select name="debt/equity" id="debt/equity" className="StockScreener-select">
                         <option value="any">any</option>
                         <option value="lower than 1B">lower than 1B</option>
                         <option value="1B-10B">1B-10B</option>
@@ -68,6 +92,26 @@ class StockScreener extends Component {
                     </select>
                 </div>
                 
+                <div className="StockScreener-labelSelect">
+                    <label for="p/fcf" className="StockScreener-label">Price per FCF:</label>
+                    <select name="p/fcf" id="p/fcf" className="StockScreener-select">
+                        <option value="any">any</option>
+                        <option value="lower than 1B">lower than 1B</option>
+                        <option value="1B-10B">1B-10B</option>
+                        <option value="10B-50B">10B-50B</option>
+                        <option value="50B-100B">50B-100B</option>
+                        <option value="higher than 100B">higher than 100B</option>
+                    </select>
+                </div>
+
+                <div className="StockScreener-labelSelect">
+                    <label for="dividend" className="StockScreener-label">Dividend:</label>
+                    <select name="dividend" id="dividend" className="StockScreener-select">
+                        <option value="any">any</option>
+                        <option value="yes">yes</option>
+                        <option value="no">no</option>
+                    </select>
+                </div>
             </div>
         );
     }
