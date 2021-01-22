@@ -14,14 +14,7 @@ class StockStats extends Component {
     }
 
     state = {
-        stockSymbol: this.props.stockSymbol,
-        stockPrice: 123.45,
-        stockMarketCap: "420.69B",
-        stockEPS: 12.32,
-        stockPE: 10.10,
-        stockDivYield: "7.77%",
-        stock52High: 177.77,
-        stock52Low: 100.00,
+        stockData: undefined,
     }
 
     
@@ -50,12 +43,6 @@ class StockStats extends Component {
 
     }
 
-    componentDidUpdate() {
-        get('/api/specificstock', { stockSymbol: this.props.stockSymbol}).then((stockObj) => {
-            console.log(stockObj);
-        });
-    }
-
     // required method: whatever is returned defines what
     // shows up on screen
     render() {
@@ -73,7 +60,7 @@ class StockStats extends Component {
                             </button>
                             {space}Price per share:
                         </label>
-                        <div className="StockStats-info">{this.state.stockPrice}</div>
+                        <div className="StockStats-info">{this.props.stockPrice}</div>
                     </div>
 
                     <div className="StockStats-item">

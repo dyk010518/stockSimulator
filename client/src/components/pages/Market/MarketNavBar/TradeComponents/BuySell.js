@@ -18,7 +18,6 @@ class BuySell extends Component {
     componentDidMount() {
         document.getElementById("submit").addEventListener("click", () => {
             this.updateStatus();
-
         });
     }
 
