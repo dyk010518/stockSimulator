@@ -36,3 +36,87 @@
 .equalbutton{
     padding: 2px;
 }
+
+
+@media (max-width: 1650px){
+    .StockStats-container {
+        margin-left: 10px;
+    }
+}
+
+@media (max-width: 1450px){
+    .StockStats-container {
+        width: 525px;
+    }
+}
+
+@media (max-width: 1275px){
+    .StockStats-container {
+        width: 450px;
+    }
+}
+
+@media (max-width: 1100px){
+    .StockStats-container {
+        width: 400px;
+    }
+}
+
+@media (max-width: 980px){
+    .StockStats-container {
+        width: 337px;
+    }
+}
+
+
+
+@media (max-height: 1000px){
+    .StockStats-container {
+        height: 450px;
+    }
+    .StockStats-label {
+        margin-bottom: 1px;
+    }
+    .StockStats-header {
+        margin: 16px;
+        margin-bottom: 36px;
+    }
+}
+
+@media (max-height: 850px){
+    .StockStats-container {
+        height: 360px;
+    }
+    .StockStats-header {
+        margin: 8px;
+        margin-bottom: 16px;
+    }
+    .StockStats-label {
+        margin-bottom: 1px;
+    }
+    .equalbutton{
+        padding: 0px;
+        height: 20px;
+    }
+    .StockStats-item {
+        font-size: 12pt;
+        margin-bottom: 18px;
+    }
+}
+
+@media (max-height: 700px){
+    .StockStats-container {
+        height: 240px;
+    }
+    .StockStats-header {
+        margin: 4px;
+        font-size: large;
+    }
+    .StockStats-label {
+        margin-bottom: 0px;
+    }
+    .StockStats-item {
+        font-size: 10pt;
+        margin-bottom: 8px;
+    }
+}
