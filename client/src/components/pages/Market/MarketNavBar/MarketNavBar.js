@@ -15,7 +15,7 @@ const routes = [
   { link: "/Game/Portfolio", text: "Portfolio" },
   { link: "/Game/Research", text: "Stock Research" },
   { link: "/Game/Trade", text: "Trade" },
-  { link: "/Game/Import", text: "Import" },
+  
 ];
 
 class MarketNavBar extends Component {
