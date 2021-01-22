@@ -4,16 +4,30 @@ header{
   font-family: "Open Sans";
 }
 
-.MNavBar-header {
+.MNavBar-header1 {
     background-color: #282c34;
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
     font-size: 16px;
     color: white;
     font-weight: bolder;
     height: 40px;
     left: 5px;
+    margin-bottom: 2px;
+}
+
+.MNavBar-header2 {
+  background-color: #282c34;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 16px;
+  color: white;
+  font-weight: bolder;
+  height: 40px;
+  left: 5px;
+  margin-bottom: 2px;
 }
 
 .section{
@@ -41,7 +55,7 @@ header{
   position: absolute;
   text-decoration: none;
   left: 10px;
-  top: 0px;
+  top: 42px;
 }
 
 .rm_decor{
@@ -66,8 +80,64 @@ header{
 .nextButton{
   font-weight:600;
   font-size: 15px;
+  position: absolute;
+  top: 48px;
+  right: 10px;
 }
 
 .nextContainer{
-  margin: 10px;
+  margin: 20px;
+}
+
+@media (max-width: 1000px){
+  .balance{
+    color: white;
+    font-size: 12pt;
+    right: 4px;
+  }
+}
+
+@media (max-width: 800px){
+  .balance{
+    color: white;
+    font-size: 10pt;
+    right: 2px;
+  }
+  .title{
+    color: white;
+    font-size: 16pt;
+    font-weight: bold;
+  }
+  .allButtons{
+    left: 0px;
+  }
+  .top-align{
+    font-size: 9pt;
+    vertical-align: middle;
+  }
+  .nextButton{
+    font-size: 10pt;
+    top: 50px;
+  }
+}
+
+@media (max-width: 650px){
+  .balance{
+    color: white;
+    font-size: 8pt;
+    right: 1px;
+  }
+  .title{
+    color: white;
+    font-size: 14pt;
+    font-weight: bold;
+  }
+  .top-align{
+    font-size: 7pt;
+    vertical-align: middle;
+  }
+  .nextButton{
+    font-size: 8pt;
+    top: 50px;
+  }
 }

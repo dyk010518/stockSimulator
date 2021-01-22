@@ -147,26 +147,29 @@ class MarketNavBar extends Component {
     let nextButton = "Next Day =>";
     return (
       <>
-        <header className="MNavBar-header">
-          <div className="allButtons">
-            {routes.map((route, index, array) => (
-              <>
-                <div className="section">
-                  <Link to={route.link} className="rm_decor">
-                    <button className="top-align">{route.text}</button>
-                  </Link>
-                </div>
-                <div className="bar">{index < routes.length - 1 ? bar : null}</div>
-              </>
-            ))}
-          </div>
+        <header className="MNavBar-header1">
           <div className="title">{titleText}</div>
-          <div className="nextContainer">
+          <div className="balance">{showText}</div>
+        </header>
+
+        <header className="MNavBar-header2">
+          <div className="allButtons">
+              {routes.map((route, index, array) => (
+                <>
+                  <div className="section">
+                    <Link to={route.link} className="rm_decor">
+                      <button className="top-align">{route.text}</button>
+                    </Link>
+                  </div>
+                  <div className="bar">{index < routes.length - 1 ? bar : null}</div>
+                </>
+              ))}
+            </div>
+            <div className="nextContainer">
             <button id="nextDay" className="nextButton">
               {nextButton}
             </button>
           </div>
-          <div className="balance">{showText}</div>
         </header>
       </>
     );
