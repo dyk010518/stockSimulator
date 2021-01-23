@@ -73,3 +73,8 @@ export function dayToMonth(day) {
   let intDay = parseInt(day);
   return Math.ceil(intDay/20).toString()
 }
+
+export function dayToYear(day){
+  let intDay = parseInt(day);
+  return Math.ceil(intDay/250).toString()
+}

@@ -74,7 +74,15 @@ class MarketImport extends Component {
             complete: (results) => {
                 
                 //upload eps
-                console.log(results.data)
+                //find the index that basic eps is at
+                let index;
+                for (let i=0; i<results.data.length; i++){
+                    if (results.data[i][0] === "BasicEPS"){
+                        index = parseInt(i)
+                        break
+                    }
+                }
+                console.log(results.data[index])
 
                 //upload to stockprices
                 /*
