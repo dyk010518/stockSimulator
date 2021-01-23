@@ -8,6 +8,7 @@ import MarketDashboard from "./pages/Market/MarketNavBar/MarketDashboard.js";
 import MarketPortfolio from "./pages/Market/MarketNavBar/MarketPortfolio.js";
 import MarketResearch from "./pages/Market/MarketNavBar/MarketResearch.js";
 import MarketTrade from "./pages/Market/MarketNavBar/MarketTrade.js";
+import MarketImport from "./pages/Market/MarketNavBar/MarketImport.js";
 
 import "../utilities.css";
 
@@ -147,6 +148,13 @@ class App extends Component {
           />
           <MarketTrade
             path="/Game/Trade"
+            username={this.state.username}
+            cash={this.state.cash}
+            marketName={this.state.marketName}
+            id={this.state.userId}
+          />
+          <MarketImport
+            path="/Game/Import"
             username={this.state.username}
             cash={this.state.cash}
             marketName={this.state.marketName}
