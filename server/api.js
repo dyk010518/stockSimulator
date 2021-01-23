@@ -15,6 +15,16 @@ const Stockdata = require("./models/stockdata");
 const Recentactivity = require("./models/recentactivity");
 const Boughtstocks = require("./models/boughtstocks");
 const date = require("./models/dates");
+const stockDebtEquity = require("./models/stockDebtEquity");
+const stockDividend = require("./models/stockDividend");
+const stockEnterprise = require("./models/stockEnterprise");
+const stockEPS = require("./models/stockEPS");
+const stockMarketCap = require("./models/stockMarketCap");
+const stockPB = require("./models/stockPB");
+const stockPE = require("./models/stockPE");
+const stockPFCF = require("./models/stockPFCF");
+const stockPrice = require("./models/stockPrice");
+const stockPS = require("./models/stockPS");
 
 // import authentication library
 const auth = require("./auth");
@@ -46,6 +56,44 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+router.post("/insertPriceData", (req, res) => {
+  stockPrice.findOne({
+    stockSymbol: req.body.symbol,
+    day: req.body.day,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new stockPrice({
+        stockSymbol: req.body.symbol,
+        day: req.body.day,
+        marketNumber: req.body.number,
+        stockPrice: req.body.price,
+        yearHigh: req.body.high,
+        yearLow: req.body.low,
+      })
+      newObj.save()
+      res.send({msg: "new", obj: newObj})
+    } else{
+      res.send({msg: "already there", obj: stockObj})
+    }
+  })
+})
+
+router.get("/getPriceData", (req, res) => {
+  stockPrice.findOne({
+    stockSymbol: req.query.symbol,
+    day: req.query.day,
+  }).then((stockObj) => res.send(stockObj))
+})
+
+router.get("/deletePriceData", (req, res) => {
+  console.log("in api")
+  stockPrice.deleteMany({
+    stockSymbol: req.query.symbol
+  }).then((tempObject) => {
+    console.log("deleted that shit")
+  })
+})
 
 router.get("/stockdata", (req, res) => {
   Stockdata.find({}).then((stockObjs) => {
@@ -89,19 +137,19 @@ router.get("/getdate", (req, res) => {
 
 router.post("/nextday", (req, res) => {
   date.findOne({ userId: req.body.id }).then((dateObj) => {
-    if (req.body.marketName === "One"){
+    if (req.body.marketName === "One") {
       dateObj.one = req.body.newDate
-    } else if (req.body.marketName === "Two"){
+    } else if (req.body.marketName === "Two") {
       dateObj.two = req.body.newDate
-    } else if (req.body.marketName === "Three"){
+    } else if (req.body.marketName === "Three") {
       dateObj.three = req.body.newDate
-    } else if (req.body.marketName === "Four"){
+    } else if (req.body.marketName === "Four") {
       dateObj.four = req.body.newDate
     }
     dateObj.save()
     res.send(dateObj)
   });
-  
+
 });
 
 router.post('/recentactivities', (req, res) => {

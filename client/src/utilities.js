@@ -61,3 +61,15 @@ export function post(endpoint, params = {}) {
       throw `POST request to ${endpoint} failed with error:\n${error}`;
     });
 }
+
+//Converts day to quarter
+export function dayToQuarter(day) {
+  let intDay = parseInt(day);
+  return Math.ceil(intDay/60).toString()
+}
+
+//Converts day to month
+export function dayToMonth(day) {
+  let intDay = parseInt(day);
+  return Math.ceil(intDay/20).toString()
+}

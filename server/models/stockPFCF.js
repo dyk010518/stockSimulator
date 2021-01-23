@@ -8,4 +8,4 @@ const PFCFSchema = new mongoose.Schema({
 });
 
 // compile model from schema
-module.exports = mongoose.model("stockPFCF", PFCFSchema);
+module.exports = mongoose.model("stockPFCFs", PFCFSchema);

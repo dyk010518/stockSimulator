@@ -8,4 +8,4 @@ const PSSchema = new mongoose.Schema({
 });
 
 // compile model from schema
-module.exports = mongoose.model("stockPS", PSSchema);
+module.exports = mongoose.model("stockPSes", PSSchema);

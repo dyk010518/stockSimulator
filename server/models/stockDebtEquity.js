@@ -8,4 +8,4 @@ const DebtEquitySchema = new mongoose.Schema({
 });
 
 // compile model from schema
-module.exports = mongoose.model("stockdebtequuity", DebtEquitySchema);
+module.exports = mongoose.model("stockdebtequities", DebtEquitySchema);
