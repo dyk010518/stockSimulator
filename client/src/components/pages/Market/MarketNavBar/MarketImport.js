@@ -69,17 +69,22 @@ class MarketImport extends Component {
     handleFile(acceptedFiles) {
         const file = acceptedFiles[0];
         Papa.parse(file, {
-            header: true,
+            //IMPORTANT: true for upload to stockprices, false otherwise (can comment out - same as putting false)
+            //header: true,
             complete: (results) => {
+                
+                //upload eps
+
 
                 //upload to stockprices
+                /*
                 let newResults = [];
                 let tempObj = {}
                 let max = parseInt(results.data[0].Open);
                 let min = parseInt(results.data[0].Open);
                 for (let i=0; i<results.data.length; i++){
                     tempObj = {
-                        stockSymbol: "VACC",
+                        stockSymbol: "CAR",
                         stockPrice: results.data[i].Open,
                         day: (i+1).toString(),
                         marketNumber: "1",
@@ -123,7 +128,7 @@ class MarketImport extends Component {
                     }
                 }
                 uploadTime = setInterval(uploadData, 35)
-                
+                */
             },
         });
     }
