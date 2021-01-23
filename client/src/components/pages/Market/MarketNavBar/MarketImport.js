@@ -74,7 +74,7 @@ class MarketImport extends Component {
             complete: (results) => {
                 
                 //upload eps
-
+                console.log(results.data)
 
                 //upload to stockprices
                 /*

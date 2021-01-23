@@ -29,7 +29,7 @@ class MarketTrade extends Component {
       transaction: infoList[1],
       quantity: infoList[2],
     }, () => {
-      this.getStockStats(this.state.stockSymbol);
+      //this.getStockStats(this.state.stockSymbol);
     })
   }
 

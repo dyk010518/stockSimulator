@@ -11,7 +11,6 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
-const Stockdata = require("./models/stockdata");
 const Recentactivity = require("./models/recentactivity");
 const Boughtstocks = require("./models/boughtstocks");
 const date = require("./models/dates");
@@ -95,18 +94,7 @@ router.get("/deletePriceData", (req, res) => {
   })
 })
 
-router.get("/stockdata", (req, res) => {
-  Stockdata.find({}).then((stockObjs) => {
-    res.send(stockObjs);
-  });
-});
 
-router.get("/specificstock", (req, res) => {
-  console.log(req.query.stockSymbol);
-  Stockdata.findOne({ stockSymbol: req.query.stockSymbol }).then((stockObj) => {
-    res.send(stockObj);
-  });
-});
 //type(stockObjs) is [{},{},...]
 
 router.post('/marketdate', (req, res) => {
