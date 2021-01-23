@@ -56,6 +56,34 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.post("/insertEPSData", (req, res) => {
+  stockEPS.findOne({
+    stockSymbol: req.body.symbol,
+    year: req.body.year,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new stockEPS({
+        stockSymbol: req.body.symbol,
+        year: req.body.year,
+        marketNumber: req.body.number,
+        stockEPS: req.body.eps,
+      })
+      newObj.save()
+      res.send({msg: "new", obj: newObj})
+    } else{
+      res.send({msg: "already there", obj: stockObj})
+    }
+  })
+})
+
+router.get("/getEPSData", (req, res) => {
+  stockEPS.findOne({
+    stockSymbol: req.query.symbol,
+    year: req.query.year,
+    marketNumber: req.query.number,
+  }).then((EPSObj) => res.send(EPSObj))
+})
+
 router.post("/insertPriceData", (req, res) => {
   stockPrice.findOne({
     stockSymbol: req.body.symbol,
@@ -82,16 +110,19 @@ router.get("/getPriceData", (req, res) => {
   stockPrice.findOne({
     stockSymbol: req.query.symbol,
     day: req.query.day,
+    marketNumber: req.query.number,
   }).then((stockObj) => res.send(stockObj))
 })
 
 router.get("/deletePriceData", (req, res) => {
+  /*
   console.log("in api")
   stockPrice.deleteMany({
     stockSymbol: req.query.symbol
   }).then((tempObject) => {
     console.log("deleted that shit")
   })
+  */
 })
 
 

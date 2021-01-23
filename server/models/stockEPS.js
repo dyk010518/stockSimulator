@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const EPSSchema = new mongoose.Schema({
     stockSymbol: String,
-    day: String,
+    year: String,
     marketNumber: String,
     stockEPS: String,
 });

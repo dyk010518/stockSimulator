@@ -73,16 +73,68 @@ class MarketImport extends Component {
             //header: true,
             complete: (results) => {
                 
+
+                /*
                 //upload eps
                 //find the index that basic eps is at
-                let index;
+                let epsIndex;
                 for (let i=0; i<results.data.length; i++){
                     if (results.data[i][0] === "BasicEPS"){
-                        index = parseInt(i)
+                        epsIndex = parseInt(i)
                         break
                     }
                 }
-                console.log(results.data[index])
+                //finds the correct begin index
+                let lastFour;
+                let beginIndex;
+                for (let i=0; i<results.data[0].length; i++){
+                    lastFour = results.data[0][i].substring(results.data[0][i].length-4)
+                    if (lastFour === "2015"){
+                        beginIndex = parseInt(i+1)
+                        break
+                    }
+                }
+                //sets up json object
+                let tempObj = {};
+                let tempArray = [];
+                for (let i=0; i<10; i++){
+                    tempObj = {
+                        stockSymbol: "SHIP",
+                        year: (i+1).toString(),
+                        marketNumber: "1",
+                        stockEPS: results.data[epsIndex][i+beginIndex].toString(),
+                    }
+                    //make post request with this object, for now just add to array
+                    tempArray.push(tempObj)
+                }
+                
+                
+                let j=0;
+                let uploadTime;
+                let prevDay = 1;
+                let missed = 0;
+                let uploadData = () => {
+                    post('/api/insertEPSData', {
+                        symbol: tempArray[j].stockSymbol,
+                        year: tempArray[j].year,
+                        number: tempArray[j].marketNumber,
+                        eps: tempArray[j].stockEPS,
+                    }).then((returnedObject) => {
+                        console.log(returnedObject.msg + " " + returnedObject.obj.year + " " + returnedObject.obj.stockSymbol)
+                        if (!(parseInt(prevDay) == parseInt(returnedObject.obj.year))){
+                            console.log("ERROR ERROR ERROR MISSED VALUE")
+                            missed = missed + 1
+                        }
+                        prevDay = prevDay + 1
+                    })
+                    j = j+1;
+                    if (j==tempArray.length){
+                        clearInterval(uploadTime)
+                        console.log(missed)
+                    }
+                }
+                uploadTime = setInterval(uploadData, 35)
+                */
 
                 //upload to stockprices
                 /*

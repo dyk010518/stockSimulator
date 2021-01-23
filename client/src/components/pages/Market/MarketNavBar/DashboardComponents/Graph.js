@@ -19,6 +19,7 @@ class Graph extends Component {
     }
 
     componentDidMount() {
+        /*
         get("/api/stockdata").then((stockObjs) => {
             this.setState({
                 name: stockObjs[0].stockName,
@@ -27,19 +28,21 @@ class Graph extends Component {
                 price: stockObjs[0].stockPrice,
             })
         });
+        */
     }
     
     // required method: whatever is returned defines what
     // shows up on screen
     render() {
+        /*
         if (!this.state.stocks){
             return null
         }
         for (let i=0; i<this.state.stocks.length; i++){
             continue
         }
-        
-        let date = this.state.stateDate.split("/")
+        */
+        let date = 1 //this.state.stateDate.split("/")
         let month = date[0];
         let day = date[1];
         let year = date[2]
