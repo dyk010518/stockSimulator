@@ -1,9 +1,10 @@
 .StockPortfolio-container {
-	display: flex;
-	flex-direction: column;
+	/*display: flex;*/
+	display: table-header-group;
+	/*flex-direction: column;*/
 	color: white;
 	background-color: #282c34;
-	width: 67%;
+	/*width: 67%;*/
 	height: 900px;
 	border-radius: 3%;
 	margin-top: 10px;
@@ -11,17 +12,17 @@
 }
 
 .StockPortfolio-header {
-    text-align: center;
+	text-align: center;
 }
 
 .StockPortfolio-resultHeader {
-	display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    margin: 16px;
+	/*width: 8%;*/
+	/*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;*/
+	margin: 16px;
 }
 
 .StockPortfolio-resultDesctiption {
-    font-weight: bold;
-    border: 1px solid white;
-    text-align: left;
+	font-weight: bold;
+	border: 1px solid white;
+	text-align: left;
 }
