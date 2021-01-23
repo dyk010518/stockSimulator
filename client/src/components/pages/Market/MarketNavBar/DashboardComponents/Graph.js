@@ -3,8 +3,8 @@ import '../../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 import {Scatter} from 'react-chartjs-2';
-import { get, post } from "../../../../../utilities.js";
 import './Graph.css'
+import { get, post } from "../../../../../utilities.js";
 
 class Graph extends Component {
     // makes props available in this component
@@ -55,8 +55,8 @@ class Graph extends Component {
             
             <>
                 
-                <div className="Graph-size">
-                    <Scatter
+                <div >
+                    <Scatter 
                         data = {{
                             datasets:[{
                                 label: 'Your Performance',
@@ -102,7 +102,7 @@ class Graph extends Component {
                                         min: 1,
                                         stepSize: 1,
                                         callback: function(value, index, values) {
-                                            return month + '/' + value + '/' + year;
+                                            return "Day " + value;
                                         }
                                     }
                                 }]
