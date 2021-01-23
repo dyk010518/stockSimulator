@@ -50,11 +50,9 @@
     .StockScreener-container {
         width: 300px;
     }
-    .StockScreener-labelSelect {
-        font-size: 13pt;
-    }
     .StockScreener-label {
         margin-left: 16px;
+        font-size: 13pt;
     }
 }
 
@@ -66,12 +64,9 @@
         font-size: 14pt;
         margin-bottom: 16px;
     }
-    
-    .StockScreener-labelSelect {
-        font-size: 12pt;
-    }
     .StockScreener-label {
         margin-left: 16px;
+        font-size: 12pt;
     }
     
     .StockScreener-select {
