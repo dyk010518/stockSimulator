@@ -56,6 +56,27 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.post("/insertNDData", (req, res) => {
+  stockDebtEquity.findOne({
+    stockSymbol: req.body.symbol,
+    quarter: req.body.quarter,
+    marketNumber: req.body.number,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new stockDebtEquity({
+        stockSymbol: req.body.symbol,
+        quarter: req.body.quarter,
+        marketNumber: req.body.number,
+        stockDebtEquity: req.body.nd,
+      })
+      newObj.save()
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
+    }
+  })
+})
+
 router.post("/sellStock", (req, res) => {
   console.log("reached 2")
   User.findOne({
@@ -327,8 +348,8 @@ router.get("/getAllPriceData", (req, res) => {
 router.get("/dontuseme", (req, res) => {
   
   console.log("in api")
-  stockPE.deleteMany({
-    stockSymbol: req.query.symbol
+  stockDebtEquity.deleteMany({
+    stockSymbol: "SOFT"
   }).then((tempObject) => {
     console.log("deleted that shit")
   })

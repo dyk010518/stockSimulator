@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const DebtEquitySchema = new mongoose.Schema({
     stockSymbol: String,
-    day: String,
+    quarter: String,
     marketNumber: String,
     stockDebtEquity: String,
 });

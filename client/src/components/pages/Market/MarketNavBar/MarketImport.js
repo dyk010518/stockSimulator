@@ -30,7 +30,7 @@ const names = ["CHEESE",
     "CAR",
     "SHIP"]
 
-const sIndex = 18;
+const sIndex = 19;
 
 class MarketImport extends Component {
     // makes props available in this component
@@ -125,7 +125,7 @@ class MarketImport extends Component {
                 console.log(stockObj)
             })
             */
-            //get('/api/dontuseme', {symbol: "CAR"})
+            //get('/api/dontuseme', {symbol: "SOFT"})
             /*
             let k=0;
             let sum=0;
@@ -175,6 +175,87 @@ class MarketImport extends Component {
             */
             //header: true,
             complete: (results) => {
+
+                //upload net debt
+                //get index of net debt row
+                let ndIndex;
+                for (let i=0; i<results.data.length; i++){
+                    if (results.data[i][0] === "NetDebt"){
+                        ndIndex = parseInt(i)
+                        break
+                    }
+                }
+                //get index of 2015
+                let lastFour;
+                let beginIndex;
+                for (let i=0; i<results.data[0].length; i++){
+                    lastFour = results.data[0][i].substring(results.data[0][i].length-4)
+                    if (lastFour === "2015"){
+                        beginIndex = parseInt(i)
+                        break
+                    }
+                }
+                //create json objects
+                let tempObj = {};
+                let tempArray = [];
+                let ndval;
+                for (let i=0; i<42; i++){
+                    if(results.data[ndIndex][i+beginIndex]){
+                        ndval = results.data[ndIndex][i+beginIndex].toString()
+                    } else{
+                        let c = 0;
+                        while (!(results.data[ndIndex][i+beginIndex+c])){
+                            if (i+beginIndex+c == results.data[ndIndex].length-1){
+                                break
+                            } else{
+                                c = c+1
+                            }
+                        }
+                        if (results.data[ndIndex][i+beginIndex+c]){
+                            ndval = results.data[ndIndex][i+beginIndex+c].toString()
+                        } else {
+                            ndval = "No net debt value for this quarter"
+                        }
+                    }
+                    tempObj = {
+                        stockSymbol: names[sIndex],
+                        quarter: (i+1).toString(),
+                        marketNumber: mNumber,
+                        stockDebtEquity: ndval.toString(),
+                    }
+                    //make post request with this object, for now just add to array
+                    tempArray.push(tempObj)
+                }
+                
+                //upload to database
+                
+                let j=0;
+                let uploadTime;
+                let prevDay = 1;
+                let missed = 0;
+                let uploadData = () => {
+                    post('/api//insertNDData', {
+                        symbol: tempArray[j].stockSymbol,
+                        quarter: tempArray[j].quarter,
+                        number: tempArray[j].marketNumber,
+                        nd: tempArray[j].stockDebtEquity.toString(),
+                    }).then((returnedObject) => {
+                        console.log(returnedObject.msg + " " + returnedObject.obj.quarter + " " + returnedObject.obj.stockSymbol)
+                        if (!(parseInt(prevDay) == parseInt(returnedObject.obj.quarter))){
+                            console.log("ERROR ERROR ERROR MISSED VALUE")
+                            missed = missed + 1
+                        }
+                        prevDay = prevDay + 1
+                    })
+                    j = j+1;
+                    if (j==tempArray.length){
+                        clearInterval(uploadTime)
+                        console.log(missed)
+                    }
+                }
+                uploadTime = setInterval(uploadData, 35)
+                
+
 
                 //upload pb ratio
                 /*
@@ -444,7 +525,7 @@ class MarketImport extends Component {
 
 
                 //upload stockprices
-                
+                /*
                 let newResults = [];
                 let tempObj = {}
                 let max = parseInt(results.data[0].Open);
@@ -495,7 +576,7 @@ class MarketImport extends Component {
                     }
                 }
                 uploadTime = setInterval(uploadData, 35)
-                
+                */
             },
         });
     }
