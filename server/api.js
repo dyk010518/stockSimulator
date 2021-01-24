@@ -56,10 +56,32 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.post("/insertPEData", (req, res) => {
+  stockPE.findOne({
+    stockSymbol: req.body.symbol,
+    day: req.body.day,
+    marketNumber: req.body.number,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new stockPE({
+        stockSymbol: req.body.symbol,
+        day: req.body.day,
+        marketNumber: req.body.number,
+        stockPE: req.body.pe,
+      })
+      newObj.save()
+      res.send({msg: "new", obj: newObj})
+    } else{
+      res.send({msg: "already there", obj: stockObj})
+    }
+  })
+})
+
 router.post("/insertEPSData", (req, res) => {
   stockEPS.findOne({
     stockSymbol: req.body.symbol,
     year: req.body.year,
+    marketNumber: req.body.number,
   }).then((stockObj) => {
     if (!(stockObj)) {
       let newObj = new stockEPS({
@@ -84,10 +106,18 @@ router.get("/getEPSData", (req, res) => {
   }).then((EPSObj) => res.send(EPSObj))
 })
 
+router.get("/getAllEPSData", (req, res) => {
+  stockEPS.find({
+    stockSymbol: req.query.symbol,
+    marketNumber: req.query.number,
+  }).then((EPSObjs) => res.send(EPSObjs))
+})
+
 router.post("/insertPriceData", (req, res) => {
   stockPrice.findOne({
     stockSymbol: req.body.symbol,
     day: req.body.day,
+    marketNumber: req.body.number,
   }).then((stockObj) => {
     if (!(stockObj)) {
       let newObj = new stockPrice({
@@ -118,7 +148,15 @@ router.get("/getPriceData", (req, res) => {
       res.send({obj: stockObj})
     }
   })
-  
+})
+
+router.get("/getAllPriceData", (req, res) => {
+  stockPrice.find({
+    stockSymbol: req.query.symbol,
+    marketNumber: req.query.number,
+  }).then((stockObjs) => {
+    res.send(stockObjs)
+  })
 })
 
 router.get("/deletePriceData", (req, res) => {

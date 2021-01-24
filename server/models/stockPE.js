@@ -8,4 +8,4 @@ const PESchema = new mongoose.Schema({
 });
 
 // compile model from schema
-module.exports = mongoose.model("stockPEs", PESchema);
+module.exports = mongoose.model("stockpes", PESchema);

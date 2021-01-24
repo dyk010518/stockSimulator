@@ -6,7 +6,29 @@ import MarketNavBar from "./MarketNavBar";
 import Dropzone from "react-dropzone";
 import Papa from "papaparse";
 import "./MarketImport.css";
-import {get, post} from '../../../../utilities.js'
+import { get, post, dayToYear, dayToMonth, dayToQuarter } from '../../../../utilities.js'
+
+const names = ["CHEESE",
+    "COOP",
+    "STORE",
+    "CELL",
+    "GROCE",
+    "SOLAR",
+    "OIL",
+    "INSUR",
+    "BANK",
+    "HINSUR",
+    "BAID",
+    "STICKY",
+    "VACC",
+    "HOME",
+    "HOOD",
+    "COMP",
+    "SOFT",
+    "PHONE",
+    "SHIP"]
+//upload COMP next, index 15!!
+const sIndex = 14;
 
 class MarketImport extends Component {
     // makes props available in this component
@@ -18,9 +40,79 @@ class MarketImport extends Component {
         this.handleFile = this.handleFile.bind(this);
     }
 
+    //collect relevant eps data, put in array
+
+    
+
     componentDidMount() {
-        document.getElementById("doanything").addEventListener("click", function() {
+        document.getElementById("doanything").addEventListener("click", function () {
             console.log("pressed")
+
+            //upload pe ratio
+            //collect relevant stock data, put in array                       
+            get('/api/getAllPriceData', {
+                symbol: names[sIndex],
+                number: "1",
+            }).then((stockObjects) => {
+                let stageTwo = (pData) => {
+                    get('/api/getAllEPSData', {
+                        symbol: names[sIndex],
+                        number: "1",
+                    }).then((epsData) => {
+                        //calculate new pe ratio (price/eps), put in object
+                        let tempObj;
+                        let tempArray = [];
+                        //console.log(epsData)
+                        for (let i=0; i<pData.length; i++){
+                            let year = parseInt(dayToYear(i+1))
+                            year = year - 1;
+                            //console.log(year)
+                            if (!(epsData[year])){
+                                break
+                            }
+                            let intEPS = parseInt(epsData[year].stockEPS)
+                            tempObj = {
+                                stockSymbol: names[sIndex],
+                                day: (i+1).toString(),
+                                marketNumber: "1",
+                                stockPE: (parseInt(pData[i].stockPrice)/intEPS).toString()
+                            }
+                            tempArray.push(tempObj)
+                        }
+                        let j=0;
+                        let uploadTime;
+                        let prevDay = 1;
+                        let missed = 0;
+                        let uploadData = () => {
+                            post('/api/insertPEData', {
+                                symbol: tempArray[j].stockSymbol,
+                                day: tempArray[j].day,
+                                number: tempArray[j].marketNumber,
+                                pe: tempArray[j].stockPE,
+                            }).then((returnedObject) => {
+                                console.log(returnedObject.msg + " " + returnedObject.obj.day + " " + returnedObject.obj.stockSymbol)
+                                if (!(parseInt(prevDay) == parseInt(returnedObject.obj.day))){
+                                    console.log("ERROR ERROR ERROR MISSED VALUE")
+                                    missed = missed + 1
+                                }
+                                prevDay = prevDay + 1
+                            })
+                            j = j+1;
+                            if (j==tempArray.length){
+                                clearInterval(uploadTime)
+                                console.log(missed)
+                            }
+                        }
+                        uploadTime = setInterval(uploadData, 35)
+                    })
+                }
+                stageTwo(stockObjects)
+            })
+
+            
+
+
+            //testing stuff
             /*
             get('/api/getPriceData', {
                 symbol: "STORE", 
@@ -72,7 +164,7 @@ class MarketImport extends Component {
             //IMPORTANT: true for upload to stockprices, false otherwise (can comment out - same as putting false)
             //header: true,
             complete: (results) => {
-                
+
 
                 /*
                 //upload eps
@@ -107,8 +199,7 @@ class MarketImport extends Component {
                     //make post request with this object, for now just add to array
                     tempArray.push(tempObj)
                 }
-                
-                
+                //actual upload part
                 let j=0;
                 let uploadTime;
                 let prevDay = 1;
@@ -136,7 +227,9 @@ class MarketImport extends Component {
                 uploadTime = setInterval(uploadData, 35)
                 */
 
-                //upload to stockprices
+
+
+                //upload stockprices
                 /*
                 let newResults = [];
                 let tempObj = {}
@@ -193,7 +286,7 @@ class MarketImport extends Component {
         });
     }
 
-    
+
 
     // required method: whatever is returned defines what
     // shows up on screen
