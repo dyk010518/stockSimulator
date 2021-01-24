@@ -9,7 +9,8 @@ import "./MarketImport.css";
 import { get, post, dayToYear, dayToMonth, dayToQuarter } from '../../../../utilities.js'
 
 const mNumber = "1"
-const names = ["CHEESE",
+const names = [
+    "CHEESE",
     "COOP",
     "STORE",
     "CELL",
@@ -256,10 +257,12 @@ class MarketImport extends Component {
                 //upload total revenue
                 /*
                 //get index of tr row
-                let ndIndex;
+
+                /*
+                let osIndex;
                 for (let i=0; i<results.data.length; i++){
-                    if (results.data[i][0] === "TotalRevenue"){
-                        ndIndex = parseInt(i)
+                    if (results.data[i][0] === "OrdinarySharesNumber"){
+                        osIndex = parseInt(i)
                         break
                     }
                 }
@@ -276,30 +279,30 @@ class MarketImport extends Component {
                 //create json objects
                 let tempObj = {};
                 let tempArray = [];
-                let ndval;
+                let osval;
                 for (let i=0; i<42; i++){
-                    if(results.data[ndIndex][i+beginIndex]){
-                        ndval = results.data[ndIndex][i+beginIndex].toString()
+                    if(results.data[osIndex][i+beginIndex]){
+                        osval = results.data[osIndex][i+beginIndex].toString()
                     } else{
                         let c = 0;
-                        while (!(results.data[ndIndex][i+beginIndex+c])){
-                            if (i+beginIndex+c == results.data[ndIndex].length-1){
+                        while (!(results.data[osIndex][i+beginIndex+c])){
+                            if (i+beginIndex+c == results.data[osIndex].length-1){
                                 break
                             } else{
                                 c = c+1
                             }
                         }
-                        if (results.data[ndIndex][i+beginIndex+c]){
-                            ndval = results.data[ndIndex][i+beginIndex+c].toString()
+                        if (results.data[osIndex][i+beginIndex+c]){
+                            osval = results.data[osIndex][i+beginIndex+c].toString()
                         } else {
-                            ndval = "No net debt value for this quarter"
+                            osval = "No ordinary shares value for this quarter"
                         }
                     }
                     tempObj = {
                         stockSymbol: names[sIndex],
                         quarter: (i+1).toString(),
                         marketNumber: mNumber,
-                        revenue: ndval.toString(),
+                        shares: osval.toString(),
                     }
                     //make post request with this object, for now just add to array
                     tempArray.push(tempObj)
@@ -332,6 +335,34 @@ class MarketImport extends Component {
                 uploadTime = setInterval(uploadData, 35)
                 */
 
+
+                let j=0;
+                let uploadTime;
+                let prevDay = 1;
+                let missed = 0;
+                let uploadData = () => {
+                    post('/api/insertSharesData', {
+                        symbol: tempArray[j].stockSymbol,
+                        quarter: tempArray[j].quarter,
+                        number: tempArray[j].marketNumber,
+                        shares: tempArray[j].shares.toString(),
+                    }).then((returnedObject) => {
+                        console.log(returnedObject.msg + " " + returnedObject.obj.quarter + " " + returnedObject.obj.stockSymbol)
+                        if (!(parseInt(prevDay) == parseInt(returnedObject.obj.quarter))){
+                            console.log("ERROR ERROR ERROR MISSED VALUE")
+                            missed = missed + 1
+                        }
+                        prevDay = prevDay + 1
+                    })
+                    j = j+1;
+                    if (j==tempArray.length){
+                        clearInterval(uploadTime)
+                        console.log(missed)
+                    }
+                }
+                uploadTime = setInterval(uploadData, 35)
+
+                */
 
                 //upload net debt
                 /*

@@ -327,6 +327,27 @@ router.post("/insertEPSData", (req, res) => {
   })
 })
 
+router.post("/insertSharesData", (req, res) => {
+  shares.findOne({
+    stockSymbol: req.body.symbol,
+    quarter: req.body.quarter,
+    marketNumber: req.body.number,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new shares({
+        stockSymbol: req.body.symbol,
+        quarter: req.body.quarter,
+        marketNumber: req.body.number,
+        shares: req.body.shares,
+      })
+      newObj.save()
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
+    }
+  })
+})
+
 router.get("/getEPSData", (req, res) => {
   stockEPS.findOne({
     stockSymbol: req.query.symbol,
