@@ -176,7 +176,11 @@ class MarketImport extends Component {
             //header: true,
             complete: (results) => {
 
+                
+
+
                 //upload net debt
+                /*
                 //get index of net debt row
                 let ndIndex;
                 for (let i=0; i<results.data.length; i++){
@@ -254,7 +258,7 @@ class MarketImport extends Component {
                     }
                 }
                 uploadTime = setInterval(uploadData, 35)
-                
+                */
 
 
                 //upload pb ratio
