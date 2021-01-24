@@ -41,12 +41,25 @@
     width: 128px;
 }
 
-.BuySell-submit{
+.BuySell-buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.BuySell-seeStats{
     width: 100px;
     height: 36px;
     font-size: large;
     text-align: center;
     margin-left: auto;
+    margin-right: 8px;
+}
+
+.BuySell-trade{
+    width: 100px;
+    height: 36px;
+    font-size: large;
+    text-align: center;
     margin-right: 36px;
 }
 
@@ -90,7 +103,7 @@
     .BuySell-container {
         height: 300px;
     }
-    .BuySell-submit{
+    .BuySell-submseeStatsit{
         width: 80px;
         height: 30px;
         margin-right: 48px;
@@ -117,7 +130,7 @@
     .BuySell-header {
         margin: 12px;
     }
-    .BuySell-submit{
+    .BuySell-seeStats{
         width: 72px;
         height: 30px;
         font-size: medium;
@@ -149,7 +162,7 @@
         margin: 4px;
         font-size: large;
     }
-    .BuySell-submit{
+    .BuySell-seeStats{
         width: 68px;
         height: 24px;
         font-size: medium;

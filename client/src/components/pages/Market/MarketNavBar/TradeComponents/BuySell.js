@@ -16,7 +16,7 @@ class BuySell extends Component {
     }
 
     componentDidMount() {
-        document.getElementById("submit").addEventListener("click", () => {
+        document.getElementById("seeStats").addEventListener("click", () => {
             this.updateStatus();
         });
     }
@@ -62,9 +62,16 @@ class BuySell extends Component {
                         <div className="BuySell-info">"Price * Quantity"</div>
                     </div>
 
-                    <button id="submit" className="BuySell-submit">
-                        Submit
-                    </button>
+                    <div className="BuySell-buttons">
+                        <button id="seeStats" className="BuySell-seeStats">
+                            See Stats
+                        </button>
+
+                        <button id="trade" className="BuySell-trade">
+                            Trade
+                        </button>
+                    </div>
+                    
                 </div>
             </>
         );

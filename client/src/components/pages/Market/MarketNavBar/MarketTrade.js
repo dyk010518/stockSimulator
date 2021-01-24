@@ -111,6 +111,10 @@ class MarketTrade extends Component {
       }else{
         this.setState({
           stockSymbol: "",
+          stockPrice: "",
+          yearHigh: "",
+          yearLow: "",
+          stockEPS: "",
         }, () => {
           alert("Please insert a valid stock symbol");
         })
