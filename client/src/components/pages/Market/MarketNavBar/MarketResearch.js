@@ -14,6 +14,9 @@ class MarketResearch extends Component {
     super(props);
   }
 
+  componentDidMount(){
+    
+  }
   // required method: whatever is returned defines what
   // shows up on screen
   render() {
@@ -24,6 +27,7 @@ class MarketResearch extends Component {
           username={this.props.username}
           marketName={this.props.marketName}
           id={this.props.id}
+          updateCash={this.props.updateCash}
         />
         <div className="MarketResearch-row">
           <div className="MarketResearch-column">

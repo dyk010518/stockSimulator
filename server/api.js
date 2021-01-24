@@ -56,6 +56,98 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.post("/sellStock", (req, res) => {
+  console.log("reached 2")
+  User.findOne({
+    _id: req.body.id
+  }).then((userObj) => {
+    let totalCost = parseFloat(req.body.amt) * parseFloat(req.body.bp)
+    let prevCash;
+    if (req.body.mn === "1") {
+      prevCash = parseFloat(userObj.cashOne)
+      userObj.cashOne = (prevCash + totalCost).toString()
+    } else if (req.body.mn === "2") {
+      prevCash = parseFloat(userObj.cashTwo)
+      userObj.cashTwo = (prevCash + totalCost).toString()
+    } else if (req.body.mn === "3") {
+      prevCash = parseFloat(userObj.cashThree)
+      userObj.cashThree = (prevCash + totalCost).toString()
+    } else if (req.body.mn === "4") {
+      prevCash = parseFloat(userObj.cashFour)
+      userObj.cashFour = (prevCash + totalCost).toString()
+    }
+    userObj.save()
+  }).then(() => {
+    Boughtstocks.findOne({
+      userID: req.body.id,
+      stockName: req.body.symbol,
+    }).then((stockObj) => {
+      prevQuant = parseInt(stockObj.quantity)
+      stockObj.quantity = (prevQuant - parseInt(req.body.amt)).toString()
+      stockObj.save()
+      res.send(stockObj)
+    })
+  })
+})
+
+router.post("/buyStock", (req, res) => {
+  Boughtstocks.findOne({
+    userID: req.body.id,
+    stockName: req.body.symbol,
+  }).then((stockObj) => {
+    User.findOne({
+      _id: req.body.id
+    }).then((userObj) => {
+      let totalCost = parseFloat(req.body.amt) * parseFloat(req.body.bp)
+      let prevCash;
+      if (req.body.mn === "1") {
+        prevCash = parseFloat(userObj.cashOne)
+        userObj.cashOne = (prevCash - totalCost).toString()
+      } else if (req.body.mn === "2") {
+        prevCash = parseFloat(userObj.cashTwo)
+        userObj.cashTwo = (prevCash - totalCost).toString()
+      } else if (req.body.mn === "3") {
+        prevCash = parseFloat(userObj.cashThree)
+        userObj.cashThree = (prevCash - totalCost).toString()
+      } else if (req.body.mn === "4") {
+        prevCash = parseFloat(userObj.cashFour)
+        userObj.cashFour = (prevCash - totalCost).toString()
+      }
+      userObj.save()
+    })
+    if (!(stockObj)){
+      let newObj = new Boughtstocks({
+        userID: req.body.id,
+        stockName: req.body.symbol,
+        quantity: req.body.amt,
+      })
+      newObj.save()
+      res.send(newObj)
+    } else {
+      stockObj.quantity = (parseInt(stockObj.quantity) + parseInt(req.body.amt)).toString()
+      stockObj.save()
+      res.send(stockObj)
+    }
+  })
+})
+
+router.get("/getBoughtStocks", (req, res) => {
+  Boughtstocks.findOne({
+    userID: req.query.id,
+    stockName: req.query.symbol,
+  }).then((stockObj) => {
+    res.send(stockObj)
+  })
+})
+
+router.get("/getCash", (req, res) => {
+  User.findOne({
+    _id: req.query.id,
+  }).then((userObj) => {
+    res.send(userObj)
+  })
+})
+
 router.get("/deleteErrorEnterprise", (req, res) => {
   /*
   stockEnterprise.deleteMany({
@@ -80,9 +172,9 @@ router.post("/insertPBData", (req, res) => {
         stockPB: req.body.pb,
       })
       newObj.save()
-      res.send({msg: "new", obj: newObj})
-    } else{
-      res.send({msg: "already there", obj: stockObj})
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
     }
   })
 })
@@ -101,9 +193,9 @@ router.post("/insertEVData", (req, res) => {
         stockEnterprise: req.body.epv,
       })
       newObj.save()
-      res.send({msg: "new", obj: newObj})
-    } else{
-      res.send({msg: "already there", obj: stockObj})
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
     }
   })
 })
@@ -122,9 +214,9 @@ router.post("/insertMCData", (req, res) => {
         stockMarketCap: req.body.cap,
       })
       newObj.save()
-      res.send({msg: "new", obj: newObj})
-    } else{
-      res.send({msg: "already there", obj: stockObj})
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
     }
   })
 })
@@ -143,9 +235,9 @@ router.post("/insertPEData", (req, res) => {
         stockPE: req.body.pe,
       })
       newObj.save()
-      res.send({msg: "new", obj: newObj})
-    } else{
-      res.send({msg: "already there", obj: stockObj})
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
     }
   })
 })
@@ -164,9 +256,9 @@ router.post("/insertEPSData", (req, res) => {
         stockEPS: req.body.eps,
       })
       newObj.save()
-      res.send({msg: "new", obj: newObj})
-    } else{
-      res.send({msg: "already there", obj: stockObj})
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
     }
   })
 })
@@ -202,9 +294,9 @@ router.post("/insertPriceData", (req, res) => {
         yearLow: req.body.low,
       })
       newObj.save()
-      res.send({msg: "new", obj: newObj})
-    } else{
-      res.send({msg: "already there", obj: stockObj})
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
     }
   })
 })
@@ -215,10 +307,10 @@ router.get("/getPriceData", (req, res) => {
     day: req.query.day,
     marketNumber: req.query.number,
   }).then((stockObj) => {
-    if(!(stockObj)){
-      res.send({obj: undefined});  
-    }else{
-      res.send({obj: stockObj})
+    if (!(stockObj)) {
+      res.send({ obj: undefined });
+    } else {
+      res.send({ obj: stockObj })
     }
   })
 })
@@ -232,15 +324,15 @@ router.get("/getAllPriceData", (req, res) => {
   })
 })
 
-router.get("/deletePriceData", (req, res) => {
-  /*
+router.get("/dontuseme", (req, res) => {
+  
   console.log("in api")
-  stockPrice.deleteMany({
+  stockPE.deleteMany({
     stockSymbol: req.query.symbol
   }).then((tempObject) => {
     console.log("deleted that shit")
   })
-  */
+  
 })
 
 

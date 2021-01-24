@@ -7,8 +7,9 @@ import BuySell from "./TradeComponents/BuySell.js";
 import AccountDetails from "./TradeComponents/AccountDetails.js";
 import StockStats from "./TradeComponents/StockStats.js";
 import "./MarketTrade.css";
-import { get, post, dayToMonth, dayToQuarter, dayToYear} from '../../../../utilities.js';
+import { get, post, dayToMonth, dayToQuarter, dayToYear, roundPrice } from '../../../../utilities.js';
 
+const marketOneStocks = "\nCHEESE\nCOOP\nSTORE\nCELL\nGROCE\nSOLAR\nOIL\nINSUR\nBANK\nHINSUR\nBAID\nSTICKY\nVACC\nHOME\nHOOD\nCOMP\nSOFT\nPHONE\nCAR\nSHIP"
 
 class MarketTrade extends Component {
   // makes props available in this component
@@ -30,104 +31,150 @@ class MarketTrade extends Component {
     });
   }
 
-  update = (infoList) => {
-    this.setState({
-      stockSymbol: infoList[0],
-      transaction: infoList[1],
-      quantity: infoList[2],
-    }, () => {
-      this.getTime();
-    })
-  }
-
-  getTime = () => {
-    if(this.props.marketName === "One"){
-      get("/api/getdate", { id: this.props.id }).then((dateObj) => {
-        this.setState({
-          stockDay: dateObj.one,
-          stockMonth: dayToMonth(dateObj.one),
-          stockQuarter: dayToQuarter(dateObj.one),
-          stockYear: dayToYear(dateObj.one),
-        }, () => this.setMarketNum())
-      })
-    }else if(this.props.marketName === "Two"){
-      get("/api/getdate", { id: this.props.id }).then((dateObj) => {
-        this.setState({
-          stockDay: dateObj.two,
-          stockMonth: dayToMonth(dateObj.two),
-          stockQuarter: dayToQuarter(dateObj.two),
-          stockYear: dayToYear(dateObj.two),
-        }, () => this.setMarketNum())
-      })
-    }else if(this.props.marketName === "Three"){
-      get("/api/getdate", { id: this.props.id }).then((dateObj) => {
-        this.setState({
-          stockDay: dateObj.three,
-          stockMonth: dayToMonth(dateObj.three),
-          stockQuarter: dayToQuarter(dateObj.three),
-          stockYear: dayToYear(dateObj.three),
-        }, () => this.setMarketNum())
-      })
-    }else if(this.props.marketName === "Four"){
-      get("/api/getdate", { id: this.props.id }).then((dateObj) => {
-        this.setState({
-          stockDay: dateObj.four,
-          stockMonth: dayToMonth(dateObj.four),
-          stockQuarter: dayToQuarter(dateObj.four),
-          stockYear: dayToYear(dateObj.four),
-        }, () => this.setMarketNum())
-      })
-    }
-  }
-
-  setMarketNum = () => {
+  componentDidMount() {
     let theMarket = "";
-    if(this.props.marketName === "One"){
+    if (this.props.marketName === "One") {
       theMarket = "1";
-    }else if(this.props.marketName === "Two"){
+    } else if (this.props.marketName === "Two") {
       theMarket = "2";
-    }else if(this.props.marketName === "Three"){
+    } else if (this.props.marketName === "Three") {
       theMarket = "3";
-    }else if(this.props.marketName === "Four"){
+    } else if (this.props.marketName === "Four") {
       theMarket = "4";
     }
     this.setState({
       marketNumber: theMarket,
-    }, () => this.updatePrice())
-  }
-
-  updatePrice = () => {
-    let theDay = this.state.stockDay;
-
-    get("/api/getPriceData", { symbol: this.state.stockSymbol.toUpperCase(), day: theDay, number: this.state.marketNumber}).then((stockObj) => {
-      if(stockObj.obj){
-        this.setState({
-          stockPrice: stockObj.obj.stockPrice,
-          yearHigh: stockObj.obj.yearHigh,
-          yearLow: stockObj.obj.yearLow,
-        }, () => {
-          this.updateEPS();
-        })
-      }else{
-        this.setState({
-          stockSymbol: "",
-          stockPrice: "",
-          yearHigh: "",
-          yearLow: "",
-          stockEPS: "",
-        }, () => {
-          alert("Please insert a valid stock symbol");
-        })
+    })
+    get("/api/getdate", { id: this.props.id }).then((dateObj) => {
+      let tempDay;
+      if (this.props.marketName === "One") {
+        tempDay = dateObj.one
+      } else if (this.props.marketName === "Two") {
+        tempDay = dateObj.two
+      } else if (this.props.marketName === "Three") {
+        tempDay = dateObj.three
+      } else if (this.props.marketName === "Four") {
+        tempDay = dateObj.four
       }
-    }) 
-  }
-
-  updateEPS = () => {
-    get("/api/getEPSData", { symbol: this.state.stockSymbol.toUpperCase(), year: this.state.stockYear, number: this.state.marketNumber }).then((EPSObj) => {
       this.setState({
-        stockEPS: EPSObj.stockEPS,
+        stockDay: tempDay,
+      }, () => {
+
       })
     })
+  }
+
+  update = (symbol, ttype, amt) => {
+    //sets vars based off of entered values
+    get("/api/getdate", { id: this.props.id }).then((dateObj) => {
+      let tempDay;
+      if (this.props.marketName === "One") {
+        tempDay = dateObj.one
+      } else if (this.props.marketName === "Two") {
+        tempDay = dateObj.two
+      } else if (this.props.marketName === "Three") {
+        tempDay = dateObj.three
+      } else if (this.props.marketName === "Four") {
+        tempDay = dateObj.four
+      }
+      this.setState({
+        stockDay: tempDay,
+      }, () => {
+        this.setState({
+          stockSymbol: symbol,
+          transaction: ttype,
+          quantity: amt,
+        }, () => {
+          //updates price
+          get("/api/getPriceData", {
+            symbol: this.state.stockSymbol.toUpperCase(),
+            day: this.state.stockDay,
+            number: this.state.marketNumber
+          }).then((stockObj) => {
+            if (!(stockObj.obj)) {
+              this.setState({
+                stockSymbol: "",
+                stockPrice: "",
+                yearHigh: "",
+                yearLow: "",
+                stockEPS: "",
+              }, () => {
+                alert("Please insert a valid stock symbol: " + marketOneStocks);
+              })
+            } else {
+              this.setState({
+                stockPrice: Math.round(parseFloat(stockObj.obj.stockPrice) * 100) / 100,
+                yearHigh: stockObj.obj.yearHigh,
+                yearLow: stockObj.obj.yearLow,
+              }, () => {
+                //updates eps
+                get("/api/getEPSData", {
+                  symbol: this.state.stockSymbol.toUpperCase(),
+                  year: this.state.stockYear,
+                  number: this.state.marketNumber
+                }).then((EPSObj) => {
+                  this.setState({
+                    stockEPS: EPSObj.stockEPS,
+                  }, () => {
+                    //update other stats!
+                  })
+                })
+              })
+            }
+          })
+        })
+      })
+    })
+
+  }
+
+  trade = (symbol, quantity, price, day, type) => {
+    let totalCost = parseInt(quantity) * parseFloat(roundPrice(price))
+    if (type === "buy") {
+      if (this.props.cash < totalCost) {
+        alert("Not enough money.\nYou need $" + roundPrice((totalCost - parseFloat(this.props.cash)).toString()) + " more to complete the transaction.")
+      } else {
+        post('/api/buyStock', {
+          id: this.props.id,
+          symbol: symbol,
+          amt: quantity,
+          bp: price,
+          day: day,
+          mn: this.state.marketNumber,
+        }).then((stockObj) => {
+          this.props.updateCash()
+          alert("Successfully bought " + stockObj.quantity + " " + stockObj.stockName + " stocks!\nCheck your portfolio to see how you're doing!")
+        })
+      }
+    } else if (type === "sell") {
+      get('/api/getBoughtStocks', {
+        id: this.props.id,
+        symbol: symbol,
+      }).then((StockObj) => {
+        let userAmt;
+        if (StockObj) {
+          userAmt = parseInt(StockObj.quantity)
+        } else {
+          userAmt = 0;
+        }
+        console.log("reached")
+        if (userAmt < quantity) {
+          alert("You don't have enough stocks.\nYou need " + (parseInt(quantity) - userAmt).toString() + " more.")
+        } else {
+          post('/api/sellStock', {
+            id: this.props.id,
+            symbol: symbol,
+            amt: quantity,
+            bp: price,
+            mn: this.state.marketNumber,
+          }).then((stockObj) => {
+            console.log(stockObj)
+            this.props.updateCash()
+            alert("Successfully sold " + quantity + " " + symbol + " stocks!\nCheck your portfolio to see how you're doing!")
+          })
+        }
+      })
+    }
   }
 
 
@@ -141,13 +188,19 @@ class MarketTrade extends Component {
           username={this.props.username}
           marketName={this.props.marketName}
           id={this.props.id}
+          updateCash={this.props.updateCash}
         />
         <div className="MarketTrade-row">
           <div className="MarketTrade-column">
-            <BuySell 
-              data={this.update.bind(this)}
+            <BuySell
+              updateFunc={this.update.bind(this)}
+              tradeFunc={this.trade}
+              day={this.state.stockDay}
+              id={this.props.id}
+              cash={this.props.cash}
+              marketNumber={this.state.marketNumber}
             />
-            <StockStats 
+            <StockStats
               stockSymbol={this.state.stockSymbol}
               stockPrice={this.state.stockPrice}
               yearHigh={this.state.yearHigh}

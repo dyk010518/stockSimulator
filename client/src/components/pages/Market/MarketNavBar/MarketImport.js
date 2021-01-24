@@ -30,7 +30,7 @@ const names = ["CHEESE",
     "CAR",
     "SHIP"]
 
-const sIndex = 0;
+const sIndex = 18;
 
 class MarketImport extends Component {
     // makes props available in this component
@@ -125,7 +125,7 @@ class MarketImport extends Component {
                 console.log(stockObj)
             })
             */
-            //get('/api/deletePriceData', {symbol: "OIL"})
+            //get('/api/dontuseme', {symbol: "CAR"})
             /*
             let k=0;
             let sum=0;
@@ -166,6 +166,13 @@ class MarketImport extends Component {
         const file = acceptedFiles[0];
         Papa.parse(file, {
             //IMPORTANT: true for upload to stockprices, false otherwise (can comment out - same as putting false)
+            /*
+            OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+            OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+            OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+            OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+            OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+            */
             //header: true,
             complete: (results) => {
 
@@ -437,7 +444,7 @@ class MarketImport extends Component {
 
 
                 //upload stockprices
-                /*
+                
                 let newResults = [];
                 let tempObj = {}
                 let max = parseInt(results.data[0].Open);
@@ -488,7 +495,7 @@ class MarketImport extends Component {
                     }
                 }
                 uploadTime = setInterval(uploadData, 35)
-                */
+                
             },
         });
     }
@@ -505,6 +512,7 @@ class MarketImport extends Component {
                     username={this.props.username}
                     marketName={this.props.marketName}
                     id={this.props.id}
+                    updateCash={this.props.updateCash}
                 />
                 <div className="MarketImport-row">
                     <form onSubmit={this.handleSubmit}>

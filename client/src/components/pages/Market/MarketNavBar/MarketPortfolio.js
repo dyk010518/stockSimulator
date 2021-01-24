@@ -12,7 +12,9 @@ class MarketPortfolio extends Component {
   constructor(props) {
     super(props);
   }
-
+  componentDidMount(){
+    
+  }
   // required method: whatever is returned defines what
   // shows up on screen
   render() {
@@ -23,6 +25,7 @@ class MarketPortfolio extends Component {
           username={this.props.username}
           marketName={this.props.marketName}
           id={this.props.id}
+          updateCash={this.props.updateCash}
         />
         <div className="MarketPortfolio-row">
           <StockPortfolio />

@@ -24,6 +24,7 @@ class MarketDashboard extends Component {
                     username={this.props.username}
                     marketName={this.props.marketName}
                     id={this.props.id}
+                    updateCash={this.props.updateCash}
                 />
                 <Graph />
                 <div className="MarketDashboard-row">

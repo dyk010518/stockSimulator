@@ -33,6 +33,7 @@ class MarketNavBar extends Component {
   }
 
   componentDidMount() {
+    this.props.updateCash()
     get("/api/getdate", { id: this.props.id })
       .then((dateObj) => {
         if (dateObj) {
@@ -116,6 +117,7 @@ class MarketNavBar extends Component {
     post("/api/nextday", { id: this.props.id, marketName: this.props.marketName, newDate: tempDay })
       .then((dayObj) => {
         console.log([dayObj.one, dayObj.two, dayObj.three, dayObj.four]);
+        
       })
       .catch((err) => console.log(err));
   };

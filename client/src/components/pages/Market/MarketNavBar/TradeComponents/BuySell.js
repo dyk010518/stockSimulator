@@ -4,6 +4,7 @@ import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 import './BuySell.css'
 import { cold } from "react-hot-loader";
+import { get, post } from "../../../../../utilities.js"
 
 
 class BuySell extends Component {
@@ -11,21 +12,52 @@ class BuySell extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            infoList: [],
+
         })
     }
 
     componentDidMount() {
+        
         document.getElementById("seeStats").addEventListener("click", () => {
             this.updateStatus();
         });
+        document.getElementById("trade").addEventListener("click", () => {
+            this.trade();
+        });
+
     }
 
     updateStatus = () => {
-        this.state.infoList[0] = document.getElementById("stockSymbol").value;
-        this.state.infoList[1] = document.getElementById("transaction").value;
-        this.state.infoList[2] = Number(document.getElementById("quantity").value);
-        this.props.data(this.state.infoList);
+        let stockSymbol = document.getElementById("stockSymbol").value;
+        let transactionType = document.getElementById("transaction").value;
+        let quantity = Number(document.getElementById("quantity").value);
+        this.props.updateFunc(stockSymbol, transactionType, quantity);
+    }
+
+    trade = () => {
+        let stockSymbol = document.getElementById("stockSymbol").value.toUpperCase();
+        let transactionType = document.getElementById("transaction").value;
+        if (!(transactionType === "buy" || transactionType === "sell")) {
+            alert("Invalid transaction type, please try again")
+        } else {
+            let quantity = Number(document.getElementById("quantity").value);
+            if (quantity < 1) {
+                alert("You can't trade less than 1 stock.")
+            } else {
+                console.log(stockSymbol + " " + this.props.day + " " + this.props.marketNumber)
+                get("/api/getPriceData", {
+                    symbol: stockSymbol,
+                    day: this.props.day,
+                    number: this.props.marketNumber,
+                }).then((priceObj) => {
+                    if (!(priceObj.obj)) {
+                        alert("Stock not found, please try again")
+                    } else {
+                        this.props.tradeFunc(stockSymbol, quantity, priceObj.obj.stockPrice, this.props.day, transactionType)
+                    }
+                })
+            }
+        }
     }
 
     // required method: whatever is returned defines what
@@ -41,7 +73,7 @@ class BuySell extends Component {
 
                     <div className="BuySell-item">
                         <label for="symbol" className="BuySell-label">Stock Symbol:</label>
-                        <input type="text" id="stockSymbol" className="BuySell-stockSymbol"/>
+                        <input type="text" id="stockSymbol" className="BuySell-stockSymbol" />
                     </div>
 
                     <div className="BuySell-item">
@@ -54,7 +86,7 @@ class BuySell extends Component {
 
                     <div className="BuySell-item">
                         <label for="quantity" className="BuySell-label">Quantity:</label>
-                        <input type="text" id="quantity" name="quantity" className="BuySell-quantity"/>
+                        <input type="text" id="quantity" name="quantity" className="BuySell-quantity" />
                     </div>
 
                     <div className="BuySell-item">
@@ -71,7 +103,7 @@ class BuySell extends Component {
                             Trade
                         </button>
                     </div>
-                    
+
                 </div>
             </>
         );

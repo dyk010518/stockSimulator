@@ -78,3 +78,7 @@ export function dayToYear(day){
   let intDay = parseInt(day);
   return Math.ceil(intDay/250).toString()
 }
+
+export function roundPrice(price){
+  return (Math.round(parseFloat(price) * 100) / 100).toString()
+}

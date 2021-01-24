@@ -57,6 +57,22 @@ class App extends Component {
     );
   };
 
+  updateCash = () => {
+    get("/api/getCash", {id: this.state.userId}).then((userObj) => {
+      let tcash;
+      if (this.state.marketName === "One"){
+        tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
+      } else if (this.state.marketName === "Two"){
+        tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
+      } else if (this.state.marketName === "Three"){
+        tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
+      } else if (this.state.marketName === "Four"){
+        tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
+      }
+      this.setState({ cash: tcash }, () => {console.log("Cash updated")})
+    })
+  }
+
   componentDidMount() {
     get("/api/whoami").then((user) => {
       if (user._id) {
@@ -72,7 +88,7 @@ class App extends Component {
             cashFour: user.cashFour,
           },
           () => {
-            console.log("state set");
+            console.log("state set")
           }
         );
       }
@@ -131,6 +147,7 @@ class App extends Component {
             cash={this.state.cash}
             marketName={this.state.marketName}
             id={this.state.userId}
+            updateCash={this.updateCash}
           />
           <MarketPortfolio
             path="/Game/Portfolio"
@@ -138,6 +155,7 @@ class App extends Component {
             cash={this.state.cash}
             marketName={this.state.marketName}
             id={this.state.userId}
+            updateCash={this.updateCash}
           />
           <MarketResearch
             path="/Game/Research"
@@ -145,6 +163,7 @@ class App extends Component {
             cash={this.state.cash}
             marketName={this.state.marketName}
             id={this.state.userId}
+            updateCash={this.updateCash}
           />
           <MarketTrade
             path="/Game/Trade"
@@ -152,6 +171,7 @@ class App extends Component {
             cash={this.state.cash}
             marketName={this.state.marketName}
             id={this.state.userId}
+            updateCash={this.updateCash}
           />
           <MarketImport
             path="/Game/Import"
@@ -159,6 +179,7 @@ class App extends Component {
             cash={this.state.cash}
             marketName={this.state.marketName}
             id={this.state.userId}
+            updateCash={this.updateCash}
           />
           <NotFound default />
         </Router>

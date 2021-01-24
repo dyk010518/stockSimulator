@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const BoughtStocksSchema = new mongoose.Schema({
-    username: String,
+    userID: String,
     stockName: String,
-    buyPrice: String,
-    buyDate: String,
+    quantity: String,
 });
 
 // compile model from schema
