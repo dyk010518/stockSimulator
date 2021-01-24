@@ -80,7 +80,7 @@ class StockStats extends Component {
                             </button>
                             {space}Basic EPS:
                         </label>
-                        <div className="StockStats-info">{this.state.stockEPS}</div>
+                        <div className="StockStats-info">{this.props.stockEPS}</div>
                     </div>
 
                     <div className="StockStats-item">
@@ -88,7 +88,7 @@ class StockStats extends Component {
                             <button id="PEButton" class="equalbutton">
                                 <img src={info} width={"15px"} height={"15px"}/>
                             </button>
-                            {space}Price/Earning (TTM):
+                            {space}Price/Earning (TTM): 
                         </label>
                         <div className="StockStats-info">{this.state.stockPE}</div>
                     </div>
@@ -110,7 +110,7 @@ class StockStats extends Component {
                             </button>
                             {space}52-week High:
                         </label>
-                        <div className="StockStats-info">{this.state.stock52High}</div>
+                        <div className="StockStats-info">{this.props.yearHigh}</div>
                     </div>
 
                     <div className="StockStats-item">
@@ -120,7 +120,7 @@ class StockStats extends Component {
                             </button>
                             {space}52-week Low:
                         </label>
-                        <div className="StockStats-info">{this.state.stock52Low}</div>
+                        <div className="StockStats-info">{this.props.yearLow}</div>
                     </div>
                 </div>
                 
