@@ -57,6 +57,48 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.post("/insertFCFData", (req, res) => {
+  freeCashFlow.findOne({
+    stockSymbol: req.body.symbol,
+    quarter: req.body.quarter,
+    marketNumber: req.body.number,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new freeCashFlow({
+        stockSymbol: req.body.symbol,
+        quarter: req.body.quarter,
+        marketNumber: req.body.number,
+        freeCashFlow: req.body.fcf,
+      })
+      newObj.save()
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
+    }
+  })
+})
+
+router.post("/insertTRData", (req, res) => {
+  revenues.findOne({
+    stockSymbol: req.body.symbol,
+    quarter: req.body.quarter,
+    marketNumber: req.body.number,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new revenues({
+        stockSymbol: req.body.symbol,
+        quarter: req.body.quarter,
+        marketNumber: req.body.number,
+        revenue: req.body.rev,
+      })
+      newObj.save()
+      res.send({ msg: "new", obj: newObj })
+    } else {
+      res.send({ msg: "already there", obj: stockObj })
+    }
+  })
+})
+
 router.post("/insertNDData", (req, res) => {
   stockDebtEquity.findOne({
     stockSymbol: req.body.symbol,
