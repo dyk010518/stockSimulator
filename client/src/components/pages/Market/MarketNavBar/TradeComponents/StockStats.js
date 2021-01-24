@@ -51,7 +51,7 @@ class StockStats extends Component {
         return (
             <>
                 <div className="StockStats-container">
-                    <h2 className="StockStats-header">{"Stock Symbol: " + this.props.stockSymbol}</h2>
+                    <h2 className="StockStats-header">{"Stock Symbol: " + this.props.stockSymbol.toUpperCase()}</h2>
 
                     <div className="StockStats-item">
                         <label className="StockStats-label">

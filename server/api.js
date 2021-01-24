@@ -111,7 +111,14 @@ router.get("/getPriceData", (req, res) => {
     stockSymbol: req.query.symbol,
     day: req.query.day,
     marketNumber: req.query.number,
-  }).then((stockObj) => res.send(stockObj))
+  }).then((stockObj) => {
+    if(!(stockObj)){
+      res.send({obj: undefined});  
+    }else{
+      res.send({obj: stockObj})
+    }
+  })
+  
 })
 
 router.get("/deletePriceData", (req, res) => {
