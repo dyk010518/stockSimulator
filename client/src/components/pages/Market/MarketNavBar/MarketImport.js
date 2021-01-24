@@ -8,6 +8,7 @@ import Papa from "papaparse";
 import "./MarketImport.css";
 import { get, post, dayToYear, dayToMonth, dayToQuarter } from '../../../../utilities.js'
 
+const mNumber = "1"
 const names = ["CHEESE",
     "COOP",
     "STORE",
@@ -26,9 +27,10 @@ const names = ["CHEESE",
     "COMP",
     "SOFT",
     "PHONE",
+    "CAR",
     "SHIP"]
-//upload COMP next, index 15!!
-const sIndex = 14;
+
+const sIndex = 0;
 
 class MarketImport extends Component {
     // makes props available in this component
@@ -47,17 +49,19 @@ class MarketImport extends Component {
     componentDidMount() {
         document.getElementById("doanything").addEventListener("click", function () {
             console.log("pressed")
+            
 
             //upload pe ratio
+            /*
             //collect relevant stock data, put in array                       
             get('/api/getAllPriceData', {
                 symbol: names[sIndex],
-                number: "1",
+                number: mNumber,
             }).then((stockObjects) => {
                 let stageTwo = (pData) => {
                     get('/api/getAllEPSData', {
                         symbol: names[sIndex],
-                        number: "1",
+                        number: mNumber,
                     }).then((epsData) => {
                         //calculate new pe ratio (price/eps), put in object
                         let tempObj;
@@ -74,7 +78,7 @@ class MarketImport extends Component {
                             tempObj = {
                                 stockSymbol: names[sIndex],
                                 day: (i+1).toString(),
-                                marketNumber: "1",
+                                marketNumber: mNumber,
                                 stockPE: (parseInt(pData[i].stockPrice)/intEPS).toString()
                             }
                             tempArray.push(tempObj)
@@ -108,7 +112,7 @@ class MarketImport extends Component {
                 }
                 stageTwo(stockObjects)
             })
-
+            */
             
 
 
@@ -165,6 +169,209 @@ class MarketImport extends Component {
             //header: true,
             complete: (results) => {
 
+                //upload pb ratio
+                /*
+                //get index of pb ratio
+                let pbIndex;
+                for (let i=0; i<results.data.length; i++){
+                    if (results.data[i][0] === "PbRatio"){
+                        pbIndex = parseInt(i)
+                        break
+                    }
+                }
+                //get index of first 2015
+                let lastFour;
+                let beginIndex;
+                for (let i=0; i<results.data[0].length; i++){
+                    lastFour = results.data[0][i].substring(results.data[0][i].length-4)
+                    if (lastFour === "2015"){
+                        beginIndex = parseInt(i)
+                        break
+                    }
+                }
+                //create new PB objects
+                let tempObj = {};
+                let tempArray = [];
+                let pbval;
+                for (let i=0; i<125; i++){
+                    if(results.data[pbIndex][i+beginIndex]){
+                        pbval = results.data[pbIndex][i+beginIndex].toString()
+                    } else{
+                        let c = 0;
+                        while (!(results.data[pbIndex][i+beginIndex+c])){
+                            if (i+beginIndex+c == results.data[pbIndex].length-1){
+                                break
+                            } else{
+                                c = c+1
+                            }
+                        }
+                        if (results.data[pbIndex][i+beginIndex+c]){
+                            pbval = results.data[pbIndex][i+beginIndex+c].toString()
+                        } else {
+                            pbval = "No PB value for this month"
+                        }
+                    }
+                    tempObj = {
+                        stockSymbol: names[sIndex],
+                        month: (i+1).toString(),
+                        marketNumber: mNumber,
+                        stockPB: pbval,
+                    }
+                    //make post request with this object, for now just add to array
+                    tempArray.push(tempObj)
+                }
+                //post to database
+                let j=0;
+                let uploadTime;
+                let prevDay = 1;
+                let missed = 0;
+                let uploadData = () => {
+                    post('/api/insertPBData', {
+                        symbol: tempArray[j].stockSymbol,
+                        month: tempArray[j].month,
+                        number: tempArray[j].marketNumber,
+                        pb: tempArray[j].stockPB,
+                    }).then((returnedObject) => {
+                        console.log(returnedObject.msg + " " + returnedObject.obj.month + " " + returnedObject.obj.stockSymbol)
+                        if (!(parseInt(prevDay) == parseInt(returnedObject.obj.month))){
+                            console.log("ERROR ERROR ERROR MISSED VALUE")
+                            missed = missed + 1
+                        }
+                        prevDay = prevDay + 1
+                    })
+                    j = j+1;
+                    if (j==tempArray.length){
+                        clearInterval(uploadTime)
+                        console.log(missed)
+                    }
+                }
+                uploadTime = setInterval(uploadData, 35)
+                */
+
+                //upload enterprise value
+                /*
+                //get index of enterprise value
+                let evIndex;
+                for (let i=0; i<results.data.length; i++){
+                    if (results.data[i][0] === "EnterpriseValue"){
+                        evIndex = parseInt(i)
+                        break
+                    }
+                }
+                //get index of first 2015
+                let lastFour;
+                let beginIndex;
+                for (let i=0; i<results.data[0].length; i++){
+                    lastFour = results.data[0][i].substring(results.data[0][i].length-4)
+                    if (lastFour === "2015"){
+                        beginIndex = parseInt(i)
+                        break
+                    }
+                }
+                //create new EV objects
+                let tempObj = {};
+                let tempArray = [];
+                for (let i=0; i<125; i++){
+                    tempObj = {
+                        stockSymbol: names[sIndex],
+                        month: (i+1).toString(),
+                        marketNumber: mNumber,
+                        stockEnterprise: results.data[evIndex][i+beginIndex].toString(),
+                    }
+                    //make post request with this object, for now just add to array
+                    tempArray.push(tempObj)
+                }
+                //post to database
+                let j=0;
+                let uploadTime;
+                let prevDay = 1;
+                let missed = 0;
+                let uploadData = () => {
+                    post('/api/insertEVData', {
+                        symbol: tempArray[j].stockSymbol,
+                        month: tempArray[j].month,
+                        number: tempArray[j].marketNumber,
+                        epv: tempArray[j].stockEnterprise,
+                    }).then((returnedObject) => {
+                        console.log(returnedObject.msg + " " + returnedObject.obj.month + " " + returnedObject.obj.stockSymbol)
+                        if (!(parseInt(prevDay) == parseInt(returnedObject.obj.month))){
+                            console.log("ERROR ERROR ERROR MISSED VALUE")
+                            missed = missed + 1
+                        }
+                        prevDay = prevDay + 1
+                    })
+                    j = j+1;
+                    if (j==tempArray.length){
+                        clearInterval(uploadTime)
+                        console.log(missed)
+                    }
+                }
+                uploadTime = setInterval(uploadData, 35)
+                */
+                
+                //upload market cap
+                /*
+                //get index of market cap
+                let mcIndex;
+                for (let i=0; i<results.data.length; i++){
+                    if (results.data[i][0] === "MarketCap"){
+                        mcIndex = parseInt(i)
+                        break
+                    }
+                }
+                
+                //get index of first 2015
+                let lastFour;
+                let beginIndex;
+                for (let i=0; i<results.data[0].length; i++){
+                    lastFour = results.data[0][i].substring(results.data[0][i].length-4)
+                    if (lastFour === "2015"){
+                        beginIndex = parseInt(i)
+                        break
+                    }
+                }
+                
+                //create new marketcap objects
+                let tempObj = {};
+                let tempArray = [];
+                for (let i=0; i<125; i++){
+                    tempObj = {
+                        stockSymbol: names[sIndex],
+                        month: (i+1).toString(),
+                        marketNumber: mNumber,
+                        stockMarketCap: results.data[mcIndex][i+beginIndex].toString(),
+                    }
+                    //make post request with this object, for now just add to array
+                    tempArray.push(tempObj)
+                }
+                
+                //post to database
+                let j=0;
+                let uploadTime;
+                let prevDay = 1;
+                let missed = 0;
+                let uploadData = () => {
+                    post('/api/insertMCData', {
+                        symbol: tempArray[j].stockSymbol,
+                        month: tempArray[j].month,
+                        number: tempArray[j].marketNumber,
+                        cap: tempArray[j].stockMarketCap,
+                    }).then((returnedObject) => {
+                        console.log(returnedObject.msg + " " + returnedObject.obj.month + " " + returnedObject.obj.stockSymbol)
+                        if (!(parseInt(prevDay) == parseInt(returnedObject.obj.month))){
+                            console.log("ERROR ERROR ERROR MISSED VALUE")
+                            missed = missed + 1
+                        }
+                        prevDay = prevDay + 1
+                    })
+                    j = j+1;
+                    if (j==tempArray.length){
+                        clearInterval(uploadTime)
+                        console.log(missed)
+                    }
+                }
+                uploadTime = setInterval(uploadData, 35)
+                */
 
                 /*
                 //upload eps
@@ -191,9 +398,9 @@ class MarketImport extends Component {
                 let tempArray = [];
                 for (let i=0; i<10; i++){
                     tempObj = {
-                        stockSymbol: "SHIP",
+                        stockSymbol: "CAR",
                         year: (i+1).toString(),
-                        marketNumber: "1",
+                        marketNumber: mNumber,
                         stockEPS: results.data[epsIndex][i+beginIndex].toString(),
                     }
                     //make post request with this object, for now just add to array
@@ -240,7 +447,7 @@ class MarketImport extends Component {
                         stockSymbol: "CAR",
                         stockPrice: results.data[i].Open,
                         day: (i+1).toString(),
-                        marketNumber: "1",
+                        marketNumber: mNumber,
                     }
                     if (parseInt(results.data[i].Open) > max){
                         max = results.data[i].Open

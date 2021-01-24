@@ -56,6 +56,79 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.get("/deleteErrorEnterprise", (req, res) => {
+  /*
+  stockEnterprise.deleteMany({
+    stockSymbol: "CHEESE"
+  }).then((tempObject) => {
+    console.log("deleted that shit")
+  })
+  */
+})
+
+router.post("/insertPBData", (req, res) => {
+  stockPB.findOne({
+    stockSymbol: req.body.symbol,
+    month: req.body.month,
+    marketNumber: req.body.number,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new stockPB({
+        stockSymbol: req.body.symbol,
+        month: req.body.month,
+        marketNumber: req.body.number,
+        stockPB: req.body.pb,
+      })
+      newObj.save()
+      res.send({msg: "new", obj: newObj})
+    } else{
+      res.send({msg: "already there", obj: stockObj})
+    }
+  })
+})
+
+router.post("/insertEVData", (req, res) => {
+  stockEnterprise.findOne({
+    stockSymbol: req.body.symbol,
+    month: req.body.month,
+    marketNumber: req.body.number,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new stockEnterprise({
+        stockSymbol: req.body.symbol,
+        month: req.body.month,
+        marketNumber: req.body.number,
+        stockEnterprise: req.body.epv,
+      })
+      newObj.save()
+      res.send({msg: "new", obj: newObj})
+    } else{
+      res.send({msg: "already there", obj: stockObj})
+    }
+  })
+})
+
+router.post("/insertMCData", (req, res) => {
+  stockMarketCap.findOne({
+    stockSymbol: req.body.symbol,
+    month: req.body.month,
+    marketNumber: req.body.number,
+  }).then((stockObj) => {
+    if (!(stockObj)) {
+      let newObj = new stockMarketCap({
+        stockSymbol: req.body.symbol,
+        month: req.body.month,
+        marketNumber: req.body.number,
+        stockMarketCap: req.body.cap,
+      })
+      newObj.save()
+      res.send({msg: "new", obj: newObj})
+    } else{
+      res.send({msg: "already there", obj: stockObj})
+    }
+  })
+})
+
 router.post("/insertPEData", (req, res) => {
   stockPE.findOne({
     stockSymbol: req.body.symbol,

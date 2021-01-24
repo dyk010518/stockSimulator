@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const PBSchema = new mongoose.Schema({
     stockSymbol: String,
-    day: String,
+    month: String,
     marketNumber: String,
     stockPB: String,
 });
