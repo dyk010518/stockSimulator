@@ -176,8 +176,57 @@ class MarketImport extends Component {
             //header: true,
             complete: (results) => {
 
-                
-
+                //upload total revenue
+                //get index of tr row
+                let ndIndex;
+                for (let i=0; i<results.data.length; i++){
+                    if (results.data[i][0] === "TotalRevenue"){
+                        ndIndex = parseInt(i)
+                        break
+                    }
+                }
+                //get index of 2015
+                let lastFour;
+                let beginIndex;
+                for (let i=0; i<results.data[0].length; i++){
+                    lastFour = results.data[0][i].substring(results.data[0][i].length-4)
+                    if (lastFour === "2015"){
+                        beginIndex = parseInt(i)
+                        break
+                    }
+                }
+                //create json objects
+                let tempObj = {};
+                let tempArray = [];
+                let ndval;
+                for (let i=0; i<42; i++){
+                    if(results.data[ndIndex][i+beginIndex]){
+                        ndval = results.data[ndIndex][i+beginIndex].toString()
+                    } else{
+                        let c = 0;
+                        while (!(results.data[ndIndex][i+beginIndex+c])){
+                            if (i+beginIndex+c == results.data[ndIndex].length-1){
+                                break
+                            } else{
+                                c = c+1
+                            }
+                        }
+                        if (results.data[ndIndex][i+beginIndex+c]){
+                            ndval = results.data[ndIndex][i+beginIndex+c].toString()
+                        } else {
+                            ndval = "No net debt value for this quarter"
+                        }
+                    }
+                    tempObj = {
+                        stockSymbol: names[sIndex],
+                        quarter: (i+1).toString(),
+                        marketNumber: mNumber,
+                        revenue: ndval.toString(),
+                    }
+                    //make post request with this object, for now just add to array
+                    tempArray.push(tempObj)
+                }
+                console.log(tempArray)
 
                 //upload net debt
                 /*

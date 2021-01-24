@@ -21,9 +21,10 @@ const stockEPS = require("./models/stockEPS");
 const stockMarketCap = require("./models/stockMarketCap");
 const stockPB = require("./models/stockPB");
 const stockPE = require("./models/stockPE");
-const stockPFCF = require("./models/stockPFCF");
 const stockPrice = require("./models/stockPrice");
-const stockPS = require("./models/stockPS");
+const revenues = require("./models/revenues.js");
+const shares = require("./models/shares.js");
+const freeCashFlow = require("./models/freecashflow.js");
 
 // import authentication library
 const auth = require("./auth");
