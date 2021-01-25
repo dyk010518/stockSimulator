@@ -13,9 +13,7 @@ class AccountDetails extends Component {
 
     state = {  
         stockSymbol: "PFE",
-        totalValueBefore: 10000.00,
-        totalValueAfter: 10000.00,
-        cashBefore: 10000.00,
+        totalValue: this.props.totalValue,
         cashAfter: 6000.00,
         sharesBefore:0,
         sharesAfter:100,
@@ -35,11 +33,11 @@ class AccountDetails extends Component {
                         <h2 className="AccountDetails-before">Account Details (Before):</h2>
                         <div className="AccountDetails-item">
                             <label className="AccountDetails-label">Total Account Value:</label>
-                            <div className="AccountDetails-info">{this.props.totalValueBefore}</div>
+                            <div className="AccountDetails-info">{this.state.totalValue}</div>
                         </div>
                         <div className="AccountDetails-item">
                             <label className="AccountDetails-label">Cash:</label>
-                            <div className="AccountDetails-info">{this.state.cashBefore}</div>
+                            <div className="AccountDetails-info">{this.props.cash}</div>
                         </div>
                         <div className="AccountDetails-item">
                             <label className="AccountDetails-label">{"Shares of "+this.state.stockSymbol+":"}</label>
@@ -61,7 +59,7 @@ class AccountDetails extends Component {
                         <h2 className="AccountDetails-after">Account Details (After):</h2>
                         <div className="AccountDetails-item">
                             <label className="AccountDetails-label">Total Account Value:</label>
-                            <div className="AccountDetails-info">{this.state.totalValueAfter}</div>
+                            <div className="AccountDetails-info">{this.state.totalValue}</div>
                         </div>
                         <div className="AccountDetails-item">
                             <label className="AccountDetails-label">Cash:</label>

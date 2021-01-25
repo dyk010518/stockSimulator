@@ -265,7 +265,13 @@ class MarketTrade extends Component {
               marketCap={this.state.marketCap}
             />
           </div>
-          <AccountDetails totalValueBefore={this.props.totalValue}/>
+          <AccountDetails 
+            totalValue={this.props.totalValue}
+            cash={this.props.cash}
+            username={this.props.username}
+            marketName={this.props.marketName}
+            id={this.props.id}
+          />
         </div>
       </>
     );
