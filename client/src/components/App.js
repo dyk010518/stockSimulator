@@ -173,6 +173,7 @@ class App extends Component {
             id={this.state.userId}
             updateCash={this.updateCash}
           />
+          {/*
           <MarketImport
             path="/Game/Import"
             username={this.state.username}
@@ -181,6 +182,7 @@ class App extends Component {
             id={this.state.userId}
             updateCash={this.updateCash}
           />
+          */}
           <NotFound default />
         </Router>
       </>
