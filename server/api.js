@@ -78,13 +78,13 @@ router.post("/updateRA", (req, res) => {
       if (tempArray[tempArray.length-1] === ""){
         tempArray = tempArray.slice(0,tempArray.length-1)
       }
-      if (tempArray.length > 3){
+      if (tempArray.length > 2){
         tempArray = tempArray.slice(1)
       }
       if (tpArray[tpArray.length-1] === ""){
         tpArray = tpArray.slice(0,tpArray.length-1)
       }
-      if (tpArray.length > 3){
+      if (tpArray.length > 2){
         tpArray = tpArray.slice(1)
       }
       tpArray.push(tempPrice.toString())
