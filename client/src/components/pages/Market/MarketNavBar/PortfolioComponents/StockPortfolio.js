@@ -17,26 +17,66 @@ class StockPortfolio extends Component {
       accountTotal: undefined,
       cashPercentage: undefined,
     },
-    stocks: [
-      {
-        stockSymbol: "PFE",
-        lastPrice: 10000.0,
-        todayDollarChange: 10000.0,
-        todayPercentChange: 56.5,
-        totalDollarChange: 112300.0,
-        totalPercentChange: 156.5,
-        currentValue: 12459071,
-        accountPercent: 47,
-        quantity: 1208,
-        costBasisPS: 1234,
-        costBasis: 1084,
-      },
-    ],
+    stocks: [],
+    //   {
+    //   //   stockSymbol: "PFE",
+    //   //   lastPrice: 10000.0,
+    //   //   todayDollarChange: 10000.0,
+    //   //   todayPercentChange: 56.5,
+    //   //   totalDollarChange: 112300.0,
+    //   //   totalPercentChange: 156.5,
+    //   //   currentValue: 12459071,
+    //   //   accountPercent: 47,
+    //   //   quantity: 1208,
+    //   //   costBasisPS: 1234,
+    //   //   costBasis: 1084,
+    //   // },
+
+    //   // {
+    //   //   stockSymbol: "PFE",
+    //   //   lastPrice: 10000.0,
+    //   //   todayDollarChange: 10000.0,
+    //   //   todayPercentChange: 56.5,
+    //   //   totalDollarChange: 112300.0,
+    //   //   totalPercentChange: 156.5,
+    //   //   currentValue: 12459071,
+    //   //   accountPercent: 47,
+    //   //   quantity: 1208,
+    //   //   costBasisPS: 1234,
+    //   //   costBasis: 1084,
+    //   },
+    // ],
   };
 
   componentDidMount = () => {
     this.updateUserInfo();
-    this.updateUserPositions();
+    if(this.props.id){
+      let theStocks = [];
+      let theObject = {};
+      get('/api/boughtstocks', { id: this.props.id}).then((boughtStockObjs)=>{
+        for(let i=0; i<boughtStockObjs.length; i++){
+          theObject = {
+            stockSymbol: boughtStockObjs[i].stockName,
+            lastPrice: 10000.0,
+            todayDollarChange: 10000.0,
+            todayPercentChange: 56.5,
+            totalDollarChange: 112300.0,
+            totalPercentChange: 156.5,
+            currentValue: 12459071,
+            accountPercent: 47,
+            quantity: 1208,
+            costBasisPS: 1234,
+            costBasis: 1084,
+          }
+          
+          theStocks.push(theObject);
+        }
+        this.setState({
+          stock: theStocks,
+        }, () => {console.log(this.state.stock)})
+      });
+    }
+    //this.updateUserPositions();
   }
 
   updateUserInfo = () => {
@@ -54,9 +94,30 @@ class StockPortfolio extends Component {
 
   updateUserPositions = () => {
     if(this.props.id){
-      // get('/api/boughtstocks', { id: this.props.id}).then((boughtStockObjs)=>{
-      //   console.log(boughtStockObjs[0])
-      // });
+      let theStocks = [];
+      let theObject = {};
+      get('/api/boughtstocks', { id: this.props.id}).then((boughtStockObjs)=>{
+        for(let i=0; i<boughtStockObjs.length; i++){
+          theObject = {
+            stockSymbol: boughtStockObjs[i].stockName,
+            lastPrice: 10000.0,
+            todayDollarChange: 10000.0,
+            todayPercentChange: 56.5,
+            totalDollarChange: 112300.0,
+            totalPercentChange: 156.5,
+            currentValue: 12459071,
+            accountPercent: 47,
+            quantity: 1208,
+            costBasisPS: 1234,
+            costBasis: 1084,
+          }
+          
+          theStocks.push(theObject);
+        }
+        this.setState({
+          stock: theStocks,
+        }, () => {console.log(this.state.stock)})
+      });
     }
   }
 
@@ -103,7 +164,7 @@ class StockPortfolio extends Component {
             <tbody>
               {this.state.stocks.map((stock) => (
                 <tr>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol}</td>
                   <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
                   <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
                   <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
