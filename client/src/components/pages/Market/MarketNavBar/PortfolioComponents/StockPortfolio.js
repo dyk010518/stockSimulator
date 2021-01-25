@@ -31,42 +31,351 @@ class StockPortfolio extends Component {
   // required method: whatever is returned defines what
   // shows up on screen
   render() {
+    let space = " "
     return (
       <>
         <div className="StockPortfolio-container">
           <h2 className="StockPortfolio-header"> Stock Portfolio </h2>
-          <thead>
-            <tr>
-              <th className="StockPortfolio-resultDesctiption"> Symbol</th>
-              <th className="StockPortfolio-resultDesctiption"> Last Price</th>
-              <th className="StockPortfolio-resultDesctiption"> $ Today's Gain/Loss</th>
-              <th className="StockPortfolio-resultDesctiption"> % Today's Gain/Loss</th>
-              <th className="StockPortfolio-resultDesctiption"> $ Total Gain/Loss</th>
-              <th className="StockPortfolio-resultDesctiption"> % Total Gain/Loss</th>
-              <th className="StockPortfolio-resultDesctiption"> Current Value</th>
-              <th className="StockPortfolio-resultDesctiption"> % of Account</th>
-              <th className="StockPortfolio-resultDesctiption"> Quantity</th>
-              <th className="StockPortfolio-resultDesctiption"> Cost Basis Per Share</th>
-              <th className="StockPortfolio-resultDesctiption"> Cost Basis</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.stocks.map((stock) => (
+          <div className="StockPortfolio-results">
+            <thead>
               <tr>
-                <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
-                <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                <th className="StockPortfolio-resultDesctiption"> Sybmol</th>
+                <th className="StockPortfolio-resultDesctiption"> Last Price</th>
+                <th className="StockPortfolio-resultDesctiption"> $ Today's Gain/Loss</th>
+                <th className="StockPortfolio-resultDesctiption"> % Today's Gain/Loss</th>
+                <th className="StockPortfolio-resultDesctiption"> $ Total Gain/Loss</th>
+                <th className="StockPortfolio-resultDesctiption"> % Total Gain/Loss</th>
+                <th className="StockPortfolio-resultDesctiption"> Current Value</th>
+                <th className="StockPortfolio-resultDesctiption"> % of Account</th>
+                <th className="StockPortfolio-resultDesctiption"> Quantity</th>
+                <th className="StockPortfolio-resultDesctiption"> Cost Basis Per Share</th>
+                <th className="StockPortfolio-resultDesctiption"> Cost Basis</th>
               </tr>
-            ))}
-          </tbody>
+            </thead>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+            <tbody>
+              {this.state.stocks.map((stock) => (
+                <tr>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                </tr>
+              ))}
+            </tbody>
+          </div>
         </div>
       </>
     );

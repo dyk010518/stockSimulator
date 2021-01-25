@@ -7,7 +7,7 @@
 	width: 360px;
 	height: 900px;
 	border-radius: 5%;
-	margin-left: 40px;
+	margin-right: 30px;
 }
 
 .StockWatchlist-header {
@@ -47,4 +47,32 @@
 
 .StockWatchlist-add {
     height: 30px;
+}
+
+@media (max-width: 1450px){
+	.StockWatchlist-label {
+		font-size: 12pt;
+	}
+}
+
+@media (max-width: 1300px){
+	.StockWatchlist-label {
+		font-size: 10pt;
+	}
+}
+
+
+@media (max-height: 1050px){
+	.StockWatchlist-container {
+		height: 800px;
+	}
+	.StockWatchlist-label {
+		font-size: 12pt;
+	}
+}
+
+@media (max-height: 930px){
+	.StockWatchlist-container {
+		height: 700px;
+	}
 }

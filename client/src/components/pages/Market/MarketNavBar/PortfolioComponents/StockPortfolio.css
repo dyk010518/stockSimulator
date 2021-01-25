@@ -1,14 +1,15 @@
 .StockPortfolio-container {
-	/*display: flex;*/
+	/* display: flex; */
 	display: table-header-group;
-	/*flex-direction: column;*/
+	/* flex-direction: column; */
 	color: white;
 	background-color: #282c34;
-	/*width: 67%;*/
+	width: 1300px;
 	height: 900px;
 	border-radius: 3%;
 	margin-top: 10px;
-	margin-left: 100px;
+	margin-left: 30px;
+	justify-content: center;
 }
 
 .StockPortfolio-header {
@@ -17,12 +18,69 @@
 
 .StockPortfolio-resultHeader {
 	/*width: 8%;*/
-	/*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;*/
+	/* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; */
 	margin: 16px;
 }
 
 .StockPortfolio-resultDesctiption {
+	font-size: large;
 	font-weight: bold;
 	border: 1px solid white;
 	text-align: left;
 }
+
+.StockPortfolio-results{
+	margin-left: 20px;
+	margin-right: 20px;
+	text-align: center;
+}
+
+@media (max-width: 1700px){
+	.StockPortfolio-resultDesctiption {
+		font-size: 12pt;
+	}
+}
+
+@media (max-width: 1450px){
+	.StockPortfolio-resultDesctiption {
+		font-size: 11pt;
+	}
+}
+
+@media (max-width: 1300px){
+	.StockPortfolio-resultDesctiption {
+		font-size: 10pt;
+	}
+}
+
+@media (max-width: 1200px){
+	.StockPortfolio-resultDesctiption {
+		font-size: 8pt;
+	}
+}
+
+
+@media (max-width: 1100px){
+	.StockPortfolio-resultDesctiption {
+		font-size: 7pt;
+	}
+}
+
+
+
+
+@media (max-height: 1050px){
+	.StockPortfolio-container {
+		height: 800px;
+	}
+	
+}
+
+
+@media (max-height: 930px){
+	.StockPortfolio-container {
+		height: 700px;
+	}
+
+}
+
