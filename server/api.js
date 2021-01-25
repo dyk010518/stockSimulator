@@ -235,9 +235,13 @@ router.post("/sellStock", (req, res) => {
 
       let tempCostBasis = ((oldPrice*oldQuantity)-(newPrice*newQuantity))/totalQuantity;
 
-      stockObj.costBasis = (Math.round(parseFloat(tempCostBasis) * 100) / 100).toString();
+      
       stockObj.quantity = (parseInt(stockObj.quantity) - parseInt(req.body.amt)).toString()
-
+      if (parseInt(stockObj.quantity)===0){
+        stockObj.costBasis = (0).toString()
+      } else {
+        stockObj.costBasis = (Math.round(parseFloat(tempCostBasis) * 100) / 100).toString();
+      }
       stockObj.save()
       res.send(stockObj)
     })

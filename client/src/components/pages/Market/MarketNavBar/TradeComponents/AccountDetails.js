@@ -35,7 +35,7 @@ class AccountDetails extends Component {
                         <h2 className="AccountDetails-before">Account Details (Before):</h2>
                         <div className="AccountDetails-item">
                             <label className="AccountDetails-label">Total Account Value:</label>
-                            <div className="AccountDetails-info">{this.state.totalValueBefore}</div>
+                            <div className="AccountDetails-info">{this.props.totalValueBefore}</div>
                         </div>
                         <div className="AccountDetails-item">
                             <label className="AccountDetails-label">Cash:</label>

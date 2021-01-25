@@ -14,7 +14,7 @@ import "../utilities.css";
 
 import { socket } from "../client-socket.js";
 
-import { get, post } from "../utilities.js";
+import { get, post, roundPrice } from "../utilities.js";
 
 
 
@@ -117,11 +117,14 @@ class App extends Component {
       let totalStocks = 0;
       get('/api/boughtstocks', { id: this.state.userId}).then((boughtStockObjs)=>{
         for(let i=0; i < boughtStockObjs.length; i++){
+          if (boughtStockObjs[i].quantity === 0){
+            continue
+          }
           totalStocks += parseFloat(boughtStockObjs[i].quantity)*parseFloat(boughtStockObjs[i].costBasis);
         }
         totalStocks += parseFloat(this.state.cash);
         this.setState({
-          totalValue: totalStocks.toString(),
+          totalValue: roundPrice(totalStocks).toString(),
         }, () => {console.log("total value and cash updated")})
       });
     }
