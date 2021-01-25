@@ -177,6 +177,8 @@ class MarketImport extends Component {
             //header: true,
             complete: (results) => {
 
+                /*
+
                 //upload free cash flow
                 //get index of tr row
                 let ndIndex;
@@ -253,6 +255,8 @@ class MarketImport extends Component {
                     }
                 }
                 uploadTime = setInterval(uploadData, 35)
+
+                */
 
                 //upload total revenue
                 /*
@@ -335,7 +339,7 @@ class MarketImport extends Component {
                 uploadTime = setInterval(uploadData, 35)
                 */
 
-
+                /*
                 let j=0;
                 let uploadTime;
                 let prevDay = 1;
