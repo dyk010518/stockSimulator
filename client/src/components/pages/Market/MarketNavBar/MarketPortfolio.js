@@ -22,18 +22,22 @@ class MarketPortfolio extends Component {
       <>
         <MarketNavBar
           cash={this.props.cash}
+          totalValue={this.props.totalValue}
           username={this.props.username}
           marketName={this.props.marketName}
           id={this.props.id}
           updateCash={this.props.updateCash}
+          updateTotalValue={this.props.updateTotalValue}
         />
         <div className="MarketPortfolio-row">
           <StockPortfolio 
             cash={this.props.cash}
+            totalValue={this.props.totalValue}
             username={this.props.username}
             marketName={this.props.marketName}
             id={this.props.id}
             updateCash={this.props.updateCash}
+            updateTotalValue={this.props.updateTotalValue}
           />
           <StockWatchlist />
         </div>

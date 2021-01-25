@@ -29,6 +29,7 @@ class App extends Component {
       userId: undefined,
       googleid: undefined,
       marketName: undefined,
+      totalValue: undefined,
       username: undefined,
       cashOne: undefined,
       cashTwo: undefined,
@@ -92,6 +93,7 @@ class App extends Component {
     );
   };
 
+  //update cash & total value
   updateCash = () => {
     if (this.state.userId){
       get("/api/getCash", {id: this.state.userId}).then((userObj) => {
@@ -105,8 +107,23 @@ class App extends Component {
         } else if (this.state.marketName === "Four"){
           tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
         }
-        this.setState({ cash: tcash }, () => {console.log("Cash updated")})
+        this.setState({ cash: tcash }, () => {updateTotalValue()})
       })
+    }
+  }
+
+  updateTotalValue = () => {
+    if(this.state.userId){
+      let totalStocks = 0;
+      get('/api/boughtstocks', { id: this.state.userId}).then((boughtStockObjs)=>{
+        for(let i=0; i < boughtStockObjs.length; i++){
+          totalStocks += parseFloat(boughtStockObjs[i].quantity)*parseFloat(boughtStockObjs[i].costBasis);
+        }
+        totalStocks += parseFloat(this.state.cash);
+        this.setState({
+          totalValue: totalStocks.toString(),
+        }, () => {console.log("total value and cash updated")})
+      });
     }
   }
 
@@ -190,6 +207,7 @@ class App extends Component {
             path="/Game/Portfolio"
             username={this.state.username}
             cash={this.state.cash}
+            totalValue={this.state.totalValue}
             marketName={this.state.marketName}
             id={this.state.userId}
             updateCash={this.updateCash}
@@ -207,6 +225,7 @@ class App extends Component {
             path="/Game/Trade"
             username={this.state.username}
             cash={this.state.cash}
+            totalValue={this.state.totalValue}
             marketName={this.state.marketName}
             id={this.state.userId}
             updateCash={this.updateCash}
