@@ -611,7 +611,7 @@ router.get("/getRA", (req, res) => {
 
 //get all boughtstocks
 router.get("/boughtstocks", (req, res) => {
-  Boughtstocks.findOne({ userID: req.query.id }).then((boughtStockObjs) => {
+  Boughtstocks.find({ userID: req.query.id }).then((boughtStockObjs) => {
     res.send(boughtStockObjs);
   });
 });
