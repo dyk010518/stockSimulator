@@ -107,7 +107,7 @@ class App extends Component {
         } else if (this.state.marketName === "Four"){
           tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
         }
-        this.setState({ cash: tcash }, () => {updateTotalValue()})
+        this.setState({ cash: tcash }, () => {this.updateTotalValue()})
       })
     }
   }

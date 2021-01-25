@@ -60,7 +60,7 @@ class AccountDetails extends Component {
                     <div className="AccountDetails-afterContainer">
                         <h2 className="AccountDetails-after">Account Details (After):</h2>
                         <div className="AccountDetails-item">
-                            <label className="AccountDetails-label">Total Value:</label>
+                            <label className="AccountDetails-label">Total Account Value:</label>
                             <div className="AccountDetails-info">{this.state.totalValueAfter}</div>
                         </div>
                         <div className="AccountDetails-item">

@@ -110,7 +110,7 @@ class MarketTrade extends Component {
                 number: this.state.marketNumber
               }).then((EPSObj) => {
                 //make more api calls here
-
+                
                 //set all variables at once or else will lag
                 this.setState({
                   stockEPS: EPSObj.stockEPS,
