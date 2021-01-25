@@ -15,6 +15,7 @@ class StockPortfolio extends Component {
     userCash: {
       cashValue: undefined,
       accountTotal: undefined,
+      cashPercentage: undefined,
     },
     stocks: [
       {
@@ -39,11 +40,14 @@ class StockPortfolio extends Component {
   }
 
   updateUserInfo = () => {
-    this.props.updateCash();
+    let cashPercentages = (parseFloat(this.props.cash)/parseFloat(this.props.totalValue));
+    cashPercentages = (Math.round(parseFloat(cashPercentages) * 10000) / 100).toString();
+    
     this.setState({
       userCash: {
         cashValue: this.props.cash,
-        accountTotal: this.props.accountTotal,
+        accountTotal: this.props.totalValue,
+        cashPercentage: cashPercentages,
       }
     })
   }
@@ -90,7 +94,7 @@ class StockPortfolio extends Component {
                   <td className="StockPortfolio-resultDesctiption">  </td>
                   <td className="StockPortfolio-resultDesctiption">  </td>
                   <td className="StockPortfolio-resultDesctiption"> {this.state.userCash.cashValue} </td>
-                  <td className="StockPortfolio-resultDesctiption">  </td>
+                  <td className="StockPortfolio-resultDesctiption"> {this.state.userCash.cashPercentage + "%"}</td>
                   <td className="StockPortfolio-resultDesctiption">  </td>
                   <td className="StockPortfolio-resultDesctiption">  </td>
                   <td className="StockPortfolio-resultDesctiption">  </td>
