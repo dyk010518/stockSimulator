@@ -35,23 +35,35 @@ class MarketNavBar extends Component {
   }
 
   componentDidMount() {
-    this.props.updateCash()
-    get("/api/getdate", { id: this.props.id })
-      .then((dateObj) => {
-        if (dateObj) {
-          this.setState(
-            {
-              dayOne: dateObj.one,
-              dayTwo: dateObj.two,
-              dayThree: dateObj.three,
-              dayFour: dateObj.four,
-              exist: true,
-            },
-            () => {
-              console.log("market dates received");
-            }
-          );
-        } else {
+    if (this.props.id) {
+      this.props.updateCash()
+      get("/api/getdate", { id: this.props.id })
+        .then((dateObj) => {
+          if (dateObj) {
+            this.setState(
+              {
+                dayOne: dateObj.one,
+                dayTwo: dateObj.two,
+                dayThree: dateObj.three,
+                dayFour: dateObj.four,
+                exist: true,
+              },
+              () => {
+                console.log("market dates received");
+              }
+            );
+          } else {
+            this.setState(
+              {
+                exist: false,
+              },
+              () => {
+                console.log("not existent");
+              }
+            );
+          }
+        })
+        .catch((err) => {
           this.setState(
             {
               exist: false,
@@ -60,21 +72,11 @@ class MarketNavBar extends Component {
               console.log("not existent");
             }
           );
-        }
-      })
-      .catch((err) => {
-        this.setState(
-          {
-            exist: false,
-          },
-          () => {
-            console.log("not existent");
-          }
-        );
+        });
+      document.getElementById("nextDay").addEventListener("click", () => {
+        this.goToNextDay();
       });
-    document.getElementById("nextDay").addEventListener("click", () => {
-      this.goToNextDay();
-    });
+    }
   }
 
   goToNextDay = () => {
@@ -86,7 +88,7 @@ class MarketNavBar extends Component {
         {
           dayOne: tempDay,
         },
-        () => {}
+        () => { }
       );
     } else if (this.props.marketName === "Two") {
       tempDay = parseInt(this.state.dayTwo) + 1;
@@ -95,7 +97,7 @@ class MarketNavBar extends Component {
         {
           dayTwo: tempDay,
         },
-        () => {}
+        () => { }
       );
     } else if (this.props.marketName === "Three") {
       tempDay = parseInt(this.state.dayThree) + 1;
@@ -104,7 +106,7 @@ class MarketNavBar extends Component {
         {
           dayThree: tempDay,
         },
-        () => {}
+        () => { }
       );
     } else if (this.props.marketName === "Four") {
       tempDay = parseInt(this.state.dayFour) + 1;
@@ -113,13 +115,13 @@ class MarketNavBar extends Component {
         {
           dayFour: tempDay,
         },
-        () => {}
+        () => { }
       );
     }
     post("/api/nextday", { id: this.props.id, marketName: this.props.marketName, newDate: tempDay })
       .then((dayObj) => {
         console.log([dayObj.one, dayObj.two, dayObj.three, dayObj.four]);
-        
+
       })
       .catch((err) => console.log(err));
   };
@@ -139,7 +141,7 @@ class MarketNavBar extends Component {
     } else if (this.props.marketName === "Four") {
       day = this.state.dayFour;
     }
-    if (!this.state.exist) {
+    if (!this.props.id) {
       alert("Please Login to Play Simple Stock Simulator");
       return <Redirect to={"/"} noThrow />;
     }
@@ -159,18 +161,18 @@ class MarketNavBar extends Component {
 
         <header className="MNavBar-header2">
           <div className="allButtons">
-              {routes.map((route, index, array) => (
-                <>
-                  <div className="section">
-                    <Link to={route.link} className="rm_decor">
-                      <button className="top-align">{route.text}</button>
-                    </Link>
-                  </div>
-                  <div className="bar">{index < routes.length - 1 ? bar : null}</div>
-                </>
-              ))}
-            </div>
-            <div className="nextContainer">
+            {routes.map((route, index, array) => (
+              <>
+                <div className="section">
+                  <Link to={route.link} className="rm_decor">
+                    <button className="top-align">{route.text}</button>
+                  </Link>
+                </div>
+                <div className="bar">{index < routes.length - 1 ? bar : null}</div>
+              </>
+            ))}
+          </div>
+          <div className="nextContainer">
             <button id="nextDay" className="nextButton">
               {nextButton}
             </button>
