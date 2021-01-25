@@ -28,7 +28,13 @@ class MarketPortfolio extends Component {
           updateCash={this.props.updateCash}
         />
         <div className="MarketPortfolio-row">
-          <StockPortfolio />
+          <StockPortfolio 
+            cash={this.props.cash}
+            username={this.props.username}
+            marketName={this.props.marketName}
+            id={this.props.id}
+            updateCash={this.props.updateCash}
+          />
           <StockWatchlist />
         </div>
       </>
