@@ -64,7 +64,7 @@ class StockStats extends Component {
                             </button>
                             {space}Market Capitalization:
                         </label>
-                        <div className="StockStats-info">{this.props.stockMarketCap}</div>
+                        <div className="StockStats-info">{this.props.marketCap}</div>
                     </div>
 
                     <div className="StockStats-item">

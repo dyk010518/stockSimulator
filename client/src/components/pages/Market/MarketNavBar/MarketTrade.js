@@ -25,6 +25,8 @@ class MarketTrade extends Component {
       yearHigh: "",
       yearLow: "",
       stockEPS: "",
+      stockPE: "",
+      marketCap: "",
       totalCost: undefined,
       buttonOff: false,
     });
@@ -44,7 +46,7 @@ class MarketTrade extends Component {
     this.setState({
       marketNumber: theMarket,
     })
-    if (this.props.id){
+    if (this.props.id) {
       get("/api/getdate", { id: this.props.id }).then((dateObj) => {
         let tempDay;
         if (this.props.marketName === "One") {
@@ -59,7 +61,7 @@ class MarketTrade extends Component {
         this.setState({
           stockDay: tempDay,
         }, () => {
-  
+
         })
       })
     }
@@ -110,16 +112,29 @@ class MarketTrade extends Component {
                 number: this.state.marketNumber
               }).then((EPSObj) => {
                 //make more api calls here
-                
-                //set all variables at once or else will lag
-                this.setState({
-                  stockEPS: EPSObj.stockEPS,
-                  stockPrice: roundPrice(stockObj.obj.stockPrice),
-                  yearHigh: stockObj.obj.yearHigh,
-                  yearLow: stockObj.obj.yearLow,
-                  totalCost: (parseInt(this.state.quantity) * parseFloat(roundPrice(stockObj.obj.stockPrice))).toString(),
-                }, () => {
-                  console.log("stock stats set")
+                get("/api/getPEData", {
+                  symbol: this.state.stockSymbol.toUpperCase(),
+                  day: this.state.stockDay.toString(),
+                  number: this.state.marketNumber
+                }).then((PEObj) => {
+                  get("/api/getMCData", {
+                    symbol: this.state.stockSymbol.toUpperCase(),
+                    month: dayToMonth(this.state.stockDay),
+                    number: this.state.marketNumber
+                  }).then((MCObj) => {
+                    //set all variables at once or else will lag
+                    this.setState({
+                      stockEPS: EPSObj.stockEPS,
+                      stockPrice: roundPrice(stockObj.obj.stockPrice),
+                      yearHigh: stockObj.obj.yearHigh,
+                      yearLow: stockObj.obj.yearLow,
+                      totalCost: (parseInt(this.state.quantity) * parseFloat(roundPrice(stockObj.obj.stockPrice))).toString(),
+                      marketCap: MCObj.stockMarketCap,
+                      stockPE: PEObj.stockPE,
+                    }, () => {
+                      console.log("stock stats set")
+                    })
+                  })
                 })
               })
             }
@@ -246,6 +261,8 @@ class MarketTrade extends Component {
               yearHigh={this.state.yearHigh}
               yearLow={this.state.yearLow}
               stockEPS={this.state.stockEPS}
+              stockPE={this.state.stockPE}
+              marketCap={this.state.marketCap}
             />
           </div>
           <AccountDetails />
