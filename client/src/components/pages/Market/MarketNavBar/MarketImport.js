@@ -29,9 +29,10 @@ const names = [
     "SOFT",
     "PHONE",
     "CAR",
-    "SHIP"]
+    "SHIP",
+    "MARKET"]
 
-const sIndex = 19;
+const sIndex = 0;
 
 class MarketImport extends Component {
     // makes props available in this component
@@ -174,7 +175,7 @@ class MarketImport extends Component {
             OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
             OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
             */
-            //header: true,
+            header: true,
             complete: (results) => {
 
                 /*
@@ -725,7 +726,7 @@ class MarketImport extends Component {
                 let min = parseInt(results.data[0].Open);
                 for (let i=0; i<results.data.length; i++){
                     tempObj = {
-                        stockSymbol: "CAR",
+                        stockSymbol: names[sIndex],
                         stockPrice: results.data[i].Open,
                         day: (i+1).toString(),
                         marketNumber: mNumber,

@@ -36,6 +36,17 @@ class App extends Component {
       cashFour: undefined,
     };
   }
+  categories = {
+    consumerD: ["CAKE", "COOP", "STORE"],
+    consumerS: ["CELL", "GROCE"],
+    EandU: ["SOLAR", "OIL"],
+    Fin: ["INSUR","BANK"],
+    Health: ["HINSUR","BAID"],
+    Industrial: ["STICKY","VACC"],
+    RealE: ["HOME","HOOD"],
+    Tech: ["COMP","SOFT","PHONE"],
+    Transport: ["CAR","SHIP"],
+  }
   names = [
     "CHEESE",
     "COOP",
@@ -190,6 +201,7 @@ class App extends Component {
             marketName={this.state.marketName}
             id={this.state.userId}
             updateCash={this.updateCash}
+            categories={this.categories}
           />
           <MarketTrade
             path="/Game/Trade"
