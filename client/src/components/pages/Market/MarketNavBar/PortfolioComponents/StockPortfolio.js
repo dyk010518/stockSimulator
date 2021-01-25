@@ -50,39 +50,13 @@ class StockPortfolio extends Component {
 
   componentDidMount = () => {
     this.updateUserInfo();
-    if(this.props.id){
-      let theStocks = [];
-      let theObject = {};
-      get('/api/boughtstocks', { id: this.props.id}).then((boughtStockObjs)=>{
-        for(let i=0; i<boughtStockObjs.length; i++){
-          theObject = {
-            stockSymbol: boughtStockObjs[i].stockName,
-            lastPrice: 10000.0,
-            todayDollarChange: 10000.0,
-            todayPercentChange: 56.5,
-            totalDollarChange: 112300.0,
-            totalPercentChange: 156.5,
-            currentValue: 12459071,
-            accountPercent: 47,
-            quantity: 1208,
-            costBasisPS: 1234,
-            costBasis: 1084,
-          }
-          
-          theStocks.push(theObject);
-        }
-        this.setState({
-          stock: theStocks,
-        }, () => {console.log(this.state.stock)})
-      });
-    }
-    //this.updateUserPositions();
+    this.updateUserPositions();
   }
 
   updateUserInfo = () => {
-    let cashPercentages = (parseFloat(this.props.cash)/parseFloat(this.props.totalValue));
+    let cashPercentages = (parseFloat(this.props.cash) / parseFloat(this.props.totalValue));
     cashPercentages = (Math.round(parseFloat(cashPercentages) * 10000) / 100).toString();
-    
+
     this.setState({
       userCash: {
         cashValue: this.props.cash,
@@ -93,11 +67,11 @@ class StockPortfolio extends Component {
   }
 
   updateUserPositions = () => {
-    if(this.props.id){
+    if (this.props.id) {
       let theStocks = [];
       let theObject = {};
-      get('/api/boughtstocks', { id: this.props.id}).then((boughtStockObjs)=>{
-        for(let i=0; i<boughtStockObjs.length; i++){
+      get('/api/boughtstocks', { id: this.props.id }).then((boughtStockObjs) => {
+        for (let i = 0; i < boughtStockObjs.length; i++) {
           theObject = {
             stockSymbol: boughtStockObjs[i].stockName,
             lastPrice: 10000.0,
@@ -111,12 +85,12 @@ class StockPortfolio extends Component {
             costBasisPS: 1234,
             costBasis: 1084,
           }
-          
+
           theStocks.push(theObject);
         }
         this.setState({
-          stock: theStocks,
-        }, () => {console.log(this.state.stock)})
+          stocks: theStocks,
+        }, () => { console.log(this.state.stocks) })
       });
     }
   }
@@ -126,8 +100,10 @@ class StockPortfolio extends Component {
   // shows up on screen
   render() {
     let space = " "
+    
     return (
       <>
+        {}
         <div className="StockPortfolio-container">
           <h2 className="StockPortfolio-header"> Stock Portfolio </h2>
           <div className="StockPortfolio-results">
@@ -147,38 +123,40 @@ class StockPortfolio extends Component {
               </tr>
             </thead>
             <tbody>
-                <tr>
-                  <td className="StockPortfolio-resultDesctiption"> Cash</td>
-                  <td className="StockPortfolio-resultDesctiption">  </td>
-                  <td className="StockPortfolio-resultDesctiption">  </td>
-                  <td className="StockPortfolio-resultDesctiption">  </td>
-                  <td className="StockPortfolio-resultDesctiption">  </td>
-                  <td className="StockPortfolio-resultDesctiption">  </td>
-                  <td className="StockPortfolio-resultDesctiption"> {this.state.userCash.cashValue} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {this.state.userCash.cashPercentage + "%"}</td>
-                  <td className="StockPortfolio-resultDesctiption">  </td>
-                  <td className="StockPortfolio-resultDesctiption">  </td>
-                  <td className="StockPortfolio-resultDesctiption">  </td>
-                </tr>
+              <tr>
+                <td className="StockPortfolio-resultDesctiption"> Cash</td>
+                <td className="StockPortfolio-resultDesctiption">  </td>
+                <td className="StockPortfolio-resultDesctiption">  </td>
+                <td className="StockPortfolio-resultDesctiption">  </td>
+                <td className="StockPortfolio-resultDesctiption">  </td>
+                <td className="StockPortfolio-resultDesctiption">  </td>
+                <td className="StockPortfolio-resultDesctiption"> {this.state.userCash.cashValue} </td>
+                <td className="StockPortfolio-resultDesctiption"> {this.state.userCash.cashPercentage + "%"}</td>
+                <td className="StockPortfolio-resultDesctiption">  </td>
+                <td className="StockPortfolio-resultDesctiption">  </td>
+                <td className="StockPortfolio-resultDesctiption">  </td>
+              </tr>
             </tbody>
             <tbody>
               {this.state.stocks.map((stock) => (
-                <tr>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol}</td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
-                  <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
-                </tr>
+                <>
+                  <tr>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.stockSymbol}</td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.lastPrice} </td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.todayDollarChange} </td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.todayPercentChange} </td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.totalDollarChange} </td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.totalPercentChange} </td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.currentValue} </td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.accountPercent} </td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.quantity} </td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.costBasisPS} </td>
+                    <td className="StockPortfolio-resultDesctiption"> {stock.costBasis} </td>
+                  </tr>
+                </>
               ))}
             </tbody>
-            
+
           </div>
         </div>
       </>
