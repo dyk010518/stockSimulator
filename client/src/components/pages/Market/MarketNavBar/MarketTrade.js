@@ -26,7 +26,7 @@ class MarketTrade extends Component {
       yearLow: "",
       stockEPS: "",
       totalCost: undefined,
-      
+      buttonOff: false,
     });
   }
 
@@ -127,7 +127,14 @@ class MarketTrade extends Component {
         })
       })
     })
+  }
 
+  updateButton = (condition) => {
+    this.setState({
+      buttonOff: condition,
+    }, () => {
+      console.log("button changed")
+    })
   }
 
   trade = (symbol, quantity, price, day, type) => {
@@ -135,6 +142,7 @@ class MarketTrade extends Component {
     if (type === "buy") {
       if (this.props.cash < totalCost) {
         alert("Not enough money.\nYou need $" + roundPrice((totalCost - parseFloat(this.props.cash)).toString()) + " more to complete the transaction.")
+        this.updateButton(false)
       } else {
         post('/api/buyStock', {
           id: this.props.id,
@@ -156,6 +164,7 @@ class MarketTrade extends Component {
             console.log(raObj.msg + " " + raObj.obj.bought + " " + raObj.obj.bPrice)
             this.props.updateCash()
             alert("Successfully bought " + quantity + " " + stockObj.stockName + " stocks!\nCheck your portfolio to see how you're doing!")
+            this.updateButton(false)
           })
         })
       }
@@ -173,6 +182,7 @@ class MarketTrade extends Component {
         console.log("reached")
         if (userAmt < quantity) {
           alert("You don't have enough stocks.\nYou need " + (parseInt(quantity) - userAmt).toString() + " more.")
+          this.updateButton(false)
         } else {
           post('/api/sellStock', {
             id: this.props.id,
@@ -194,6 +204,7 @@ class MarketTrade extends Component {
               console.log(raObj.msg + " " + raObj.obj.sold + " " + raObj.obj.sPrice)
               this.props.updateCash()
               alert("Successfully sold " + quantity + " " + symbol + " stocks!\nCheck your portfolio to see how you're doing!")
+              this.updateButton(false)
             })
           })
         }
@@ -219,6 +230,7 @@ class MarketTrade extends Component {
             <BuySell
               updateFunc={this.update.bind(this)}
               tradeFunc={this.trade}
+              updateButton={this.updateButton}
               day={this.state.stockDay}
               id={this.props.id}
               cash={this.props.cash}
@@ -226,6 +238,7 @@ class MarketTrade extends Component {
               totalCost={this.state.totalCost}
               names={this.props.names}
               codes={this.marketOneStocks}
+              buttonOff={this.state.buttonOff}
             />
             <StockStats
               stockSymbol={this.state.stockSymbol}

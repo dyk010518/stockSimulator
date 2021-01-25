@@ -12,7 +12,7 @@ class BuySell extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-
+            
         })
     }
 
@@ -22,6 +22,7 @@ class BuySell extends Component {
             this.updateStatus();
         });
         document.getElementById("trade").addEventListener("click", () => {
+            this.props.updateButton(true)
             this.trade();
         });
 
@@ -39,12 +40,15 @@ class BuySell extends Component {
         let transactionType = document.getElementById("transaction").value;
         if (!(transactionType === "buy" || transactionType === "sell")) {
             alert("Invalid transaction type, please try again")
+            this.props.updateButton(false)
         } else {
             let quantity = Number(document.getElementById("quantity").value);
             if (quantity < 1 || (!(quantity))) {
                 alert("Invalid quantity")
+                this.props.updateButton(false)
             } else if (!(this.props.names.includes(stockSymbol))){ 
                 alert("Invalid stock code.\nValid Codes:" + this.props.codes)
+                this.props.updateButton(false)
             } else {
                 console.log(stockSymbol + " " + this.props.day + " " + this.props.marketNumber)
                 get("/api/getPriceData", {
@@ -54,6 +58,7 @@ class BuySell extends Component {
                 }).then((priceObj) => {
                     if (!(priceObj.obj)) {
                         alert("Stock not found, please try again")
+                        this.props.updateButton(false)
                     } else {
                         this.props.tradeFunc(stockSymbol, quantity, priceObj.obj.stockPrice, this.props.day, transactionType)
                     }
@@ -101,7 +106,7 @@ class BuySell extends Component {
                             See Stats
                         </button>
 
-                        <button id="trade" className="BuySell-trade">
+                        <button id="trade" className="BuySell-trade" disabled={this.props.buttonOff}>
                             Trade
                         </button>
                     </div>
