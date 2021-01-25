@@ -43,13 +43,13 @@ class StockPortfolio extends Component {
     this.setState({
       userCash: {
         cashValue: this.props.cash,
+        accountTotal: this.props.accountTotal,
       }
     })
   }
 
   updateUserPositions = () => {
     if(this.props.id){
-      this.props.updateTotalValue();
       // get('/api/boughtstocks', { id: this.props.id}).then((boughtStockObjs)=>{
       //   console.log(boughtStockObjs[0])
       // });
