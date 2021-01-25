@@ -28,9 +28,6 @@ class StockStats extends Component {
         document.getElementById("PEButton").addEventListener("click", function() {
             alert("Price/Earnings ratio shows how expensive a share of stock is relative to is income (TTM stand for \"trailing twelve months\").\nIt's calculated with the formula: P/E = (Price Per Share)/(EPS)")
         });
-        document.getElementById("DivButton").addEventListener("click", function() {
-            alert("Divident Yield is how much a company pays out to its shareholders relative to is share price.\nIt's calculated with the formula: Divident Yield = (Annual Divident)/(Price Per Share)")
-        });
         document.getElementById("52HButton").addEventListener("click", function() {
             alert("52-week High is the highest Price Per Share recorded for a company during the last 52 weeks.")
         });
@@ -88,16 +85,6 @@ class StockStats extends Component {
                             {space}Price/Earning (TTM): 
                         </label>
                         <div className="StockStats-info">{this.props.stockPE}</div>
-                    </div>
-
-                    <div className="StockStats-item">
-                        <label className="StockStats-label">
-                            <button id="DivButton" class="equalbutton">
-                                <img src={info} width={"15px"} height={"15px"}/>
-                            </button>
-                            {space}Dividend Yield:
-                        </label>
-                        <div className="StockStats-info">{this.props.stockDivYield}</div>
                     </div>
 
                     <div className="StockStats-item">
