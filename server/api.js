@@ -57,6 +57,7 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+//get stockMarketCap Data given symbol, month, number
 router.get("/getMCData", (req, res) => {
   stockMarketCap.findOne({
     stockSymbol: req.query.symbol,
@@ -67,6 +68,7 @@ router.get("/getMCData", (req, res) => {
   })
 })
 
+//get stockPE Data given symbol, day, number
 router.get("/getPEData", (req, res) => {
   stockPE.findOne({
     stockSymbol: req.query.symbol,
@@ -77,6 +79,7 @@ router.get("/getPEData", (req, res) => {
   })
 })
 
+//insert freecashflow data
 router.post("/insertFCFData", (req, res) => {
   freeCashFlow.findOne({
     stockSymbol: req.body.symbol,
@@ -98,6 +101,7 @@ router.post("/insertFCFData", (req, res) => {
   })
 })
 
+//insert revenues data
 router.post("/insertTRData", (req, res) => {
   revenues.findOne({
     stockSymbol: req.body.symbol,
@@ -119,6 +123,7 @@ router.post("/insertTRData", (req, res) => {
   })
 })
 
+//insert stockDebtEquity data
 router.post("/insertNDData", (req, res) => {
   stockDebtEquity.findOne({
     stockSymbol: req.body.symbol,
@@ -140,6 +145,7 @@ router.post("/insertNDData", (req, res) => {
   })
 })
 
+//sell a stock
 router.post("/sellStock", (req, res) => {
   console.log("reached 2")
   User.findOne({
@@ -174,6 +180,7 @@ router.post("/sellStock", (req, res) => {
   })
 })
 
+//buy a stock
 router.post("/buyStock", (req, res) => {
   Boughtstocks.findOne({
     userID: req.body.id,
@@ -215,6 +222,7 @@ router.post("/buyStock", (req, res) => {
   })
 })
 
+//get user's boughtstocks of a user given a symbol given id, symbol
 router.get("/getBoughtStocks", (req, res) => {
   Boughtstocks.findOne({
     userID: req.query.id,
@@ -224,6 +232,7 @@ router.get("/getBoughtStocks", (req, res) => {
   })
 })
 
+//get user's object (contains all markets) given id
 router.get("/getCash", (req, res) => {
   User.findOne({
     _id: req.query.id,
@@ -232,6 +241,7 @@ router.get("/getCash", (req, res) => {
   })
 })
 
+//delete shit, don't use
 router.get("/deleteErrorEnterprise", (req, res) => {
   /*
   stockEnterprise.deleteMany({
@@ -242,6 +252,7 @@ router.get("/deleteErrorEnterprise", (req, res) => {
   */
 })
 
+//insert stockPB data
 router.post("/insertPBData", (req, res) => {
   stockPB.findOne({
     stockSymbol: req.body.symbol,
@@ -263,6 +274,7 @@ router.post("/insertPBData", (req, res) => {
   })
 })
 
+//insert stockEnterprise data
 router.post("/insertEVData", (req, res) => {
   stockEnterprise.findOne({
     stockSymbol: req.body.symbol,
@@ -284,6 +296,7 @@ router.post("/insertEVData", (req, res) => {
   })
 })
 
+//insert stockMarketCap data
 router.post("/insertMCData", (req, res) => {
   stockMarketCap.findOne({
     stockSymbol: req.body.symbol,
@@ -305,6 +318,7 @@ router.post("/insertMCData", (req, res) => {
   })
 })
 
+//insert stockPE data
 router.post("/insertPEData", (req, res) => {
   stockPE.findOne({
     stockSymbol: req.body.symbol,
@@ -326,6 +340,7 @@ router.post("/insertPEData", (req, res) => {
   })
 })
 
+//insert stockEPS data
 router.post("/insertEPSData", (req, res) => {
   stockEPS.findOne({
     stockSymbol: req.body.symbol,
@@ -347,6 +362,7 @@ router.post("/insertEPSData", (req, res) => {
   })
 })
 
+//insert shares data
 router.post("/insertSharesData", (req, res) => {
   shares.findOne({
     stockSymbol: req.body.symbol,
@@ -368,6 +384,7 @@ router.post("/insertSharesData", (req, res) => {
   })
 })
 
+//get stockEPS Data given symbol, year, number
 router.get("/getEPSData", (req, res) => {
   stockEPS.findOne({
     stockSymbol: req.query.symbol,
@@ -378,6 +395,7 @@ router.get("/getEPSData", (req, res) => {
   })
 })
 
+//get all EPS data given symbol, number
 router.get("/getAllEPSData", (req, res) => {
   stockEPS.find({
     stockSymbol: req.query.symbol,
@@ -385,6 +403,7 @@ router.get("/getAllEPSData", (req, res) => {
   }).then((EPSObjs) => res.send(EPSObjs))
 })
 
+//insert stockPrice data
 router.post("/insertPriceData", (req, res) => {
   stockPrice.findOne({
     stockSymbol: req.body.symbol,
@@ -408,6 +427,7 @@ router.post("/insertPriceData", (req, res) => {
   })
 })
 
+//get stockPrice given symbol, day, number
 router.get("/getPriceData", (req, res) => {
   stockPrice.findOne({
     stockSymbol: req.query.symbol,
@@ -422,6 +442,7 @@ router.get("/getPriceData", (req, res) => {
   })
 })
 
+//get all stockPrice given symbol, number
 router.get("/getAllPriceData", (req, res) => {
   stockPrice.find({
     stockSymbol: req.query.symbol,
@@ -431,20 +452,19 @@ router.get("/getAllPriceData", (req, res) => {
   })
 })
 
+//dont use this
 router.get("/dontuseme", (req, res) => {
-  
+  /*
   console.log("in api")
   stockDebtEquity.deleteMany({
     stockSymbol: "SOFT"
   }).then((tempObject) => {
     console.log("deleted that shit")
   })
-  
+  */
 })
 
-
-//type(stockObjs) is [{},{},...]
-
+//initializes dates for users
 router.post('/marketdate', (req, res) => {
 
   date.findOne({ userId: req.body.id }).then((dateObj) => {
@@ -465,12 +485,14 @@ router.post('/marketdate', (req, res) => {
   })
 })
 
+//get date given id
 router.get("/getdate", (req, res) => {
   date.findOne({ userId: req.query.id }).then((dateObj) => {
     res.send(dateObj);
   });
 });
 
+//goes to next day given id
 router.post("/nextday", (req, res) => {
   date.findOne({ userId: req.body.id }).then((dateObj) => {
     if (req.body.marketName === "One") {
@@ -488,6 +510,7 @@ router.post("/nextday", (req, res) => {
 
 });
 
+//updates recent activities given id
 router.post('/recentactivities', (req, res) => {
 
   Recentactivity.findOne({ userId: req.body.id }).then((activityObj) => {
@@ -508,12 +531,14 @@ router.post('/recentactivities', (req, res) => {
   })
 })
 
+//get recentactivity given id
 router.get("/getRA", (req, res) => {
   Recentactivity.findOne({ userId: req.query.id }).then((activityObj) => {
     res.send(activityObj);
   });
 });
 
+//get all boughtstocks
 router.get("/boughtstocks", (req, res) => {
   Boughtstocks.find({}).then((boughtStockObjs) => {
     res.send(boughtStockObjs);
