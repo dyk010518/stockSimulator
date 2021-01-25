@@ -16,6 +16,8 @@ import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities.js";
 
+
+
 /**
  * Define the "App" component as a class.
  */
@@ -34,6 +36,27 @@ class App extends Component {
       cashFour: undefined,
     };
   }
+  names = [
+    "CHEESE",
+    "COOP",
+    "STORE",
+    "CELL",
+    "GROCE",
+    "SOLAR",
+    "OIL",
+    "INSUR",
+    "BANK",
+    "HINSUR",
+    "BAID",
+    "STICKY",
+    "VACC",
+    "HOME",
+    "HOOD",
+    "COMP",
+    "SOFT",
+    "PHONE",
+    "CAR",
+    "SHIP"]
 
   setMarketNum = (name) => {
     let tcash = undefined;
@@ -174,6 +197,7 @@ class App extends Component {
             marketName={this.state.marketName}
             id={this.state.userId}
             updateCash={this.updateCash}
+            names={this.names}
           />
           {/*
           <MarketImport

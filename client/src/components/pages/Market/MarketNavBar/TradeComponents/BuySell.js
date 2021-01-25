@@ -41,8 +41,10 @@ class BuySell extends Component {
             alert("Invalid transaction type, please try again")
         } else {
             let quantity = Number(document.getElementById("quantity").value);
-            if (quantity < 1) {
-                alert("You can't trade less than 1 stock.")
+            if (quantity < 1 || (!(quantity))) {
+                alert("Invalid quantity")
+            } else if (!(this.props.names.includes(stockSymbol))){ 
+                alert("Invalid stock code.\nValid Codes:" + this.props.codes)
             } else {
                 console.log(stockSymbol + " " + this.props.day + " " + this.props.marketNumber)
                 get("/api/getPriceData", {

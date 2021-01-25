@@ -57,6 +57,61 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+//update recentactivity given id, symbol, buy, bp, sell, sp, amt
+router.post("/updateRA", (req, res) => {
+  Recentactivity.findOne({
+    userId: req.body.id,
+  }).then((raObj) => {
+    if (raObj){
+      let tempArray = [];
+      let tpArray = [];
+      let tempPrice;
+      if (req.body.buy){
+        tempArray = raObj.bought.split(",")
+        tpArray = raObj.bPrice.split(",")
+        tempPrice = parseFloat(req.body.bp)*parseFloat(req.body.amt)
+      } else if (req.body.sell){
+        tempArray = raObj.sold.split(",")
+        tpArray = raObj.sPrice.split(",")
+        tempPrice = parseFloat(req.body.sp)*parseFloat(req.body.amt)
+      }
+      if (tempArray[tempArray.length-1] === ""){
+        tempArray = tempArray.slice(0,tempArray.length-1)
+      }
+      if (tempArray.length > 3){
+        tempArray = tempArray.slice(1)
+      }
+      if (tpArray[tpArray.length-1] === ""){
+        tpArray = tpArray.slice(0,tpArray.length-1)
+      }
+      if (tpArray.length > 3){
+        tpArray = tpArray.slice(1)
+      }
+      tpArray.push(tempPrice.toString())
+      tempArray.push(req.body.amt.toString() + " " + req.body.symbol.toString())
+      let tempString = ""
+      let tpString = ""
+      for (let i=0; i<tempArray.length; i++){
+        tempString = tempString + tempArray[i] + ","
+      }
+      for (let i=0; i<tpArray.length; i++){
+        tpString = tpString + tpArray[i] + ","
+      }
+      if (req.body.buy){
+        raObj.bought = tempString
+        raObj.bPrice = tpString
+      } else if (req.body.sell){
+        raObj.sold = tempString
+        raObj.sPrice = tpString
+      }
+      raObj.save()
+      res.send({msg: "found", obj: raObj})
+    } else {
+      res.send({msg: "not found", obj: undefined})
+    }
+  })
+})
+
 //get stockMarketCap Data given symbol, month, number
 router.get("/getMCData", (req, res) => {
   stockMarketCap.findOne({
@@ -514,10 +569,7 @@ router.post("/nextday", (req, res) => {
 router.post('/recentactivities', (req, res) => {
 
   Recentactivity.findOne({ userId: req.body.id }).then((activityObj) => {
-    if (activityObj) {
-      res.send(activityObj)
-    } else {
-
+    if (!(activityObj)) {
       const newRA = new Recentactivity({
         userId: req.body.id,
         bought: "",
@@ -525,9 +577,9 @@ router.post('/recentactivities', (req, res) => {
         sold: "",
         sPrice: "",
       });
-
-      return newRA.save()
+      newRA.save()
     }
+    res.send(activityObj)
   })
 })
 

@@ -144,8 +144,19 @@ class MarketTrade extends Component {
           day: day,
           mn: this.state.marketNumber,
         }).then((stockObj) => {
-          this.props.updateCash()
-          alert("Successfully bought " + quantity + " " + stockObj.stockName + " stocks!\nCheck your portfolio to see how you're doing!")
+          post('/api/updateRA', {
+            id: this.props.id,
+            symbol: symbol,
+            amt: quantity,
+            buy: true,
+            bp: price,
+            sell: false,
+            sp: undefined,
+          }).then((raObj) => {
+            console.log(raObj.msg + " " + raObj.obj.bought + " " + raObj.obj.bPrice)
+            this.props.updateCash()
+            alert("Successfully bought " + quantity + " " + stockObj.stockName + " stocks!\nCheck your portfolio to see how you're doing!")
+          })
         })
       }
     } else if (type === "sell") {
@@ -170,9 +181,20 @@ class MarketTrade extends Component {
             bp: price,
             mn: this.state.marketNumber,
           }).then((stockObj) => {
-            console.log(stockObj)
-            this.props.updateCash()
-            alert("Successfully sold " + quantity + " " + symbol + " stocks!\nCheck your portfolio to see how you're doing!")
+            post('/api/updateRA', {
+              id: this.props.id,
+              symbol: symbol,
+              amt: quantity,
+              buy: false,
+              bp: undefined,
+              sell: true,
+              sp: price,
+            }).then((raObj) => {
+              console.log(stockObj)
+              console.log(raObj.msg + " " + raObj.obj.sold + " " + raObj.obj.sPrice)
+              this.props.updateCash()
+              alert("Successfully sold " + quantity + " " + symbol + " stocks!\nCheck your portfolio to see how you're doing!")
+            })
           })
         }
       })
@@ -202,6 +224,8 @@ class MarketTrade extends Component {
               cash={this.props.cash}
               marketNumber={this.state.marketNumber}
               totalCost={this.state.totalCost}
+              names={this.props.names}
+              codes={this.marketOneStocks}
             />
             <StockStats
               stockSymbol={this.state.stockSymbol}

@@ -3,7 +3,7 @@ import '../../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 import './RecentActivity.css';
-import { get, post } from '../../../../../utilities.js'
+import { get, post, roundPrice } from '../../../../../utilities.js'
 
 
 class RecentActivity extends Component {
@@ -39,9 +39,9 @@ class RecentActivity extends Component {
         
         if (!(names[0] === "")) {
             let ans = "";
-            for (let i = 0; i < names.length; i++) {
-                ans += (names[i] + " ($" + prices[i] + ")")
-                if (!(i === names.length - 1)) {
+            for (let i = 0; i < names.length-1; i++) {
+                ans += (names[i] + " ($" + roundPrice(prices[i]) + ")")
+                if (!(i === names.length - 2)) {
                     ans += (", ")
                 }
             }
