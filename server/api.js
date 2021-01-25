@@ -57,6 +57,26 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.get("/getMCData", (req, res) => {
+  stockMarketCap.findOne({
+    stockSymbol: req.query.symbol,
+    month: req.query.month,
+    marketNumber: req.query.number,
+  }).then((MCObj) => {
+    res.send(MCObj)
+  })
+})
+
+router.get("/getPEData", (req, res) => {
+  stockPE.findOne({
+    stockSymbol: req.query.symbol,
+    day: req.query.day,
+    marketNumber: req.query.number,
+  }).then((PEObj) => {
+    res.send(PEObj)
+  })
+})
+
 router.post("/insertFCFData", (req, res) => {
   freeCashFlow.findOne({
     stockSymbol: req.body.symbol,
