@@ -48,8 +48,10 @@ class StockPortfolio extends Component {
   }
 
   updateUserPositions = () => {
-    get('/api/boughtstocks', { id: this.props.id}).then((boughtStockObjs)=>{
-      console.log(boughtStockObjs)
+    if(this.props.id){
+      get('/api/boughtstocks', { id: this.props.id}).then((boughtStockObjs)=>{
+        console.log(boughtStockObjs)
+      });
     }
   }
 
