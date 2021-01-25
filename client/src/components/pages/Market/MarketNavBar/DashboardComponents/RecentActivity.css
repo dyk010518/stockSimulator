@@ -23,9 +23,13 @@
     margin-bottom: 10px;
 }
 
+.RecentActivity-infoContainer {
+    justify-self: right;
+    margin-right: 10px;
+    width: 320px;
+}
+
 .RecentActivity-info {
-    margin-right: 20px;
-    margin-left: 5px;
     text-align: left;
 }
 
@@ -49,6 +53,12 @@
     }
     .RecentActivity-info {
         margin-right: 10px;
+    }
+}
+
+@media (max-width: 1050px){
+    .RecentActivity-infoContainer {
+        width: 240px;
     }
 }
 

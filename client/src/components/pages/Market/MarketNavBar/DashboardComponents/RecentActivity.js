@@ -65,8 +65,10 @@ class RecentActivity extends Component {
                         <label className="RecentActivity-label">
                             Recently Bought:
                         </label>
-                        <div className="RecentActivity-info">
-                            {boughtInfo}
+                        <div className="RecentActivity-infoContainer">
+                            <div className="RecentActivity-info">
+                                {boughtInfo}
+                            </div>
                         </div>
                     </div>
 
@@ -74,8 +76,10 @@ class RecentActivity extends Component {
                         <label className="RecentActivity-label">
                             Recently Sold:
                         </label>
-                        <div className="RecentActivity-info">
-                            {soldInfo}
+                        <div className="RecentActivity-infoContainer">
+                            <div className="RecentActivity-info">
+                                {soldInfo}
+                            </div>
                         </div>
                     </div>
 
