@@ -237,7 +237,7 @@ class MarketTrade extends Component {
               marketNumber={this.state.marketNumber}
               totalCost={this.state.totalCost}
               names={this.props.names}
-              codes={this.marketOneStocks}
+              codes={this.props.namesList}
               buttonOff={this.state.buttonOff}
             />
             <StockStats

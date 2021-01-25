@@ -104,14 +104,6 @@ class StockScreener extends Component {
                     </select>
                 </div>
 
-                <div className="StockScreener-labelSelect">
-                    <label for="dividend" className="StockScreener-label">Dividend:</label>
-                    <select name="dividend" id="dividend" className="StockScreener-select">
-                        <option value="any">any</option>
-                        <option value="yes">yes</option>
-                        <option value="no">no</option>
-                    </select>
-                </div>
             </div>
         );
     }

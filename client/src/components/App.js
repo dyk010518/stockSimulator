@@ -57,6 +57,7 @@ class App extends Component {
     "PHONE",
     "CAR",
     "SHIP"]
+  namesList = "\nCHEESE\nCOOP\nSTORE\nCELL\nGROCE\nSOLAR\nOIL\nINSUR\nBANK\nHINSUR\nBAID\nSTICKY\nVACC\nHOME\nHOOD\nCOMP\nSOFT\nPHONE\nCAR\nSHIP"
 
   setMarketNum = (name) => {
     let tcash = undefined;
@@ -198,6 +199,7 @@ class App extends Component {
             id={this.state.userId}
             updateCash={this.updateCash}
             names={this.names}
+            namesList={this.namesList}
           />
           {/*
           <MarketImport

@@ -86,7 +86,7 @@
     }
     .StockScreener-labelSelect {
         font-size: 15pt;
-        margin-bottom: 30px;
+        margin-bottom: 35px;
     }
 }
 
@@ -99,7 +99,7 @@
     }
     .StockScreener-labelSelect {
         font-size: 12pt;
-        margin-bottom: 16px;
+        margin-bottom: 20px;
     }
 }
 
@@ -113,6 +113,6 @@
     }
     .StockScreener-labelSelect {
         font-size: 10pt;
-        margin-bottom: 16px;
+        margin-bottom: 20px;
     }
 }
