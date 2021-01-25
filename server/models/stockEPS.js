@@ -8,4 +8,4 @@ const EPSSchema = new mongoose.Schema({
 });
 
 // compile model from schema
-module.exports = mongoose.model("stockEPSes", EPSSchema);
+module.exports = mongoose.model("stockepses", EPSSchema);

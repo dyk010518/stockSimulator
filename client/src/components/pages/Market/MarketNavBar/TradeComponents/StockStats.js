@@ -13,9 +13,6 @@ class StockStats extends Component {
         super(props);
     }
 
-    state = {
-        stockData: undefined,
-    }
 
     
     componentDidMount() {
@@ -70,7 +67,7 @@ class StockStats extends Component {
                             </button>
                             {space}Market Capitalization:
                         </label>
-                        <div className="StockStats-info">{this.state.stockMarketCap}</div>
+                        <div className="StockStats-info">{this.props.stockMarketCap}</div>
                     </div>
 
                     <div className="StockStats-item">
@@ -90,7 +87,7 @@ class StockStats extends Component {
                             </button>
                             {space}Price/Earning (TTM): 
                         </label>
-                        <div className="StockStats-info">{this.state.stockPE}</div>
+                        <div className="StockStats-info">{this.props.stockPE}</div>
                     </div>
 
                     <div className="StockStats-item">
@@ -100,7 +97,7 @@ class StockStats extends Component {
                             </button>
                             {space}Dividend Yield:
                         </label>
-                        <div className="StockStats-info">{this.state.stockDivYield}</div>
+                        <div className="StockStats-info">{this.props.stockDivYield}</div>
                     </div>
 
                     <div className="StockStats-item">

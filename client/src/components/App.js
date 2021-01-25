@@ -58,19 +58,21 @@ class App extends Component {
   };
 
   updateCash = () => {
-    get("/api/getCash", {id: this.state.userId}).then((userObj) => {
-      let tcash;
-      if (this.state.marketName === "One"){
-        tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
-      } else if (this.state.marketName === "Two"){
-        tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
-      } else if (this.state.marketName === "Three"){
-        tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
-      } else if (this.state.marketName === "Four"){
-        tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
-      }
-      this.setState({ cash: tcash }, () => {console.log("Cash updated")})
-    })
+    if (this.state.userId){
+      get("/api/getCash", {id: this.state.userId}).then((userObj) => {
+        let tcash;
+        if (this.state.marketName === "One"){
+          tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
+        } else if (this.state.marketName === "Two"){
+          tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
+        } else if (this.state.marketName === "Three"){
+          tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
+        } else if (this.state.marketName === "Four"){
+          tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
+        }
+        this.setState({ cash: tcash }, () => {console.log("Cash updated")})
+      })
+    }
   }
 
   componentDidMount() {

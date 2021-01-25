@@ -91,7 +91,7 @@ class BuySell extends Component {
 
                     <div className="BuySell-item">
                         <label for="quantity" className="BuySell-label">Total Price:</label>
-                        <div className="BuySell-info">"Price * Quantity"</div>
+                        <div className="BuySell-info">{this.props.totalCost}</div>
                     </div>
 
                     <div className="BuySell-buttons">

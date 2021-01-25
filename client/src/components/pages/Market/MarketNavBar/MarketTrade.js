@@ -21,13 +21,12 @@ class MarketTrade extends Component {
       transaction: "buy",
       quantity: -1,
       stockDay: "",
-      stockMonth: "",
-      stockQuarter: "",
-      stockYear: "",
       stockPrice: "",
       yearHigh: "",
       yearLow: "",
       stockEPS: "",
+      totalCost: undefined,
+      
     });
   }
 
@@ -45,23 +44,25 @@ class MarketTrade extends Component {
     this.setState({
       marketNumber: theMarket,
     })
-    get("/api/getdate", { id: this.props.id }).then((dateObj) => {
-      let tempDay;
-      if (this.props.marketName === "One") {
-        tempDay = dateObj.one
-      } else if (this.props.marketName === "Two") {
-        tempDay = dateObj.two
-      } else if (this.props.marketName === "Three") {
-        tempDay = dateObj.three
-      } else if (this.props.marketName === "Four") {
-        tempDay = dateObj.four
-      }
-      this.setState({
-        stockDay: tempDay,
-      }, () => {
-
+    if (this.props.id){
+      get("/api/getdate", { id: this.props.id }).then((dateObj) => {
+        let tempDay;
+        if (this.props.marketName === "One") {
+          tempDay = dateObj.one
+        } else if (this.props.marketName === "Two") {
+          tempDay = dateObj.two
+        } else if (this.props.marketName === "Three") {
+          tempDay = dateObj.three
+        } else if (this.props.marketName === "Four") {
+          tempDay = dateObj.four
+        }
+        this.setState({
+          stockDay: tempDay,
+        }, () => {
+  
+        })
       })
-    })
+    }
   }
 
   update = (symbol, ttype, amt) => {
@@ -87,9 +88,9 @@ class MarketTrade extends Component {
         }, () => {
           //updates price
           get("/api/getPriceData", {
-            symbol: this.state.stockSymbol.toUpperCase(),
-            day: this.state.stockDay,
-            number: this.state.marketNumber
+            symbol: symbol.toUpperCase(),
+            day: tempDay,
+            number: this.state.marketNumber,
           }).then((stockObj) => {
             if (!(stockObj.obj)) {
               this.setState({
@@ -102,22 +103,23 @@ class MarketTrade extends Component {
                 alert("Please insert a valid stock symbol: " + marketOneStocks);
               })
             } else {
-              this.setState({
-                stockPrice: Math.round(parseFloat(stockObj.obj.stockPrice) * 100) / 100,
-                yearHigh: stockObj.obj.yearHigh,
-                yearLow: stockObj.obj.yearLow,
-              }, () => {
-                //updates eps
-                get("/api/getEPSData", {
-                  symbol: this.state.stockSymbol.toUpperCase(),
-                  year: this.state.stockYear,
-                  number: this.state.marketNumber
-                }).then((EPSObj) => {
-                  this.setState({
-                    stockEPS: EPSObj.stockEPS,
-                  }, () => {
-                    //update other stats!
-                  })
+              //get eps
+              get("/api/getEPSData", {
+                symbol: this.state.stockSymbol.toUpperCase(),
+                year: dayToYear(this.state.stockDay),
+                number: this.state.marketNumber
+              }).then((EPSObj) => {
+                //make more api calls here
+
+                //set all variables at once or else will lag
+                this.setState({
+                  stockEPS: EPSObj.stockEPS,
+                  stockPrice: roundPrice(stockObj.obj.stockPrice),
+                  yearHigh: stockObj.obj.yearHigh,
+                  yearLow: stockObj.obj.yearLow,
+                  totalCost: (parseInt(this.state.quantity) * parseFloat(roundPrice(stockObj.obj.stockPrice))).toString(),
+                }, () => {
+                  console.log("stock stats set")
                 })
               })
             }
@@ -143,7 +145,7 @@ class MarketTrade extends Component {
           mn: this.state.marketNumber,
         }).then((stockObj) => {
           this.props.updateCash()
-          alert("Successfully bought " + stockObj.quantity + " " + stockObj.stockName + " stocks!\nCheck your portfolio to see how you're doing!")
+          alert("Successfully bought " + quantity + " " + stockObj.stockName + " stocks!\nCheck your portfolio to see how you're doing!")
         })
       }
     } else if (type === "sell") {
@@ -199,6 +201,7 @@ class MarketTrade extends Component {
               id={this.props.id}
               cash={this.props.cash}
               marketNumber={this.state.marketNumber}
+              totalCost={this.state.totalCost}
             />
             <StockStats
               stockSymbol={this.state.stockSymbol}

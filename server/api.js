@@ -353,7 +353,9 @@ router.get("/getEPSData", (req, res) => {
     stockSymbol: req.query.symbol,
     year: req.query.year,
     marketNumber: req.query.number,
-  }).then((EPSObj) => res.send(EPSObj))
+  }).then((EPSObj) => {
+    res.send(EPSObj)
+  })
 })
 
 router.get("/getAllEPSData", (req, res) => {
