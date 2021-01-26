@@ -276,6 +276,7 @@ class App extends Component {
             gainStockPercent={this.state.gainStockPercent}
             lossStockName={this.state.lossStockName}
             lossStockPercent={this.state.lossStockPercent}
+            updateTotalValue={this.updateTotalValue}
           />
           <MarketPortfolio
             path="/Game/Portfolio"
@@ -287,6 +288,7 @@ class App extends Component {
             updateCash={this.updateCash}
             day={this.state.day}
             updateDay={this.updateDay}
+            updateTotalValue={this.updateTotalValue}
           />
           <MarketResearch
             path="/Game/Research"
@@ -298,6 +300,7 @@ class App extends Component {
             categories={this.categories}
             day={this.state.day}
             updateDay={this.updateDay}
+            updateTotalValue={this.updateTotalValue}
           />
           <MarketTrade
             path="/Game/Trade"
@@ -311,6 +314,7 @@ class App extends Component {
             namesList={this.namesList}
             day={this.state.day}
             updateDay={this.updateDay}
+            updateTotalValue={this.updateTotalValue}
           />
           {/*
           <MarketImport

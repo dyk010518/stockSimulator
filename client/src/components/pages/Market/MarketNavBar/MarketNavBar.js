@@ -143,6 +143,7 @@ class MarketNavBar extends Component {
           sendToParent = dayObj.four
         }
         this.props.updateDay(sendToParent)
+        this.props.updateTotalValue()
       })
       .catch((err) => console.log(err));
   };
