@@ -38,7 +38,6 @@ class MarketPortfolio extends Component {
             id={this.props.id}
             updateCash={this.props.updateCash}
           />
-          <StockWatchlist />
         </div>
       </>
     );
