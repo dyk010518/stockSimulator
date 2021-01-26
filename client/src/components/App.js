@@ -99,23 +99,14 @@ class App extends Component {
         }).then((returnObj) => {
           let tempGain = (Math.round(parseFloat(returnObj.bgp) * 10000) / 10000).toString()
           let tempLoss = (Math.round(parseFloat(returnObj.blp) * 10000) / 10000).toString()
-          get('/api/graphData', {
-            id: this.state.userId,
-            day: this.state.day,
-            mn: this.state.marketName,
-          }).then((graphObj) => {
-            this.setState({
-              YP: graphObj.YourPerf,
-              SPP: graphObj.SPPerf,
-              gainStockName: returnObj.bgn.toString(),
-              gainStockPercent: tempGain,
-              lossStockName: returnObj.bln.toString(),
-              lossStockPercent: tempLoss,
-            }, () => {
-              console.log("graph day gain loss set")
-              this.updateTotalValue({ newDay: updateVal })
-              console.log(graphObj)
-            })
+          this.setState({
+            gainStockName: returnObj.bgn.toString(),
+            gainStockPercent: tempGain,
+            lossStockName: returnObj.bln.toString(),
+            lossStockPercent: tempLoss,
+          }, () => {
+            console.log("graph day gain loss set")
+            this.updateTotalValue({ newDay: updateVal, condition: true })
           })
         })
       }
@@ -160,7 +151,7 @@ class App extends Component {
           tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
         }
         this.setState({ cash: tcash }, () => {
-          this.updateTotalValue({ newDay: this.state.day })
+          this.updateTotalValue({ newDay: this.state.day, condition: false })
         })
       })
     }
@@ -180,49 +171,87 @@ class App extends Component {
         this.setState({
           totalValue: roundPrice(totalStocks).toString(),
         }, () => {
-          let tempNumber;
-          if (this.state.marketName === "One") {
-            tempNumber = "1"
-          } else if (this.state.marketName === "Two") {
-            tempNumber = "2"
-          } else if (this.state.marketName === "Three") {
-            tempNumber = "3"
-          } else if (this.state.marketName === "Four") {
-            tempNumber = "4"
-          }
-          if (boughtStockObjs.length > 0) {
-            if (obj.newDay) {
-              console.log("reached new day")
-              let tempTV = 0;
-              for (let i = 0; i < boughtStockObjs.length; i++) {
-                if (boughtStockObjs[i].quantity === 0) {
-                  continue
-                }
-                get('/api/getPriceData', {
-                  symbol: boughtStockObjs[i].stockName.toString(),
-                  day: obj.newDay.toString(),
-                  number: tempNumber.toString(),
-                }).then((stockObj) => {
-                  tempTV = tempTV + parseFloat(boughtStockObjs[i].quantity) * parseFloat(stockObj.obj.stockPrice)
-                  if (i === boughtStockObjs.length - 1) {
-                    post('/api/updateTotalValues', {
-                      id: this.state.userId,
-                      number: tempNumber,
-                      valueUpdate: (parseFloat(tempTV) + parseFloat(this.state.cash)).toString(),
-                    }).then((TVObj) => {
-                      console.log("total value updated" + TVObj.msg)
-                    })
+          if (obj.condition) {
+            console.log("reached new day")
+            let tempNumber;
+            if (this.state.marketName === "One") {
+              tempNumber = "1"
+            } else if (this.state.marketName === "Two") {
+              tempNumber = "2"
+            } else if (this.state.marketName === "Three") {
+              tempNumber = "3"
+            } else if (this.state.marketName === "Four") {
+              tempNumber = "4"
+            }
+            if (boughtStockObjs.length > 0) {
+              if (obj.newDay) {
+                let tempTV = 0;
+                for (let i = 0; i < boughtStockObjs.length; i++) {
+                  if (boughtStockObjs[i].quantity === 0) {
+                    continue
                   }
-                })
+                  get('/api/getPriceData', {
+                    symbol: boughtStockObjs[i].stockName.toString(),
+                    day: obj.newDay.toString(),
+                    number: tempNumber.toString(),
+                  }).then((stockObj) => {
+                    tempTV = tempTV + parseFloat(boughtStockObjs[i].quantity) * parseFloat(stockObj.obj.stockPrice)
+                    if (i === boughtStockObjs.length - 1) {
+                      post('/api/updateTotalValues', {
+                        id: this.state.userId,
+                        number: tempNumber,
+                        valueUpdate: (parseFloat(tempTV) + parseFloat(this.state.cash)).toString(),
+                      }).then((TVObj) => {
+                        console.log("total value updated existent stocks " + TVObj.msg)
+                        get('/api/graphData', {
+                          id: this.state.userId,
+                          day: this.state.day,
+                          mn: this.state.marketName,
+                        }).then((graphObj) => {
+                          console.log(graphObj)
+                          this.setState({
+                            YP: graphObj.YourPerf,
+                            SPP: graphObj.SPPerf
+                          })
+                        })
+                      })
+                    }
+                  })
+                }
               }
+            } else {
+                if (obj.condition) {
+                  post('/api/updateTotalValues', {
+                    id: this.state.userId,
+                    number: tempNumber,
+                    valueUpdate: this.state.cash.toString(),
+                  }).then((TVObj) => {
+                    console.log("total value updated " + TVObj.msg)
+                    get('/api/graphData', {
+                      id: this.state.userId,
+                      day: this.state.day,
+                      mn: this.state.marketName,
+                    }).then((graphObj) => {
+                      console.log(graphObj)
+                      this.setState({
+                        YP: graphObj.YourPerf,
+                        SPP: graphObj.SPPerf
+                      })
+                    })
+                  })
+                }
             }
           } else {
-            post('/api/updateTotalValues', {
+            get('/api/graphData', {
               id: this.state.userId,
-              number: tempNumber,
-              valueUpdate: this.state.cash.toString(),
-            }).then((TVObj) => {
-              console.log("total value updated" + TVObj.msg)
+              day: this.state.day,
+              mn: this.state.marketName,
+            }).then((graphObj) => {
+              console.log(graphObj)
+              this.setState({
+                YP: graphObj.YourPerf,
+                SPP: graphObj.SPPerf
+              })
             })
           }
         })
