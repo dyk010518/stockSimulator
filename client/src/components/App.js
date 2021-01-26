@@ -158,13 +158,13 @@ class App extends Component {
           tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
         }
         this.setState({ cash: tcash }, () => {
-          this.updateTotalValue()
+          this.updateTotalValue({newDay: this.state.day})
         })
       })
     }
   }
 
-  updateTotalValue = () => {
+  updateTotalValue = (obj) => {
     if (this.state.userId) {
       let totalStocks = 0;
       get('/api/boughtstocks', { id: this.state.userId }).then((boughtStockObjs) => {
@@ -178,8 +178,33 @@ class App extends Component {
         this.setState({
           totalValue: roundPrice(totalStocks).toString(),
         }, () => {
-
+          if (obj.newDay){
+            let tempTV = 0;
+          let tempNumber;
+          if (this.state.marketName === "One") {
+            tempNumber = "1"
+          } else if (this.state.marketName === "Two") {
+            tempNumber = "2"
+          } else if (this.state.marketName === "Three") {
+            tempNumber = "3"
+          } else if (this.state.marketName === "Four") {
+            tempNumber = "4"
+          }
+          for (let i=0; i< boughtStockObjs.length; i++){
+            if (boughtStockObjs[i].quantity === 0) {
+              continue
+            }
+            get('/api/getPriceData', {
+              stockSymbol: boughtStockObjs[i].stockName,
+              day: obj.newDay.toString(),
+              number: tempNumber,
+            }).then((stockObj) => {
+              tempTV = tempTV + parseFloat(boughtStockObjs[i].quantity)*parseFloat(stockObj.obj.stockPrice)
+            })
+          }
+          console.log(tempTV)
           console.log("total value and cash updated")
+          }
         })
       });
     }
