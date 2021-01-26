@@ -132,10 +132,10 @@ class MarketTrade extends Component {
                     symbol: this.state.stockSymbol.toUpperCase()
                   }).then((BSObj) => {
                     let tshareNumber = 0;
-                    if (BSObj) {
-                      console.log("found a stockobject")
-                      console.log(BSObj)
-                      tshareNumber = BSObj.quantity
+                    if (BSObj.obj) {
+                      console.log(BSObj.msg)
+                      console.log(BSObj.obj)
+                      tshareNumber = BSObj.obj.quantity
                     }
                     let tsValAfter;
                     let pValAfter;

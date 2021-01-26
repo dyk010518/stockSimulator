@@ -90,7 +90,7 @@ router.post('/updateTotalValues', (req, res) => {
     userID: req.body.id,
   }).then((TVObj) => {
     if (number === "1"){
-      
+
     } else if (number === "2"){
 
     } else if (number === "3"){
@@ -394,7 +394,11 @@ router.get("/getBoughtStocks", (req, res) => {
     userID: req.query.id,
     stockName: req.query.symbol,
   }).then((stockObj) => {
-    res.send(stockObj)
+    if (stockObj){
+      res.send({msg: "found", obj: stockObj})
+    } else {
+      res.send({msg: "not found", obj: undefined})
+    }
   })
 })
 
