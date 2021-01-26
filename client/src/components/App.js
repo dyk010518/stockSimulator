@@ -202,12 +202,17 @@ class App extends Component {
                 console.log(stockObj)
                 tempTV = tempTV + parseFloat(boughtStockObjs[i].quantity) * parseFloat(stockObj.obj.stockPrice)
                 if (i === boughtStockObjs.length - 1) {
-                  console.log(tempTV)
-                  console.log("total value and cash updated")
+                  post('/api/updateTotalValues', {
+                    id: this.state.userId,
+                    number: tempNumber,
+                    valueUpdate: (parseFloat(tempTV)+parseFloat(this.state.cash)).toString(),
+                  }).then((TVObj) => {
+
+                    console.log(TVObj)
+                  })
                 }
               })
             }
-
           }
         })
       });

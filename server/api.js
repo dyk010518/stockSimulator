@@ -71,65 +71,48 @@ router.post('/createTV', (req, res) => {
   totalValues.findOne({
     userID: req.body.id,
   }).then((TVObj) => {
-    if (!(TVObj)){
+    if (!(TVObj)) {
       const newTVObj = new totalValues({
         userID: req.body.id,
-        oneTV: "10000",
-        twoTV: "10000",
-        threeTV: "10000",
-        fourTV: "10000",
+        oneTV: "10000,",
+        twoTV: "10000,",
+        threeTV: "10000,",
+        fourTV: "10000,",
       })
       newTVObj.save()
     }
   })
 })
 
-//post totalValues given id, number, valueUpdate
-router.post('/updateTotalValues', (req, res) => {
-  totalValues.findOne({
-    userID: req.body.id,
-  }).then((TVObj) => {
-    if (number === "1"){
-
-    } else if (number === "2"){
-
-    } else if (number === "3"){
-      
-    } else if (number === "4"){
-      
-    }
-  })
-})
-
 //get stocks for today and yesterday given day, number (market number)
 router.get('/getStocksForTheDay', (req, res) => {
-  if (!(req.query.day === "1")){
+  if (!(req.query.day === "1")) {
     stockPrice.find({
       day: req.query.day,
       marketNumber: req.query.number,
     }).then((todayStockObjs) => {
       stockPrice.find({
-        day: (parseInt(req.query.day)-1).toString(),
+        day: (parseInt(req.query.day) - 1).toString(),
         marketNumber: req.query.number,
       }).then((yesterdayStockObjs) => {
         let BGP = 0;
         let BLP = 0;
-        let biggestGain = parseFloat(todayStockObjs[0].stockPrice)-parseFloat(yesterdayStockObjs[0].stockPrice);
-        let biggestLoss = parseFloat(yesterdayStockObjs[0].stockPrice)-parseFloat(todayStockObjs[0].stockPrice);
+        let biggestGain = parseFloat(todayStockObjs[0].stockPrice) - parseFloat(yesterdayStockObjs[0].stockPrice);
+        let biggestLoss = parseFloat(yesterdayStockObjs[0].stockPrice) - parseFloat(todayStockObjs[0].stockPrice);
         let BGN = todayStockObjs[0].stockSymbol;
         let BLN = todayStockObjs[0].stockSymbol;
-        for (let i=0; i<todayStockObjs.length; i++){
-          if (todayStockObjs[i].stockSymbol === "MARKET"){
+        for (let i = 0; i < todayStockObjs.length; i++) {
+          if (todayStockObjs[i].stockSymbol === "MARKET") {
             continue
           }
-          if (parseFloat(todayStockObjs[i].stockPrice)-parseFloat(yesterdayStockObjs[i].stockPrice)>biggestGain){
-            biggestGain = parseFloat(todayStockObjs[i].stockPrice)-parseFloat(yesterdayStockObjs[i].stockPrice);
-            BGP = biggestGain/parseFloat(yesterdayStockObjs[i].stockPrice)
+          if (parseFloat(todayStockObjs[i].stockPrice) - parseFloat(yesterdayStockObjs[i].stockPrice) > biggestGain) {
+            biggestGain = parseFloat(todayStockObjs[i].stockPrice) - parseFloat(yesterdayStockObjs[i].stockPrice);
+            BGP = biggestGain / parseFloat(yesterdayStockObjs[i].stockPrice)
             BGN = todayStockObjs[i].stockSymbol;
           }
-          if (parseFloat(yesterdayStockObjs[i].stockPrice)-parseFloat(todayStockObjs[i].stockPrice)>biggestLoss){
-            biggestLoss = parseFloat(yesterdayStockObjs[i].stockPrice)-parseFloat(todayStockObjs[i].stockPrice);
-            BLP = biggestLoss/parseFloat(yesterdayStockObjs[i].stockPrice)
+          if (parseFloat(yesterdayStockObjs[i].stockPrice) - parseFloat(todayStockObjs[i].stockPrice) > biggestLoss) {
+            biggestLoss = parseFloat(yesterdayStockObjs[i].stockPrice) - parseFloat(todayStockObjs[i].stockPrice);
+            BLP = biggestLoss / parseFloat(yesterdayStockObjs[i].stockPrice)
             BLN = todayStockObjs[i].stockSymbol;
           }
         }
@@ -144,58 +127,100 @@ router.get('/getStocksForTheDay', (req, res) => {
   }
 })
 
+//post totalValues given id, number, valueUpdate
+router.post('/updateTotalValues', (req, res) => {
+  totalValues.findOne({
+    userID: req.body.id,
+  }).then((TVObj) => {
+    if (TVObj) {
+      number = req.body.number
+      let tempArray = [];
+      if (number === "1") {
+        tempArray = TVObj.oneTV.split(",")
+      } else if (number === "2") {
+        tempArray = TVObj.twoTV.split(",")
+      } else if (number === "3") {
+        tempArray = TVObj.threeTV.split(",")
+      } else if (number === "4") {
+        tempArray = TVObj.fourTV.split(",")
+      }
+      if (tempArray[tempArray.length - 1] === "") {
+        tempArray = tempArray.slice(0, tempArray.length - 1)
+      }
+      if (tempArray.length > 4) {
+        tempArray = tempArray.slice(1)
+      }
+      tempArray.push(req.body.valueUpdate.toString())
+      let tempString = "";
+      for (let i = 0; i < tempArray.length; i++) {
+        tempString = tempString + tempArray[i] + ","
+      }
+      if (number === "1") {
+        TVObj.oneTV = tempString.toString()
+      } else if (number === "2") {
+        TVObj.twoTV = tempString.toString()
+      } else if (number === "3") {
+        TVObj.threeTV = tempString.toString()
+      } else if (number === "4") {
+        TVObj.fourTV = tempString.toString()
+      }
+      TVObj.save()
+      res.send(TVObj)
+    }
+  })
+})
 
 //update recentactivity given id, symbol, buy, bp, sell, sp, amt
 router.post("/updateRA", (req, res) => {
   Recentactivity.findOne({
     userId: req.body.id,
   }).then((raObj) => {
-    if (raObj){
+    if (raObj) {
       let tempArray = [];
       let tpArray = [];
       let tempPrice;
-      if (req.body.buy){
+      if (req.body.buy) {
         tempArray = raObj.bought.split(",")
         tpArray = raObj.bPrice.split(",")
-        tempPrice = parseFloat(req.body.bp)*parseFloat(req.body.amt)
-      } else if (req.body.sell){
+        tempPrice = parseFloat(req.body.bp) * parseFloat(req.body.amt)
+      } else if (req.body.sell) {
         tempArray = raObj.sold.split(",")
         tpArray = raObj.sPrice.split(",")
-        tempPrice = parseFloat(req.body.sp)*parseFloat(req.body.amt)
+        tempPrice = parseFloat(req.body.sp) * parseFloat(req.body.amt)
       }
-      if (tempArray[tempArray.length-1] === ""){
-        tempArray = tempArray.slice(0,tempArray.length-1)
+      if (tempArray[tempArray.length - 1] === "") {
+        tempArray = tempArray.slice(0, tempArray.length - 1)
       }
-      if (tempArray.length > 2){
+      if (tempArray.length > 2) {
         tempArray = tempArray.slice(1)
       }
-      if (tpArray[tpArray.length-1] === ""){
-        tpArray = tpArray.slice(0,tpArray.length-1)
+      if (tpArray[tpArray.length - 1] === "") {
+        tpArray = tpArray.slice(0, tpArray.length - 1)
       }
-      if (tpArray.length > 2){
+      if (tpArray.length > 2) {
         tpArray = tpArray.slice(1)
       }
       tpArray.push(tempPrice.toString())
       tempArray.push(req.body.amt.toString() + " " + req.body.symbol.toString())
       let tempString = ""
       let tpString = ""
-      for (let i=0; i<tempArray.length; i++){
+      for (let i = 0; i < tempArray.length; i++) {
         tempString = tempString + tempArray[i] + ","
       }
-      for (let i=0; i<tpArray.length; i++){
+      for (let i = 0; i < tpArray.length; i++) {
         tpString = tpString + tpArray[i] + ","
       }
-      if (req.body.buy){
+      if (req.body.buy) {
         raObj.bought = tempString
         raObj.bPrice = tpString
-      } else if (req.body.sell){
+      } else if (req.body.sell) {
         raObj.sold = tempString
         raObj.sPrice = tpString
       }
       raObj.save()
-      res.send({msg: "found", obj: raObj})
+      res.send({ msg: "found", obj: raObj })
     } else {
-      res.send({msg: "not found", obj: undefined})
+      res.send({ msg: "not found", obj: undefined })
     }
   })
 })
@@ -321,11 +346,11 @@ router.post("/sellStock", (req, res) => {
       let newQuantity = parseFloat(req.body.amt);
       let totalQuantity = oldQuantity - newQuantity;
 
-      let tempCostBasis = ((oldPrice*oldQuantity)-(newPrice*newQuantity))/totalQuantity;
+      let tempCostBasis = ((oldPrice * oldQuantity) - (newPrice * newQuantity)) / totalQuantity;
 
-      
+
       stockObj.quantity = (parseInt(stockObj.quantity) - parseInt(req.body.amt)).toString()
-      if (parseInt(stockObj.quantity)===0){
+      if (parseInt(stockObj.quantity) === 0) {
         stockObj.costBasis = (0).toString()
       } else {
         stockObj.costBasis = (Math.round(parseFloat(tempCostBasis) * 100) / 100).toString();
@@ -362,7 +387,7 @@ router.post("/buyStock", (req, res) => {
       }
       userObj.save()
     })
-    if (!(stockObj)){
+    if (!(stockObj)) {
       let newObj = new Boughtstocks({
         userID: req.body.id,
         stockName: req.body.symbol,
@@ -378,7 +403,7 @@ router.post("/buyStock", (req, res) => {
       let newQuantity = parseFloat(req.body.amt);
       let totalQuantity = oldQuantity + newQuantity;
 
-      let tempCostBasis = ((oldPrice*oldQuantity)+(newPrice*newQuantity))/totalQuantity;
+      let tempCostBasis = ((oldPrice * oldQuantity) + (newPrice * newQuantity)) / totalQuantity;
 
       stockObj.costBasis = (Math.round(parseFloat(tempCostBasis) * 100) / 100).toString();
       stockObj.quantity = (parseInt(stockObj.quantity) + parseInt(req.body.amt)).toString()
@@ -394,10 +419,10 @@ router.get("/getBoughtStocks", (req, res) => {
     userID: req.query.id,
     stockName: req.query.symbol,
   }).then((stockObj) => {
-    if (stockObj){
-      res.send({msg: "found", obj: stockObj})
+    if (stockObj) {
+      res.send({ msg: "found", obj: stockObj })
     } else {
-      res.send({msg: "not found", obj: undefined})
+      res.send({ msg: "not found", obj: undefined })
     }
   })
 })
