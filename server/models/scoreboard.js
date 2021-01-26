@@ -8,4 +8,4 @@ const scoreboardSchema = new mongoose.Schema({
 });
 
 // compile model from schema
-module.exports = mongoose.model("scoreboard", scoreboardSchema);
+module.exports = mongoose.model("scoreboards", scoreboardSchema);
