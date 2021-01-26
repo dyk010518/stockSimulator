@@ -58,12 +58,67 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-//get graph data given id, day, number
+//get graph data given id, day, mn. S&P is "MARKET"
 router.get('/graphData', (req, res) => {
-  res.send({
-    YP: "YP",
-    SPP: "SPP",
-  })
+  let SPP = [];
+  let startDay;
+  let tempPArray = [];
+  let tObj = {};
+  if (req.query.day < 6) {
+    startDay = 1
+    totalDays = parseInt(req.query.day)
+  } else {
+    startDay = parseInt(req.query.day) - 6
+    totalDays = 6
+  }
+  for (let i = 0; i < totalDays; i++) {
+    //console.log(parseInt(req.query.day))
+    stockPrice.findOne({
+      stockSymbol: "MARKET",
+      day: (i + startDay).toString(),
+      marketNumber: "1",
+    }).then((markObj) => {
+      tObj = {
+        sp: markObj.stockPrice
+      }
+      tempPArray.push(tObj.sp.toString())
+      if (i === totalDays - 1) {
+        let percentInc;
+        for (let j = 0; j < tempPArray.length - 1; j++) {
+          percentInc = (parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j])
+          SPP.push(percentInc)
+        }
+        totalValues.findOne({
+          userID: req.query.id.toString(),
+        }).then((TVObj) => {
+          let tempTV;
+          if (req.query.mn === "One") {
+            tempTV = TVObj.oneTV
+          } else if (req.query.mn === "Two") {
+            tempTV = TVObj.twoTV
+          } else if (req.query.mn === "Three") {
+            tempTV = TVObj.threeTV
+          } else if (req.query.mn === "Four") {
+            tempTV = TVObj.fourTV
+          }
+          let tempTVArray = tempTV.split(",")
+          if (tempTVArray[tempTVArray.length - 1] === "") {
+            tempTVArray = tempTVArray.slice(0, tempTVArray.length - 1)
+          }
+          let returnTVA = []
+          let TVPI;
+          for (let k = 0; k < tempTVArray.length - 1; k++) {
+            TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])
+            returnTVA.push(TVPI)
+          }
+          res.send({
+            YourPerf: returnTVA,
+            SPPerf: SPP,
+          })
+        })
+      }
+    })
+  }
 })
 
 //create totalValues given id, values array
@@ -147,7 +202,7 @@ router.post('/updateTotalValues', (req, res) => {
       if (tempArray[tempArray.length - 1] === "") {
         tempArray = tempArray.slice(0, tempArray.length - 1)
       }
-      if (tempArray.length > 4) {
+      if (tempArray.length > 5) {
         tempArray = tempArray.slice(1)
       }
       tempArray.push(req.body.valueUpdate.toString())
@@ -165,7 +220,7 @@ router.post('/updateTotalValues', (req, res) => {
         TVObj.fourTV = tempString.toString()
       }
       TVObj.save()
-      res.send({obj: TVObj, msg: "success"})
+      res.send({ obj: TVObj, msg: "success" })
     }
   })
 })

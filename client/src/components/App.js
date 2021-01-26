@@ -40,8 +40,8 @@ class App extends Component {
       gainStockPercent: undefined,
       lossStockName: undefined,
       lossStockPercent: undefined,
-      YourPerf: undefined,
-      SAPP: undefined,
+      YP: undefined,
+      SPP: undefined,
     };
   }
   categories = {
@@ -99,20 +99,21 @@ class App extends Component {
         }).then((returnObj) => {
           let tempGain = (Math.round(parseFloat(returnObj.bgp) * 10000) / 10000).toString()
           let tempLoss = (Math.round(parseFloat(returnObj.blp) * 10000) / 10000).toString()
-          get("/api/graphData", {
+          get('/api/graphData', {
             id: this.state.userId,
-            number: tempNumber,
             day: this.state.day,
-          }).then((graphReturnObj) => {
+            mn: this.state.marketName,
+          }).then((graphObj) => {
             this.setState({
+              YP: graphObj.YourPerf,
+              SPP: graphObj.SPPerf,
               gainStockName: returnObj.bgn.toString(),
               gainStockPercent: tempGain,
               lossStockName: returnObj.bln.toString(),
               lossStockPercent: tempLoss,
-              YourPerf: graphReturnObj.YP,
-              SAPP: graphReturnObj.SPP,
             }, () => {
               console.log("graph day gain loss set")
+              console.log(graphObj)
             })
           })
         })
@@ -199,13 +200,12 @@ class App extends Component {
                 day: obj.newDay.toString(),
                 number: tempNumber.toString(),
               }).then((stockObj) => {
-                console.log(stockObj)
                 tempTV = tempTV + parseFloat(boughtStockObjs[i].quantity) * parseFloat(stockObj.obj.stockPrice)
                 if (i === boughtStockObjs.length - 1) {
                   post('/api/updateTotalValues', {
                     id: this.state.userId,
                     number: tempNumber,
-                    valueUpdate: (parseFloat(tempTV)+parseFloat(this.state.cash)).toString(),
+                    valueUpdate: (parseFloat(tempTV) + parseFloat(this.state.cash)).toString(),
                   }).then((TVObj) => {
                     console.log("total value updated" + TVObj.msg)
                   })
@@ -310,6 +310,8 @@ class App extends Component {
             lossStockName={this.state.lossStockName}
             lossStockPercent={this.state.lossStockPercent}
             updateTotalValue={this.updateTotalValue}
+            YP={this.state.YP}
+            SPP={this.state.SPP}
           />
           <MarketPortfolio
             path="/Game/Portfolio"

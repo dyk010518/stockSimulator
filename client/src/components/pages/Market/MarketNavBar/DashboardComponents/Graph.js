@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import '../../../../buttonStyles.css';
 import { Router } from '@reach/router';
 import { Link } from '@reach/router';
-import {Scatter} from 'react-chartjs-2';
+import { Scatter } from 'react-chartjs-2';
 import './Graph.css'
 import { get, post } from "../../../../../utilities.js";
 
@@ -17,20 +17,12 @@ class Graph extends Component {
             price: undefined,
         }
     }
-
+    //marketName is One, Two, Three, or Four
     componentDidMount() {
-        /*
-        get("/api/stockdata").then((stockObjs) => {
-            this.setState({
-                name: stockObjs[0].stockName,
-                stocks: stockObjs,
-                stateDate: stockObjs[0].date,
-                price: stockObjs[0].stockPrice,
-            })
-        });
-        */
+        console.log(this.props.YP)
+        console.log(this.props.SPP)
     }
-    
+
     // required method: whatever is returned defines what
     // shows up on screen
     render() {
@@ -55,13 +47,13 @@ class Graph extends Component {
             y: 20
         }]
         return (
-            
+
             <>
-                
+
                 <div >
-                    <Scatter 
-                        data = {{
-                            datasets:[{
+                    <Scatter
+                        data={{
+                            datasets: [{
                                 label: 'Your Performance',
                                 //data format: points
                                 data: yourP,
@@ -84,7 +76,7 @@ class Graph extends Component {
                                 showLine: true,
                                 borderColor: 'black',
                                 borderWidth: 1
-                                }]
+                            }]
                         }}
                         height={400}
                         width={600}
@@ -94,7 +86,7 @@ class Graph extends Component {
                                 yAxes: [{
                                     ticks: {
                                         beginAtZero: true,
-                                        callback: function(value, index, values) {
+                                        callback: function (value, index, values) {
                                             return '$' + value;
                                         }
                                     }
@@ -104,7 +96,7 @@ class Graph extends Component {
                                         beginAtZero: false,
                                         min: 1,
                                         stepSize: 1,
-                                        callback: function(value, index, values) {
+                                        callback: function (value, index, values) {
                                             return "Day " + value;
                                         }
                                     }
@@ -115,7 +107,7 @@ class Graph extends Component {
                                 labels: {
                                     fontColor: 'rgb(255, 99, 132)'
                                 },
-                                
+
                             },
                         }}
                     />
