@@ -10,12 +10,12 @@ class Scoreboard1 extends Component {
 			userId1: undefined,
 			userId2: undefined,
 			userId3: undefined,
-			userName1: undefined,
-			userName2: undefined,
-			userName3: undefined,
-			total1: undefined,
-			total2: undefined,
-			total3: undefined,
+			userName1: "Bob",
+			userName2: "Mary",
+			userName3: "Paul",
+			total1: 123,
+			total2: 123,
+			total3: 123,
 		}
 	}
 
@@ -35,12 +35,20 @@ class Scoreboard1 extends Component {
 				<div onClick={this.clickHandler} className = "Scoreboard1-basics">
 				<div className="Scoreboard1-resultHeader">
                     <div className="Scoreboard1-resultDesctiption"> Rank</div>
-                    <div className="Scoreboard1-resultDesctiption"> Player ID</div>
+                    <div className="Scoreboard1-resultDesctiption"> Player Name</div>
                     <div className="Scoreboard1-resultDesctiption"> Total Account Value</div>
 
-					<div className="Scoreboard1-resultDesctiption"> Rank</div>
-                    <div className="Scoreboard1-resultDesctiption"> Player ID</div>
-                    <div className="Scoreboard1-resultDesctiption"> Total Account Value</div>
+					<div className="Scoreboard1-resultDesctiption"> 1</div>
+                    <div className="Scoreboard1-resultDesctiption"> {this.state.userName1}</div>
+                    <div className="Scoreboard1-resultDesctiption"> {this.state.total1}</div>
+
+					<div className="Scoreboard1-resultDesctiption"> 2</div>
+                    <div className="Scoreboard1-resultDesctiption"> {this.state.userName2}</div>
+                    <div className="Scoreboard1-resultDesctiption"> {this.state.total2}</div>
+
+					<div className="Scoreboard1-resultDesctiption"> 3</div>
+                    <div className="Scoreboard1-resultDesctiption"> {this.state.userName3}</div>
+                    <div className="Scoreboard1-resultDesctiption"> {this.state.total3}</div>
                 </div>
 
 				
