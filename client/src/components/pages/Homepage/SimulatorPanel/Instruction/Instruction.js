@@ -17,7 +17,7 @@ class Instruction extends Component {
                 Instructions
             </h1>
             <p className="instructionBody">
-                blah blah blah
+                Welcome to SSS! Practicing with us, you will be a pro at investing stocks. You will have 10k dollars to spend! Start investing in the sotck market and earn as much profit as you can in 10 years. Happy investing!
             </p>
             </>
         );
