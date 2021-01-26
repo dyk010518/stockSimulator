@@ -29,6 +29,13 @@ class MarketTrade extends Component {
       marketCap: "",
       totalCost: undefined,
       buttonOff: false,
+      cashAfter: undefined,
+      currentShares: undefined,
+      afterShares: undefined,
+      shareValue: undefined,
+      shareValueAfter: undefined,
+      percentage: undefined,
+      percentageAfter: undefined,
     });
   }
 
@@ -82,47 +89,63 @@ class MarketTrade extends Component {
       }
       this.setState({
         stockDay: tempDay,
+        stockSymbol: symbol,
+        transaction: ttype,
+        quantity: amt,
       }, () => {
-        this.setState({
-          stockSymbol: symbol,
-          transaction: ttype,
-          quantity: amt,
-        }, () => {
-          //updates price
-          get("/api/getPriceData", {
-            symbol: symbol.toUpperCase(),
-            day: tempDay,
-            number: this.state.marketNumber,
-          }).then((stockObj) => {
-            if (!(stockObj.obj)) {
-              this.setState({
-                stockSymbol: "",
-                stockPrice: "",
-                yearHigh: "",
-                yearLow: "",
-                stockEPS: "",
-              }, () => {
-                alert("Please insert a valid stock symbol: " + marketOneStocks);
-              })
-            } else {
-              //get eps
-              get("/api/getEPSData", {
+        get("/api/getPriceData", {
+          symbol: symbol.toUpperCase(),
+          day: tempDay,
+          number: this.state.marketNumber,
+        }).then((stockObj) => {
+          if (!(stockObj.obj)) {
+            this.setState({
+              stockSymbol: "",
+              stockPrice: "",
+              yearHigh: "",
+              yearLow: "",
+              stockEPS: "",
+            }, () => {
+              alert("Please insert a valid stock symbol: " + marketOneStocks);
+            })
+          } else {
+            //get eps
+            get("/api/getEPSData", {
+              symbol: this.state.stockSymbol.toUpperCase(),
+              year: dayToYear(this.state.stockDay),
+              number: this.state.marketNumber
+            }).then((EPSObj) => {
+              //make more api calls here
+              get("/api/getPEData", {
                 symbol: this.state.stockSymbol.toUpperCase(),
-                year: dayToYear(this.state.stockDay),
+                day: this.state.stockDay.toString(),
                 number: this.state.marketNumber
-              }).then((EPSObj) => {
-                //make more api calls here
-                get("/api/getPEData", {
+              }).then((PEObj) => {
+                get("/api/getMCData", {
                   symbol: this.state.stockSymbol.toUpperCase(),
-                  day: this.state.stockDay.toString(),
+                  month: dayToMonth(this.state.stockDay),
                   number: this.state.marketNumber
-                }).then((PEObj) => {
-                  get("/api/getMCData", {
-                    symbol: this.state.stockSymbol.toUpperCase(),
-                    month: dayToMonth(this.state.stockDay),
-                    number: this.state.marketNumber
-                  }).then((MCObj) => {
-                    //set all variables at once or else will lag
+                }).then((MCObj) => {
+                  //set all variables at once or else will lag
+                  get("/api/getBoughtStocks", {
+                    id: this.props.id,
+                    symbol: this.state.stockSymbol.toUpperCase()
+                  }).then((BSObj) => {
+                    let tshareNumber = 0;
+                    if (BSObj) {
+                      console.log("found a stockobject")
+                      console.log(BSObj)
+                      tshareNumber = BSObj.quantity
+                    }
+                    let tsValAfter;
+                    let pValAfter;
+                    if (ttype === "buy"){
+                      tsValAfter = roundPrice(parseFloat(tshareNumber)*parseFloat(stockObj.obj.stockPrice)+parseFloat(amt)*parseFloat(stockObj.obj.stockPrice)).toString()
+                      pValAfter = roundPrice((parseFloat(tshareNumber)*parseFloat(stockObj.obj.stockPrice)+parseFloat(amt)*parseFloat(stockObj.obj.stockPrice))/this.props.totalValue).toString()
+                    } else if (ttype === "sell"){
+                      tsValAfter = roundPrice(parseFloat(tshareNumber)*parseFloat(stockObj.obj.stockPrice)-parseFloat(amt)*parseFloat(stockObj.obj.stockPrice)).toString()
+                      pValAfter = roundPrice((parseFloat(tshareNumber)*parseFloat(stockObj.obj.stockPrice)-parseFloat(amt)*parseFloat(stockObj.obj.stockPrice))/this.props.totalValue).toString()
+                    }
                     this.setState({
                       stockEPS: EPSObj.stockEPS,
                       stockPrice: roundPrice(stockObj.obj.stockPrice),
@@ -131,14 +154,21 @@ class MarketTrade extends Component {
                       totalCost: (parseInt(this.state.quantity) * parseFloat(roundPrice(stockObj.obj.stockPrice))).toString(),
                       marketCap: MCObj.stockMarketCap,
                       stockPE: PEObj.stockPE,
+                      cashAfter: (this.props.cash - (parseInt(this.state.quantity) * parseFloat(roundPrice(stockObj.obj.stockPrice)))).toString(),
+                      currentShares: tshareNumber,
+                      afterShares: (parseInt(tshareNumber) + parseInt(this.state.quantity)).toString(),
+                      shareValue: roundPrice(parseFloat(tshareNumber)*parseFloat(stockObj.obj.stockPrice)).toString(),
+                      shareValueAfter: tsValAfter,
+                      percentage: roundPrice((parseFloat(tshareNumber)*parseFloat(stockObj.obj.stockPrice))/this.props.totalValue).toString(),
+                      percentageAfter: pValAfter,
                     }, () => {
                       console.log("stock stats set")
                     })
                   })
                 })
               })
-            }
-          })
+            })
+          }
         })
       })
     })
@@ -265,12 +295,16 @@ class MarketTrade extends Component {
               marketCap={this.state.marketCap}
             />
           </div>
-          <AccountDetails 
-            totalValue={this.props.totalValue}
+          <AccountDetails
             cash={this.props.cash}
-            username={this.props.username}
-            marketName={this.props.marketName}
-            id={this.props.id}
+            cashAfter={this.state.cashAfter}
+            shares={this.state.currentShares}
+            sharesAfter={this.state.afterShares}
+            shareValue={this.state.shareValue}
+            shareValueAfter={this.state.shareValueAfter}
+            percentage={this.state.percentage}
+            percentageAfter={this.state.percentageAfter}
+            stockSymbol={this.state.stockSymbol}
           />
         </div>
       </>

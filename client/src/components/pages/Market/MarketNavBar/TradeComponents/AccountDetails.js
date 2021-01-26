@@ -32,24 +32,20 @@ class AccountDetails extends Component {
                     <div className="AccountDetails-beforeContainer">
                         <h2 className="AccountDetails-before">Account Details (Before):</h2>
                         <div className="AccountDetails-item">
-                            <label className="AccountDetails-label">Total Account Value:</label>
-                            <div className="AccountDetails-info">{this.state.totalValue}</div>
-                        </div>
-                        <div className="AccountDetails-item">
                             <label className="AccountDetails-label">Cash:</label>
                             <div className="AccountDetails-info">{this.props.cash}</div>
                         </div>
                         <div className="AccountDetails-item">
-                            <label className="AccountDetails-label">{"Shares of "+this.state.stockSymbol+":"}</label>
-                            <div className="AccountDetails-info">{this.state.sharesBefore}</div>
+                            <label className="AccountDetails-label">{"Shares of "+this.props.stockSymbol+":"}</label>
+                            <div className="AccountDetails-info">{this.props.shares}</div>
                         </div>
                         <div className="AccountDetails-item">
-                            <label className="AccountDetails-label">{"Total Value of "+this.state.stockSymbol+":"}</label>
-                            <div className="AccountDetails-info">{this.state.stockValueBefore}</div>
+                            <label className="AccountDetails-label">{"Total Value of "+this.props.stockSymbol+":"}</label>
+                            <div className="AccountDetails-info">{this.props.shareValue}</div>
                         </div>
                         <div className="AccountDetails-item">
-                            <label className="AccountDetails-label">{"Percentage allocation of "+this.state.stockSymbol+":"}</label>
-                            <div className="AccountDetails-info">{this.state.percentageBefore}</div>
+                            <label className="AccountDetails-label">{"Percentage allocation of "+this.props.stockSymbol+":"}</label>
+                            <div className="AccountDetails-info">{this.props.percentage}</div>
                         </div>
                     </div>
    
@@ -58,24 +54,20 @@ class AccountDetails extends Component {
                     <div className="AccountDetails-afterContainer">
                         <h2 className="AccountDetails-after">Account Details (After):</h2>
                         <div className="AccountDetails-item">
-                            <label className="AccountDetails-label">Total Account Value:</label>
-                            <div className="AccountDetails-info">{this.state.totalValue}</div>
-                        </div>
-                        <div className="AccountDetails-item">
                             <label className="AccountDetails-label">Cash:</label>
-                            <div className="AccountDetails-info">{this.state.cashAfter}</div>
+                            <div className="AccountDetails-info">{this.props.cashAfter}</div>
                         </div>
                         <div className="AccountDetails-item">
-                            <label className="AccountDetails-label">{"Shares of "+this.state.stockSymbol+":"}</label>
-                            <div className="AccountDetails-info">{this.state.sharesAfter}</div>
+                            <label className="AccountDetails-label">{"Shares of "+this.props.stockSymbol+":"}</label>
+                            <div className="AccountDetails-info">{this.props.sharesAfter}</div>
                         </div>
                         <div className="AccountDetails-item">
-                            <label className="AccountDetails-label">{"Total Value of "+this.state.stockSymbol+":"}</label>
-                            <div className="AccountDetails-info">{this.state.stockValueAfter}</div>
+                            <label className="AccountDetails-label">{"Total Value of "+this.props.stockSymbol+":"}</label>
+                            <div className="AccountDetails-info">{this.props.shareValueAfter}</div>
                         </div>
                         <div className="AccountDetails-item">
-                            <label className="AccountDetails-label">{"Percentage allocation of "+this.state.stockSymbol+":"}</label>
-                            <div className="AccountDetails-info">{this.state.percentageAfter}</div>
+                            <label className="AccountDetails-label">{"Percentage allocation of "+this.props.stockSymbol+":"}</label>
+                            <div className="AccountDetails-info">{this.props.percentageAfter}</div>
                         </div>
                     </div>
                     
