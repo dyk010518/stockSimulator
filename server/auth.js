@@ -26,10 +26,10 @@ function getOrCreateUser(user) {
     const newUser = new User({
       name: user.name,
       googleid: user.sub,
-      cashOne: "0",
-      cashTwo: "0",
-      cashThree: "0",
-      cashFour: "0",
+      cashOne: "10000",
+      cashTwo: "10000",
+      cashThree: "10000",
+      cashFour: "10000",
     });
 
     return newUser.save();

@@ -84,7 +84,7 @@ class App extends Component {
     }, () => {
       if (this.state.day !== 1) {
         let tempNumber;
-        if (this.state.marketName === "One"){
+        if (this.state.marketName === "One") {
           tempNumber = "1"
         } else if (this.state.marketName === "Two") {
           tempNumber = "2"
@@ -157,7 +157,9 @@ class App extends Component {
         } else if (this.state.marketName === "Four") {
           tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
         }
-        this.setState({ cash: tcash }, () => { this.updateTotalValue() })
+        this.setState({ cash: tcash }, () => {
+          this.updateTotalValue()
+        })
       })
     }
   }
@@ -175,7 +177,10 @@ class App extends Component {
         totalStocks += parseFloat(this.state.cash);
         this.setState({
           totalValue: roundPrice(totalStocks).toString(),
-        }, () => { console.log("total value and cash updated") })
+        }, () => {
+
+          console.log("total value and cash updated")
+        })
       });
     }
   }
@@ -214,11 +219,21 @@ class App extends Component {
         cashTwo: user.cashTwo,
         cashThree: user.cashThree,
         cashFour: user.cashFour,
-      }),
-        () => { };
-      post("/api/recentactivities", { id: this.state.userId });
-      post("/api/marketdate", { id: this.state.userId });
-      post("/api/initsocket", { socketid: socket.id });
+      }), () => {
+        console.log("logged in")
+      };
+      post("/api/createTV", {
+        id: this.state.userId
+      })
+      post("/api/recentactivities", {
+        id: this.state.userId
+      });
+      post("/api/marketdate", {
+        id: this.state.userId
+      });
+      post("/api/initsocket", {
+        socketid: socket.id
+      });
     });
   };
 
@@ -257,10 +272,10 @@ class App extends Component {
             updateCash={this.updateCash}
             day={this.state.day}
             updateDay={this.updateDay}
-            gainStockName= {this.state.gainStockName}
-            gainStockPercent= {this.state.gainStockPercent}
-            lossStockName= {this.state.lossStockName}
-            lossStockPercent= {this.state.lossStockPercent}
+            gainStockName={this.state.gainStockName}
+            gainStockPercent={this.state.gainStockPercent}
+            lossStockName={this.state.lossStockName}
+            lossStockPercent={this.state.lossStockPercent}
           />
           <MarketPortfolio
             path="/Game/Portfolio"

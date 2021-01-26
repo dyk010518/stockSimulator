@@ -11,10 +11,10 @@ class RecentActivity extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            boughts: ["PFE", "AAPL"],
-            buypr: ["50", "20"],
-            solds: ["AAPL", "PFE"],
-            sellpr: ["30", "80"],
+            boughts: undefined,
+            buypr: undefined,
+            solds: undefined,
+            sellpr: undefined,
         }
     }
 
@@ -36,16 +36,20 @@ class RecentActivity extends Component {
     }
 
     getInfoStr = (names, prices) => {
-        
-        if (!(names[0] === "")) {
-            let ans = "";
-            for (let i = 0; i < names.length-1; i++) {
-                ans += (names[i] + " ($" + roundPrice(prices[i]) + ")")
-                if (!(i === names.length - 2)) {
-                    ans += (", ")
+        //console.log(names)
+        if (names) {
+            if (!(names[0] === "")) {
+                let ans = "";
+                for (let i = 0; i < names.length - 1; i++) {
+                    ans += (names[i] + " ($" + roundPrice(prices[i]) + ")")
+                    if (!(i === names.length - 2)) {
+                        ans += (", ")
+                    }
                 }
+                return ans
+            } else {
+                return "No recent activity! Get to work trading!"
             }
-            return ans
         } else {
             return "No recent activity! Get to work trading!"
         }

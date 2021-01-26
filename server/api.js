@@ -66,6 +66,24 @@ router.get('/graphData', (req, res) => {
   })
 })
 
+//create totalValues given id, values array
+router.post('/createTV', (req, res) => {
+  totalValues.findOne({
+    userID: req.body.id,
+  }).then((TVObj) => {
+    if (!(TVObj)){
+      const newTVObj = new totalValues({
+        userID: req.body.id,
+        oneTV: "10000",
+        twoTV: "10000",
+        threeTV: "10000",
+        fourTV: "10000",
+      })
+      newTVObj.save()
+    }
+  })
+})
+
 //post totalValues given id, number, valueUpdate
 router.post('/updateTotalValues', (req, res) => {
 
@@ -73,44 +91,45 @@ router.post('/updateTotalValues', (req, res) => {
 
 //get stocks for today and yesterday given day, number (market number)
 router.get('/getStocksForTheDay', (req, res) => {
-  console.log(req.query.day)
-  stockPrice.find({
-    day: req.query.day,
-    marketNumber: req.query.number,
-  }).then((todayStockObjs) => {
+  if (!(req.query.day === "1")){
     stockPrice.find({
-      day: (parseInt(req.query.day)-1).toString(),
+      day: req.query.day,
       marketNumber: req.query.number,
-    }).then((yesterdayStockObjs) => {
-      let BGP = 0;
-      let BLP = 0;
-      let biggestGain = parseFloat(todayStockObjs[0].stockPrice)-parseFloat(yesterdayStockObjs[0].stockPrice);
-      let biggestLoss = parseFloat(yesterdayStockObjs[0].stockPrice)-parseFloat(todayStockObjs[0].stockPrice);
-      let BGN = todayStockObjs[0].stockSymbol;
-      let BLN = todayStockObjs[0].stockSymbol;
-      for (let i=0; i<todayStockObjs.length; i++){
-        if (todayStockObjs[i].stockSymbol === "MARKET"){
-          continue
+    }).then((todayStockObjs) => {
+      stockPrice.find({
+        day: (parseInt(req.query.day)-1).toString(),
+        marketNumber: req.query.number,
+      }).then((yesterdayStockObjs) => {
+        let BGP = 0;
+        let BLP = 0;
+        let biggestGain = parseFloat(todayStockObjs[0].stockPrice)-parseFloat(yesterdayStockObjs[0].stockPrice);
+        let biggestLoss = parseFloat(yesterdayStockObjs[0].stockPrice)-parseFloat(todayStockObjs[0].stockPrice);
+        let BGN = todayStockObjs[0].stockSymbol;
+        let BLN = todayStockObjs[0].stockSymbol;
+        for (let i=0; i<todayStockObjs.length; i++){
+          if (todayStockObjs[i].stockSymbol === "MARKET"){
+            continue
+          }
+          if (parseFloat(todayStockObjs[i].stockPrice)-parseFloat(yesterdayStockObjs[i].stockPrice)>biggestGain){
+            biggestGain = parseFloat(todayStockObjs[i].stockPrice)-parseFloat(yesterdayStockObjs[i].stockPrice);
+            BGP = biggestGain/parseFloat(yesterdayStockObjs[i].stockPrice)
+            BGN = todayStockObjs[i].stockSymbol;
+          }
+          if (parseFloat(yesterdayStockObjs[i].stockPrice)-parseFloat(todayStockObjs[i].stockPrice)>biggestLoss){
+            biggestLoss = parseFloat(yesterdayStockObjs[i].stockPrice)-parseFloat(todayStockObjs[i].stockPrice);
+            BLP = biggestLoss/parseFloat(yesterdayStockObjs[i].stockPrice)
+            BLN = todayStockObjs[i].stockSymbol;
+          }
         }
-        if (parseFloat(todayStockObjs[i].stockPrice)-parseFloat(yesterdayStockObjs[i].stockPrice)>biggestGain){
-          biggestGain = parseFloat(todayStockObjs[i].stockPrice)-parseFloat(yesterdayStockObjs[i].stockPrice);
-          BGP = biggestGain/parseFloat(yesterdayStockObjs[i].stockPrice)
-          BGN = todayStockObjs[i].stockSymbol;
-        }
-        if (parseFloat(yesterdayStockObjs[i].stockPrice)-parseFloat(todayStockObjs[i].stockPrice)>biggestLoss){
-          biggestLoss = parseFloat(yesterdayStockObjs[i].stockPrice)-parseFloat(todayStockObjs[i].stockPrice);
-          BLP = biggestLoss/parseFloat(yesterdayStockObjs[i].stockPrice)
-          BLN = todayStockObjs[i].stockSymbol;
-        }
-      }
-      res.send({
-        bgn: BGN.toString(),
-        bln: BLN.toString(),
-        bgp: BGP.toString(),
-        blp: BLP.toString(),
+        res.send({
+          bgn: BGN.toString(),
+          bln: BLN.toString(),
+          bgp: BGP.toString(),
+          blp: BLP.toString(),
+        })
       })
     })
-  })
+  }
 })
 
 
@@ -658,8 +677,10 @@ router.post('/recentactivities', (req, res) => {
         sPrice: "",
       });
       newRA.save()
+      res.send(newRA)
+    } else {
+      res.send(activityObj)
     }
-    res.send(activityObj)
   })
 })
 
