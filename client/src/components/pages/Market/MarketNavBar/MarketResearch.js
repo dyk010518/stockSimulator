@@ -17,6 +17,7 @@ class MarketResearch extends Component {
   componentDidMount(){
     
   }
+  
   // required method: whatever is returned defines what
   // shows up on screen
   render() {

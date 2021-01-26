@@ -57,6 +57,48 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+//get stocks for today and yesterday given day, number (market number)
+router.get('/getStocksForTheDay', (req, res) => {
+  stockPrice.find({
+    day: req.query.day,
+    marketNumber: req.query.number,
+  }).then((todayStockObjs) => {
+    stockPrice.find({
+      day: (parseInt(req.query.day)-1).toString(),
+      marketNumber: req.query.number,
+    }).then((yesterdayStockObjs) => {
+      let BGP = 0;
+      let BLP = 0;
+      let biggestGain = parseFloat(todayStockObjs[0].stockPrice)-parseFloat(yesterdayStockObjs[0].stockPrice);
+      let biggestLoss = parseFloat(yesterdayStockObjs[0].stockPrice)-parseFloat(todayStockObjs[0].stockPrice);
+      let BGN = todayStockObjs[0].stockSymbol;
+      let BLN = todayStockObjs[0].stockSymbol;
+      for (let i=0; i<todayStockObjs.length; i++){
+        if (todayStockObjs[i].stockSymbol === "MARKET"){
+          continue
+        }
+        if (parseFloat(todayStockObjs[i].stockPrice)-parseFloat(yesterdayStockObjs[i].stockPrice)>biggestGain){
+          biggestGain = parseFloat(todayStockObjs[i].stockPrice)-parseFloat(yesterdayStockObjs[i].stockPrice);
+          BGP = biggestGain/parseFloat(yesterdayStockObjs[i].stockPrice)
+          BGN = todayStockObjs[i].stockSymbol;
+        }
+        if (parseFloat(yesterdayStockObjs[i].stockPrice)-parseFloat(todayStockObjs[i].stockPrice)>biggestLoss){
+          biggestLoss = parseFloat(yesterdayStockObjs[i].stockPrice)-parseFloat(todayStockObjs[i].stockPrice);
+          BLP = biggestLoss/parseFloat(yesterdayStockObjs[i].stockPrice)
+          BLN = todayStockObjs[i].stockSymbol;
+        }
+      }
+      res.send({
+        bgn: BGN.toString(),
+        bln: BLN.toString(),
+        bgp: BGP.toString(),
+        blp: BLP.toString(),
+      })
+    })
+  })
+})
+
+
 //update recentactivity given id, symbol, buy, bp, sell, sp, amt
 router.post("/updateRA", (req, res) => {
   Recentactivity.findOne({

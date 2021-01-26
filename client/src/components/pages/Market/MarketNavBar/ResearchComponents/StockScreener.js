@@ -27,7 +27,7 @@ class StockScreener extends Component {
                         <option value="healthcare">healthcare</option>
                         <option value="financial">financial</option>
                         <option value="energy">energy</option>
-                        <option value="transportatiob">transportation</option>
+                        <option value="transportation">transportation</option>
                     </select>
                 </div>
 
