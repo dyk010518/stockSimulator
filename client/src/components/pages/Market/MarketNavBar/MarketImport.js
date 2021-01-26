@@ -788,6 +788,7 @@ class MarketImport extends Component {
                     marketName={this.props.marketName}
                     id={this.props.id}
                     updateCash={this.props.updateCash}
+                    updateDay={this.props.updateDay}
                 />
                 <div className="MarketImport-row">
                     <form onSubmit={this.handleSubmit}>

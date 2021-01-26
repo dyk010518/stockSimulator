@@ -26,6 +26,7 @@ class MarketPortfolio extends Component {
           marketName={this.props.marketName}
           id={this.props.id}
           updateCash={this.props.updateCash}
+          updateDay={this.props.updateDay}
         />
         <div className="MarketPortfolio-row">
           <StockPortfolio 

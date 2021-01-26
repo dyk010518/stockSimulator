@@ -35,18 +35,23 @@ class App extends Component {
       cashTwo: undefined,
       cashThree: undefined,
       cashFour: undefined,
+      day: undefined,
+      gainStockName: undefined,
+      gainStockPercent: undefined,
+      lossStockName: undefined,
+      lossStockPercent: undefined,
     };
   }
   categories = {
     consumerD: ["CAKE", "COOP", "STORE"],
     consumerS: ["CELL", "GROCE"],
     EandU: ["SOLAR", "OIL"],
-    Fin: ["INSUR","BANK"],
-    Health: ["HINSUR","BAID"],
-    Industrial: ["STICKY","VACC"],
-    RealE: ["HOME","HOOD"],
-    Tech: ["COMP","SOFT","PHONE"],
-    Transport: ["CAR","SHIP"],
+    Fin: ["INSUR", "BANK"],
+    Health: ["HINSUR", "BAID"],
+    Industrial: ["STICKY", "VACC"],
+    RealE: ["HOME", "HOOD"],
+    Tech: ["COMP", "SOFT", "PHONE"],
+    Transport: ["CAR", "SHIP"],
   }
   names = [
     "CHEESE",
@@ -70,6 +75,41 @@ class App extends Component {
     "CAR",
     "SHIP"]
   namesList = "\nCHEESE\nCOOP\nSTORE\nCELL\nGROCE\nSOLAR\nOIL\nINSUR\nBANK\nHINSUR\nBAID\nSTICKY\nVACC\nHOME\nHOOD\nCOMP\nSOFT\nPHONE\nCAR\nSHIP"
+
+  updateDay = (updateVal) => {
+    this.setState({
+      day: updateVal,
+    }, () => {
+      if (this.state.day !== 1) {
+        let tempNumber;
+        if (this.state.marketName === "One"){
+          tempNumber = "1"
+        } else if (this.state.marketName === "Two") {
+          tempNumber = "2"
+        } else if (this.state.marketName === "Three") {
+          tempNumber = "3"
+        } else if (this.state.marketName === "Four") {
+          tempNumber = "4"
+        }
+        get("/api/getStocksForTheDay", {
+          day: this.state.day,
+          number: tempNumber,
+        }).then((returnObj) => {
+          let tempGain = (Math.round(parseFloat(returnObj.bgp) * 10000) / 10000).toString()
+          let tempLoss = (Math.round(parseFloat(returnObj.blp) * 10000) / 10000).toString()
+          this.setState({
+            gainStockName: returnObj.bgn.toString(),
+            gainStockPercent: tempGain,
+            lossStockName: returnObj.bln.toString(),
+            lossStockPercent: tempLoss,
+          }, () => {
+            console.log("day gain loss set")
+          })
+        })
+      }
+    })
+  }
+
 
   setMarketNum = (name) => {
     let tcash = undefined;
@@ -95,37 +135,37 @@ class App extends Component {
 
   //update cash & total value
   updateCash = () => {
-    if (this.state.userId){
-      get("/api/getCash", {id: this.state.userId}).then((userObj) => {
+    if (this.state.userId) {
+      get("/api/getCash", { id: this.state.userId }).then((userObj) => {
         let tcash;
-        if (this.state.marketName === "One"){
-          tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
-        } else if (this.state.marketName === "Two"){
-          tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
-        } else if (this.state.marketName === "Three"){
-          tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
-        } else if (this.state.marketName === "Four"){
-          tcash = (Math.round(parseFloat(userObj.cashOne)*100)/100).toString()
+        if (this.state.marketName === "One") {
+          tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
+        } else if (this.state.marketName === "Two") {
+          tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
+        } else if (this.state.marketName === "Three") {
+          tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
+        } else if (this.state.marketName === "Four") {
+          tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
         }
-        this.setState({ cash: tcash }, () => {this.updateTotalValue()})
+        this.setState({ cash: tcash }, () => { this.updateTotalValue() })
       })
     }
   }
 
   updateTotalValue = () => {
-    if(this.state.userId){
+    if (this.state.userId) {
       let totalStocks = 0;
-      get('/api/boughtstocks', { id: this.state.userId}).then((boughtStockObjs)=>{
-        for(let i=0; i < boughtStockObjs.length; i++){
-          if (boughtStockObjs[i].quantity === 0){
+      get('/api/boughtstocks', { id: this.state.userId }).then((boughtStockObjs) => {
+        for (let i = 0; i < boughtStockObjs.length; i++) {
+          if (boughtStockObjs[i].quantity === 0) {
             continue
           }
-          totalStocks += parseFloat(boughtStockObjs[i].quantity)*parseFloat(boughtStockObjs[i].costBasis);
+          totalStocks += parseFloat(boughtStockObjs[i].quantity) * parseFloat(boughtStockObjs[i].costBasis);
         }
         totalStocks += parseFloat(this.state.cash);
         this.setState({
           totalValue: roundPrice(totalStocks).toString(),
-        }, () => {console.log("total value and cash updated")})
+        }, () => { console.log("total value and cash updated") })
       });
     }
   }
@@ -165,7 +205,7 @@ class App extends Component {
         cashThree: user.cashThree,
         cashFour: user.cashFour,
       }),
-        () => {};
+        () => { };
       post("/api/recentactivities", { id: this.state.userId });
       post("/api/marketdate", { id: this.state.userId });
       post("/api/initsocket", { socketid: socket.id });
@@ -205,6 +245,12 @@ class App extends Component {
             marketName={this.state.marketName}
             id={this.state.userId}
             updateCash={this.updateCash}
+            day={this.state.day}
+            updateDay={this.updateDay}
+            gainStockName= {this.state.gainStockName}
+            gainStockPercent= {this.state.gainStockPercent}
+            lossStockName= {this.state.lossStockName}
+            lossStockPercent= {this.state.lossStockPercent}
           />
           <MarketPortfolio
             path="/Game/Portfolio"
@@ -214,6 +260,8 @@ class App extends Component {
             marketName={this.state.marketName}
             id={this.state.userId}
             updateCash={this.updateCash}
+            day={this.state.day}
+            updateDay={this.updateDay}
           />
           <MarketResearch
             path="/Game/Research"
@@ -223,6 +271,8 @@ class App extends Component {
             id={this.state.userId}
             updateCash={this.updateCash}
             categories={this.categories}
+            day={this.state.day}
+            updateDay={this.updateDay}
           />
           <MarketTrade
             path="/Game/Trade"
@@ -234,6 +284,8 @@ class App extends Component {
             updateCash={this.updateCash}
             names={this.names}
             namesList={this.namesList}
+            day={this.state.day}
+            updateDay={this.updateDay}
           />
           {/*
           <MarketImport
@@ -243,6 +295,8 @@ class App extends Component {
             marketName={this.state.marketName}
             id={this.state.userId}
             updateCash={this.updateCash}
+            updateDay={this.updateDay}
+            day={this.state.day}
           />
           */}
           <NotFound default />

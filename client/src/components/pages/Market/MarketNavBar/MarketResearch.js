@@ -29,6 +29,7 @@ class MarketResearch extends Component {
           marketName={this.props.marketName}
           id={this.props.id}
           updateCash={this.props.updateCash}
+          updateDay={this.props.updateDay}
         />
         <div className="MarketResearch-row">
           <div className="MarketResearch-column">

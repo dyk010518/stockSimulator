@@ -49,6 +49,17 @@ class MarketNavBar extends Component {
                 exist: true,
               },
               () => {
+                let sendToParent;
+                if (this.props.marketName === "One"){
+                  sendToParent = this.state.dayOne
+                } else if (this.props.marketName === "Two") {
+                  sendToParent = this.state.dayTwo
+                } else if (this.props.marketName === "Three") {
+                  sendToParent = this.state.dayThree
+                } else if (this.props.marketName === "Four") {
+                  sendToParent = this.state.dayFour
+                }
+                this.props.updateDay(sendToParent)
                 console.log("market dates received");
               }
             );
@@ -121,7 +132,18 @@ class MarketNavBar extends Component {
     post("/api/nextday", { id: this.props.id, marketName: this.props.marketName, newDate: tempDay })
       .then((dayObj) => {
         console.log([dayObj.one, dayObj.two, dayObj.three, dayObj.four]);
-
+        let sendToParent;
+        if (this.props.marketName === "One"){
+          sendToParent = dayObj.one
+        } else if (this.props.marketName === "Two") {
+          sendToParent = dayObj.two
+        } else if (this.props.marketName === "Three") {
+          sendToParent = dayObj.three
+        } else if (this.props.marketName === "Four") {
+          sendToParent = dayObj.four
+        }
+        this.props.updateDay(sendToParent)
+        this.props.updateGainLoss()
       })
       .catch((err) => console.log(err));
   };

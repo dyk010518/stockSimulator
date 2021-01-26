@@ -269,6 +269,7 @@ class MarketTrade extends Component {
           marketName={this.props.marketName}
           id={this.props.id}
           updateCash={this.props.updateCash}
+          updateDay={this.props.updateDay}
         />
         <div className="MarketTrade-row">
           <div className="MarketTrade-column">

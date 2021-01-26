@@ -59,6 +59,7 @@ router.post("/initsocket", (req, res) => {
 
 //get stocks for today and yesterday given day, number (market number)
 router.get('/getStocksForTheDay', (req, res) => {
+  console.log(req.query.day)
   stockPrice.find({
     day: req.query.day,
     marketNumber: req.query.number,
