@@ -207,8 +207,7 @@ class App extends Component {
                     number: tempNumber,
                     valueUpdate: (parseFloat(tempTV)+parseFloat(this.state.cash)).toString(),
                   }).then((TVObj) => {
-
-                    console.log(TVObj)
+                    console.log("total value updated" + TVObj.msg)
                   })
                 }
               })

@@ -165,7 +165,7 @@ router.post('/updateTotalValues', (req, res) => {
         TVObj.fourTV = tempString.toString()
       }
       TVObj.save()
-      res.send(TVObj)
+      res.send({obj: TVObj, msg: "success"})
     }
   })
 })
