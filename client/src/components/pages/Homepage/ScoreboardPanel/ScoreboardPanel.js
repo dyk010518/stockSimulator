@@ -26,7 +26,7 @@ class Scoreboard extends Component {
           Scoreboard
         </p>
         <div className="ScoreboardPanel-grid">
-          <Scoreboard1 />
+          <Scoreboard1 totalAccount={this.props.totalAccount}/>
           {/* <Scoreboard2 />
           <Scoreboard3 />
           <Scoreboard4 /> */}

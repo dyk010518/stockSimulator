@@ -38,7 +38,7 @@ class Homepage extends Component {
             <SimulatorPanel setMarketNum={this.props.setMarketNum} />
           </div>
           <div className="Homepage-width">
-            <ScoreboardPanel />
+            <ScoreboardPanel totalAccount={this.props.totalAccount}/>
           </div>
         </div>
       </div>

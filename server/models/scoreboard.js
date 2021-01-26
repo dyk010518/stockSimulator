@@ -5,6 +5,7 @@ const scoreboardSchema = new mongoose.Schema({
     rank: String,
     totalAccountValue: String,
     userName: String,
+    marketName: String,
 });
 
 // compile model from schema
