@@ -41,7 +41,7 @@ class MarketDashboard extends Component {
                     id={this.props.id}
                     updateCash={this.props.updateCash}
                     updateDay={this.props.updateDay}
-                    updateTotalValue={this.updateTotalValue}
+                    updateTotalValue={this.props.updateTotalValue}
                 />
                 <Graph />
                 <div className="MarketDashboard-row">

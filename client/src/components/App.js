@@ -158,7 +158,7 @@ class App extends Component {
           tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
         }
         this.setState({ cash: tcash }, () => {
-          this.updateTotalValue({newDay: this.state.day})
+          this.updateTotalValue({ newDay: this.state.day })
         })
       })
     }
@@ -178,32 +178,36 @@ class App extends Component {
         this.setState({
           totalValue: roundPrice(totalStocks).toString(),
         }, () => {
-          if (obj.newDay){
+          if (obj.newDay) {
             let tempTV = 0;
-          let tempNumber;
-          if (this.state.marketName === "One") {
-            tempNumber = "1"
-          } else if (this.state.marketName === "Two") {
-            tempNumber = "2"
-          } else if (this.state.marketName === "Three") {
-            tempNumber = "3"
-          } else if (this.state.marketName === "Four") {
-            tempNumber = "4"
-          }
-          for (let i=0; i< boughtStockObjs.length; i++){
-            if (boughtStockObjs[i].quantity === 0) {
-              continue
+            let tempNumber;
+            if (this.state.marketName === "One") {
+              tempNumber = "1"
+            } else if (this.state.marketName === "Two") {
+              tempNumber = "2"
+            } else if (this.state.marketName === "Three") {
+              tempNumber = "3"
+            } else if (this.state.marketName === "Four") {
+              tempNumber = "4"
             }
-            get('/api/getPriceData', {
-              stockSymbol: boughtStockObjs[i].stockName,
-              day: obj.newDay.toString(),
-              number: tempNumber,
-            }).then((stockObj) => {
-              tempTV = tempTV + parseFloat(boughtStockObjs[i].quantity)*parseFloat(stockObj.obj.stockPrice)
-            })
-          }
-          console.log(tempTV)
-          console.log("total value and cash updated")
+            for (let i = 0; i < boughtStockObjs.length; i++) {
+              if (boughtStockObjs[i].quantity === 0) {
+                continue
+              }
+              get('/api/getPriceData', {
+                symbol: boughtStockObjs[i].stockName.toString(),
+                day: obj.newDay.toString(),
+                number: tempNumber.toString(),
+              }).then((stockObj) => {
+                console.log(stockObj)
+                tempTV = tempTV + parseFloat(boughtStockObjs[i].quantity) * parseFloat(stockObj.obj.stockPrice)
+                if (i === boughtStockObjs.length - 1) {
+                  console.log(tempTV)
+                  console.log("total value and cash updated")
+                }
+              })
+            }
+
           }
         })
       });
