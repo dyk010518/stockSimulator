@@ -86,7 +86,19 @@ router.post('/createTV', (req, res) => {
 
 //post totalValues given id, number, valueUpdate
 router.post('/updateTotalValues', (req, res) => {
+  totalValues.findOne({
+    userID: req.body.id,
+  }).then((TVObj) => {
+    if (number === "1"){
+      
+    } else if (number === "2"){
 
+    } else if (number === "3"){
+      
+    } else if (number === "4"){
+      
+    }
+  })
 })
 
 //get stocks for today and yesterday given day, number (market number)
