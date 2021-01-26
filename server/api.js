@@ -88,6 +88,7 @@ router.get('/graphData', (req, res) => {
           percentInc = (parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j])
           SPP.push(percentInc)
         }
+        console.log(SPP)
         totalValues.findOne({
           userID: req.query.id.toString(),
         }).then((TVObj) => {

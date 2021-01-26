@@ -59,7 +59,7 @@ class MarketNavBar extends Component {
                 } else if (this.props.marketName === "Four") {
                   sendToParent = this.state.dayFour
                 }
-                this.props.updateDay(sendToParent)
+                this.props.updateDay(sendToParent, false)
                 console.log("market dates received");
               }
             );
@@ -142,7 +142,7 @@ class MarketNavBar extends Component {
         } else if (this.props.marketName === "Four") {
           sendToParent = dayObj.four
         }
-        this.props.updateDay(sendToParent)
+        this.props.updateDay(sendToParent, true)
         
       })
       .catch((err) => console.log(err));

@@ -78,7 +78,7 @@ class App extends Component {
     "SHIP"]
   namesList = "\nCHEESE\nCOOP\nSTORE\nCELL\nGROCE\nSOLAR\nOIL\nINSUR\nBANK\nHINSUR\nBAID\nSTICKY\nVACC\nHOME\nHOOD\nCOMP\nSOFT\nPHONE\nCAR\nSHIP"
 
-  updateDay = (updateVal) => {
+  updateDay = (updateVal, tf) => {
     this.setState({
       day: updateVal,
     }, () => {
@@ -106,7 +106,7 @@ class App extends Component {
             lossStockPercent: tempLoss,
           }, () => {
             console.log("graph day gain loss set")
-            this.updateTotalValue({ newDay: updateVal, condition: true })
+            this.updateTotalValue({ newDay: updateVal, condition: tf })
           })
         })
       }

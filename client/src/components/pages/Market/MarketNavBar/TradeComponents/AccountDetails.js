@@ -33,7 +33,7 @@ class AccountDetails extends Component {
                         <h2 className="AccountDetails-before">Account Details (Before):</h2>
                         <div className="AccountDetails-item">
                             <label className="AccountDetails-label">Cash:</label>
-                            <div className="AccountDetails-info">{this.props.cash}</div>
+                            <div className="AccountDetails-info">{this.props.shares ? this.props.cash : undefined}</div>
                         </div>
                         <div className="AccountDetails-item">
                             <label className="AccountDetails-label">{"Shares of "+this.props.stockSymbol+":"}</label>
