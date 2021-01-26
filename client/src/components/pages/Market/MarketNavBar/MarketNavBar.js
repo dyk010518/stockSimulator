@@ -143,7 +143,6 @@ class MarketNavBar extends Component {
           sendToParent = dayObj.four
         }
         this.props.updateDay(sendToParent)
-        this.props.updateGainLoss()
       })
       .catch((err) => console.log(err));
   };
