@@ -113,6 +113,7 @@ class App extends Component {
               lossStockPercent: tempLoss,
             }, () => {
               console.log("graph day gain loss set")
+              this.updateTotalValue({ newDay: updateVal })
               console.log(graphObj)
             })
           })
@@ -179,39 +180,50 @@ class App extends Component {
         this.setState({
           totalValue: roundPrice(totalStocks).toString(),
         }, () => {
-          if (obj.newDay) {
-            let tempTV = 0;
-            let tempNumber;
-            if (this.state.marketName === "One") {
-              tempNumber = "1"
-            } else if (this.state.marketName === "Two") {
-              tempNumber = "2"
-            } else if (this.state.marketName === "Three") {
-              tempNumber = "3"
-            } else if (this.state.marketName === "Four") {
-              tempNumber = "4"
-            }
-            for (let i = 0; i < boughtStockObjs.length; i++) {
-              if (boughtStockObjs[i].quantity === 0) {
-                continue
-              }
-              get('/api/getPriceData', {
-                symbol: boughtStockObjs[i].stockName.toString(),
-                day: obj.newDay.toString(),
-                number: tempNumber.toString(),
-              }).then((stockObj) => {
-                tempTV = tempTV + parseFloat(boughtStockObjs[i].quantity) * parseFloat(stockObj.obj.stockPrice)
-                if (i === boughtStockObjs.length - 1) {
-                  post('/api/updateTotalValues', {
-                    id: this.state.userId,
-                    number: tempNumber,
-                    valueUpdate: (parseFloat(tempTV) + parseFloat(this.state.cash)).toString(),
-                  }).then((TVObj) => {
-                    console.log("total value updated" + TVObj.msg)
-                  })
+          let tempNumber;
+          if (this.state.marketName === "One") {
+            tempNumber = "1"
+          } else if (this.state.marketName === "Two") {
+            tempNumber = "2"
+          } else if (this.state.marketName === "Three") {
+            tempNumber = "3"
+          } else if (this.state.marketName === "Four") {
+            tempNumber = "4"
+          }
+          if (boughtStockObjs.length > 0) {
+            if (obj.newDay) {
+              console.log("reached new day")
+              let tempTV = 0;
+              for (let i = 0; i < boughtStockObjs.length; i++) {
+                if (boughtStockObjs[i].quantity === 0) {
+                  continue
                 }
-              })
+                get('/api/getPriceData', {
+                  symbol: boughtStockObjs[i].stockName.toString(),
+                  day: obj.newDay.toString(),
+                  number: tempNumber.toString(),
+                }).then((stockObj) => {
+                  tempTV = tempTV + parseFloat(boughtStockObjs[i].quantity) * parseFloat(stockObj.obj.stockPrice)
+                  if (i === boughtStockObjs.length - 1) {
+                    post('/api/updateTotalValues', {
+                      id: this.state.userId,
+                      number: tempNumber,
+                      valueUpdate: (parseFloat(tempTV) + parseFloat(this.state.cash)).toString(),
+                    }).then((TVObj) => {
+                      console.log("total value updated" + TVObj.msg)
+                    })
+                  }
+                })
+              }
             }
+          } else {
+            post('/api/updateTotalValues', {
+              id: this.state.userId,
+              number: tempNumber,
+              valueUpdate: this.state.cash.toString(),
+            }).then((TVObj) => {
+              console.log("total value updated" + TVObj.msg)
+            })
           }
         })
       });
