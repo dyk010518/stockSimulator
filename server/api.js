@@ -11,6 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const totalValues = require("./models/totalAccountValues");
 const Recentactivity = require("./models/recentactivity");
 const Boughtstocks = require("./models/boughtstocks");
 const date = require("./models/dates");
@@ -56,6 +57,19 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+//get graph data given id, day, number
+router.get('/graphData', (req, res) => {
+  res.send({
+    YP: "YP",
+    SPP: "SPP",
+  })
+})
+
+//post totalValues given id, number, valueUpdate
+router.post('/updateTotalValues', (req, res) => {
+
+})
 
 //get stocks for today and yesterday given day, number (market number)
 router.get('/getStocksForTheDay', (req, res) => {

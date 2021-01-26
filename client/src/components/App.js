@@ -40,6 +40,8 @@ class App extends Component {
       gainStockPercent: undefined,
       lossStockName: undefined,
       lossStockPercent: undefined,
+      YourPerf: undefined,
+      SAPP: undefined,
     };
   }
   categories = {
@@ -97,13 +99,21 @@ class App extends Component {
         }).then((returnObj) => {
           let tempGain = (Math.round(parseFloat(returnObj.bgp) * 10000) / 10000).toString()
           let tempLoss = (Math.round(parseFloat(returnObj.blp) * 10000) / 10000).toString()
-          this.setState({
-            gainStockName: returnObj.bgn.toString(),
-            gainStockPercent: tempGain,
-            lossStockName: returnObj.bln.toString(),
-            lossStockPercent: tempLoss,
-          }, () => {
-            console.log("day gain loss set")
+          get("/api/graphData", {
+            id: this.state.userId,
+            number: tempNumber,
+            day: this.state.day,
+          }).then((graphReturnObj) => {
+            this.setState({
+              gainStockName: returnObj.bgn.toString(),
+              gainStockPercent: tempGain,
+              lossStockName: returnObj.bln.toString(),
+              lossStockPercent: tempLoss,
+              YourPerf: graphReturnObj.YP,
+              SAPP: graphReturnObj.SPP,
+            }, () => {
+              console.log("graph day gain loss set")
+            })
           })
         })
       }
