@@ -306,6 +306,7 @@ class App extends Component {
             userId={this.state.userId}
             setMarketNum={this.setMarketNum}
             username={this.state.username}
+            totalValue={this.state.totalValue}
           />
           <Market path="/Game" marketName={this.state.marketName} />
           <MarketDashboard

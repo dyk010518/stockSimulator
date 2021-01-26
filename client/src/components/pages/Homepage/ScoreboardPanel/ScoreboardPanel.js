@@ -27,9 +27,9 @@ class Scoreboard extends Component {
         </p>
         <div className="ScoreboardPanel-grid">
           <Scoreboard1 />
-          <Scoreboard2 />
+          {/* <Scoreboard2 />
           <Scoreboard3 />
-          <Scoreboard4 />
+          <Scoreboard4 /> */}
         </div>
       </div>
     );
