@@ -71,14 +71,17 @@
 
 
 @media (max-height: 1050px){
-    .StockList-container {
-        height: 750px;
+        .StockList-resultHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin: 16px;
+    height:76%;
     }
 }
 
 @media (max-height: 880px){
     .StockList-container {
-        height: 570px;
+        height: 700px;
     }
     .StockList-header {
         margin-bottom: 10px;
@@ -87,15 +90,14 @@
 
 @media (max-height: 700px){
     .StockList-container {
-        height: 450px;
+        height: 600px;
     }
     .StockList-header {
-        font-size: large;
+        font-size: small;
         margin-bottom: 4px;
     }
     .StockList-resultHeader {
         display: grid;
-        font-size: 8pt;
-        grid-template-columns: 1fr 3fr 2fr;
+        font-size: 10pt;
     }
 }
