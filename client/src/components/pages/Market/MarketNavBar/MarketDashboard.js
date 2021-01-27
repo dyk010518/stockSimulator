@@ -25,7 +25,7 @@ class MarketDashboard extends Component {
     }
 
     componentDidMount() {
-        this.props.updateGraph(this.props.day)
+
     }
 
     
@@ -46,8 +46,8 @@ class MarketDashboard extends Component {
                     updateGraph={this.props.updateGraph}
                 />
                 <Graph 
-                    YP={this.state.YP}
-                    SPP={this.state.SPP}
+                    YP={this.props.YP}
+                    SPP={this.props.SPP}
                     id={this.props.id}
                     marketName={this.props.marketName}
                     day={this.props.day}

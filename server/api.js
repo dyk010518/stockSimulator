@@ -71,18 +71,20 @@ router.get('/graphData', (req, res) => {
     startDay = parseInt(req.query.day) - 5
     totalDays = 6
   }
+  for (let i = 0; i < totalDays; i++) {
+    tempPArray.push(0)
+  }
   let tempDay;
   let count = 0;
-  for (let i = 0; i < totalDays; i++) {
+  let forLoop = () => {
     //console.log(parseInt(req.query.day))
-    tempDay = (parseInt(i) + parseInt(startDay)).toString()
-    
+    tempDay = (parseInt(count) + parseInt(startDay)).toString()
     stockPrice.findOne({
       stockSymbol: "MARKET",
       day: tempDay,
       marketNumber: "1",
     }).then((markObj) => {
-      tempPArray.push(markObj.stockPrice)
+      tempPArray[count] = (markObj.stockPrice)
       count = count + 1;
       if (count === (totalDays)) {
         let percentInc;
@@ -104,17 +106,29 @@ router.get('/graphData', (req, res) => {
             tempTV = TVObj.fourTV
           }
           let tempTVArray = tempTV.split(",")
+          console.log(tempTVArray)
           if (tempTVArray[tempTVArray.length - 1] === "") {
             tempTVArray = tempTVArray.slice(0, tempTVArray.length - 1)
           }
           let returnTVA = []
           let TVPI;
           let countT = 0;
+          if (tempTVArray.length === 0){
+            res.send({
+              YourPerf: returnTVA,
+              SPPerf: SPP,
+            })
+          } else if (tempTVArray.length === 1){
+            res.send({
+              YourPerf: returnTVA,
+              SPPerf: SPP,
+            })
+          }
           for (let k = 0; k < tempTVArray.length - 1; k++) {
             TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])
             returnTVA.push(TVPI)
             countT = countT + 1
-            if (countT === (tempTVArray.length - 1)){
+            if (countT === (tempTVArray.length)-1) {
               res.send({
                 YourPerf: returnTVA,
                 SPPerf: SPP,
@@ -122,9 +136,12 @@ router.get('/graphData', (req, res) => {
             }
           }
         })
+      } else {
+        forLoop()
       }
     })
   }
+  forLoop()
 })
 
 //create totalValues given id, values array

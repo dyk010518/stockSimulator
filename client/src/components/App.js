@@ -106,7 +106,7 @@ class App extends Component {
             lossStockPercent: tempLoss,
           }, () => {
             console.log("graph day gain loss set")
-            this.updateTotalValue({ newDay: updateVal, condition: tf })
+            this.updateTotalValue({ newDay: updateVal, condition: tf , conditionT: true})
 
           })
         })
@@ -152,7 +152,7 @@ class App extends Component {
           tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
         }
         this.setState({ cash: tcash }, () => {
-          this.updateTotalValue({ newDay: this.state.day, condition: false })
+          this.updateTotalValue({ newDay: this.state.day, condition: false, conditionT: true })
         })
       })
     }
@@ -204,6 +204,9 @@ class App extends Component {
                         valueUpdate: (parseFloat(tempTV) + parseFloat(this.state.cash)).toString(),
                       }).then((TVObj) => {
                         console.log("total value updated existent stocks " + TVObj.msg)
+                        if (obj.conditionT){
+                          this.updateGraph(obj.newDay)
+                        }
                       })
                     }
                   })
@@ -217,13 +220,16 @@ class App extends Component {
                   valueUpdate: this.state.cash.toString(),
                 }).then((TVObj) => {
                   console.log("total value updated " + TVObj.msg)
+                  if (obj.conditionT){
+                    this.updateGraph(obj.newDay)
+                  }
                 })
               }
             }
           }
         })
       });
-      this.updateGraph(obj.newDay)
+      
     }
   }
 
@@ -262,7 +268,10 @@ class App extends Component {
         day: curDay.toString(),
         mn: this.state.marketName,
       }).then((resultObj) => {
-        console.log(resultObj)
+        this.setState({
+          YP: resultObj.YourPerf,
+          SPP: resultObj.SPPerf,
+        })
       })
     }
   }
