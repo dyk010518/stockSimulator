@@ -241,12 +241,23 @@ router.post('/resetDate', (req, res) => {
 
 //delet Recent Activities given id
 router.get('/deleteRA', (req, res) => {
-  RecentActivity.deleteMany({
+  Recentactivity.deleteMany({
     userId: req.body.id,
-  }).then((deletedRAObj) => {
-    res.send({msg: "success" })
+  }).then((tempObject) => {
+    console.log("deleted");
   })
 })
+
+//delete shit, don't use
+// router.get("/deleteErrorEnterprise", (req, res) => {
+  /*
+  stockEnterprise.deleteMany({
+    stockSymbol: "CHEESE"
+  }).then((tempObject) => {
+    console.log("deleted that shit")
+  })
+  */
+// })
 
 //post totalValues given id, number, valueUpdate
 router.post('/updateTotalValues', (req, res) => {

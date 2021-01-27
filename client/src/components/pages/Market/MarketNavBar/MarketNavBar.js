@@ -128,7 +128,7 @@ class MarketNavBar extends Component {
         }).then(() => {
           get('/api/deleteRA', {
             id: this.props.id,
-          })
+          }).then(() => {console.log("Finished")})
         })
       });
     });
