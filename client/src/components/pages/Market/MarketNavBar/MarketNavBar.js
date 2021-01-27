@@ -32,6 +32,10 @@ class MarketNavBar extends Component {
       dayThree: undefined,
       dayFour: undefined,
       exist: true,
+      buttonOff1: false,
+      buttonOff2: false,
+      buttonOff3: false,
+      reset: false,
     };
   }
 
@@ -51,7 +55,7 @@ class MarketNavBar extends Component {
               },
               () => {
                 let sendToParent;
-                if (this.props.marketName === "One"){
+                if (this.props.marketName === "One") {
                   sendToParent = this.state.dayOne
                 } else if (this.props.marketName === "Two") {
                   sendToParent = this.state.dayTwo
@@ -86,30 +90,65 @@ class MarketNavBar extends Component {
           );
         });
       document.getElementById("nextDay").addEventListener("click", () => {
-        this.goToNextDay();
+        if ((parseInt(this.state.dayOne) + 1) > 2167) {
+          alert("You can't go to more than 2500 days! Click reset if you wish to start the simulator again (and lose your current progress).")
+        } else {
+          this.updateButton2(true);
+          this.updateButton1(true);
+          this.updateButtonSingleDay(true);
+          this.goToNextDay();
+          setTimeout(() => {
+            this.updateButton1(false)
+            this.updateButton2(false)
+            this.updateButtonSingleDay(false)
+          }, 3000)
+        }
+
       });
       document.getElementById("nextMonth").addEventListener("click", () => {
-        this.updateButton1(true);
-        alert("Please don't press any other buttons for the next 5 seconds!");
-        for(let i=0; i < 20; i++){
-          this.goToNextDay(i);
+        if ((parseInt(this.state.dayOne) + 20) > 2167) {
+          alert("You can't go to more than 2500 days! Click reset if you wish to start the simulator again (and lose your current progress).")
+        } else {
+          this.updateButton2(true);
+          this.updateButton1(true);
+          this.updateButtonSingleDay(true);
+          alert("Please don't press any other buttons for the next 5 seconds!");
+          for (let i = 0; i < 20; i++) {
+            this.goToNextDay(i);
+          }
+          
+          setTimeout(() => {
+            this.updateButton1(false)
+            this.updateButton2(false)
+            this.updateButtonSingleDay(false)
+          }, 5000);
+          
         }
-        setTimeout(() => {this.updateButton1(false)}, 5000);
       });
 
       document.getElementById("nextQuarter").addEventListener("click", () => {
-        this.updateButton2(true);
-        for(let i=0; i < 60; i++){
-          this.goToNextDay(i);
+        if ((parseInt(this.state.dayOne) + 20) > 2167) {
+          alert("You can't go to more than 2500 days! Click reset if you wish to start the simulator again (and lose your current progress).")
+        } else {
+          this.updateButton2(true);
+          this.updateButton1(true);
+          this.updateButtonSingleDay(true);
+          for (let i = 0; i < 1500; i++) {
+            this.goToNextDay(i);
+          }
+          alert("Please don't press any other buttons for the next 20 seconds!");
+          setTimeout(() => {
+            this.updateButton1(false)
+            this.updateButton2(false)
+            this.updateButtonSingleDay(false)
+          }, 20000);
         }
-        alert("Please don't press any other buttons for the next 20 seconds!");
-        setTimeout(() => {this.updateButton2(false)}, 20000);
       });
 
       document.getElementById("reset").addEventListener("click", () => {
-        if(confirm("Are you sure you want to reset all of your progress so far?")){
+        if (confirm("Are you sure you want to reset all of your progress so far?")) {
           this.resetUser();
-        }else{
+        } else {
           null;
         }
       });
@@ -130,7 +169,9 @@ class MarketNavBar extends Component {
           //delete Recent Activities
 
           //after resetting/deleting everything. redirects the user to the home page
-
+          this.setState({
+            reset: true
+          })
           //Also Ronald, when you can implement this resetting functionality, you can also make it so that when the user's day >2500, they have to click reset button
           get('/api/deleteBoughtStocks', {
             id: this.props.id,
@@ -152,6 +193,14 @@ class MarketNavBar extends Component {
   updateButton2 = (condition) => {
     this.setState({
       buttonOff2: condition,
+    }, () => {
+      console.log("button changed")
+    })
+  }
+
+  updateButtonSingleDay = (condition) => {
+    this.setState({
+      buttonOff3: condition,
     }, () => {
       console.log("button changed")
     })
@@ -201,7 +250,7 @@ class MarketNavBar extends Component {
       .then((dayObj) => {
         console.log([dayObj.one, dayObj.two, dayObj.three, dayObj.four]);
         let sendToParent;
-        if (this.props.marketName === "One"){
+        if (this.props.marketName === "One") {
           sendToParent = dayObj.one
         } else if (this.props.marketName === "Two") {
           sendToParent = dayObj.two
@@ -211,8 +260,9 @@ class MarketNavBar extends Component {
           sendToParent = dayObj.four
         }
         this.props.updateDay(sendToParent, true);
-        if(num == 19){
-          // this.updateButton(false);
+        if (num === 19) {
+          //console.log("num is 19")
+          //this.updateButton2(false);
         }
       })
       .catch((err) => console.log(err));
@@ -232,6 +282,10 @@ class MarketNavBar extends Component {
       day = this.state.dayThree;
     } else if (this.props.marketName === "Four") {
       day = this.state.dayFour;
+    }
+    if (this.state.reset){
+      alert("Returning to homescreen...");
+      return <Redirect to={"/"} noThrow />;
     }
     if (!this.props.id) {
       alert("Please Login to Play Simple Stock Simulator");
@@ -268,7 +322,7 @@ class MarketNavBar extends Component {
             ))}
           </div>
           <div className="nextContainer">
-            <button id="nextDay" className="nextButton">
+            <button id="nextDay" className="nextButton" disabled={this.state.buttonOff3}>
               {nextButton}
             </button>
             <button id="nextMonth" className="nextMonthButton" disabled={this.state.buttonOff1}>

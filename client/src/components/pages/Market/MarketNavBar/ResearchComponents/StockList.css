@@ -75,13 +75,13 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     margin: 16px;
-    height:76%;
+    height:80%;
     }
 }
 
 @media (max-height: 880px){
     .StockList-container {
-        height: 700px;
+        height: 750px;
     }
     .StockList-header {
         margin-bottom: 10px;
@@ -90,7 +90,7 @@
 
 @media (max-height: 700px){
     .StockList-container {
-        height: 600px;
+        height: 650px;
     }
     .StockList-header {
         font-size: small;

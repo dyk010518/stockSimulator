@@ -211,7 +211,7 @@ router.post('/resetTotalValues', (req, res) => {
   totalValues.findOne({
     userID: req.body.id,
   }).then((TVObj) => {
-    TVObj.oneTV = "10000";
+    TVObj.oneTV = "10000,";
     TVObj.save()
     res.send({ obj: TVObj, msg: "success" })
   })
