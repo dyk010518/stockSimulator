@@ -25,9 +25,19 @@ class MarketDashboard extends Component {
     }
 
     componentDidMount() {
-        
+        this.updateGraph(this.props.day)
     }
 
+    updateGraph = (curDay) => {
+        console.log(curDay)
+        get('/api/graphData' , {
+            id: this.props.id,
+            day: curDay.toString(),
+            mn: this.props.marketName,
+        }).then((resultObj) => {
+            console.log(resultObj)
+        })
+    }
     
     // required method: whatever is returned defines what
     // shows up on screen
@@ -42,10 +52,11 @@ class MarketDashboard extends Component {
                     updateCash={this.props.updateCash}
                     updateDay={this.props.updateDay}
                     updateTotalValue={this.props.updateTotalValue}
+                    updateGraph={this.updateGraph}
                 />
                 <Graph 
-                    YP={this.props.YP}
-                    SPP={this.props.SPP}
+                    YP={this.state.YP}
+                    SPP={this.state.SPP}
                     id={this.props.id}
                     marketName={this.props.marketName}
                     day={this.props.day}

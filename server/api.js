@@ -63,27 +63,25 @@ router.get('/graphData', (req, res) => {
   let SPP = [];
   let startDay;
   let tempPArray = [];
-  let tObj = {};
-  console.log(req.query.day)
   if (req.query.day < 6) {
     startDay = 1
     totalDays = parseInt(req.query.day)
   } else {
-    startDay = parseInt(req.query.day) - 6
+    startDay = parseInt(req.query.day) - 5
     totalDays = 6
   }
+  let tempDay;
   for (let i = 0; i < totalDays; i++) {
     //console.log(parseInt(req.query.day))
+    tempDay = (parseInt(i) + parseInt(startDay)).toString()
     stockPrice.findOne({
       stockSymbol: "MARKET",
-      day: (i + startDay).toString(),
+      day: tempDay,
       marketNumber: "1",
     }).then((markObj) => {
-      tObj = {
-        sp: markObj.stockPrice
-      }
-      tempPArray.push(tObj.sp.toString())
-      if (i === totalDays - 1) {
+      tempPArray.push(markObj.stockPrice)
+      if (i === (totalDays - 1)) {
+        console.log(tempPArray)
         let percentInc;
         for (let j = 0; j < tempPArray.length - 1; j++) {
           percentInc = (parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j])

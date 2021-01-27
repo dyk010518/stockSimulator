@@ -19,28 +19,7 @@ class Graph extends Component {
     }
     //marketName is One, Two, Three, or Four
     componentDidMount() {
-        get('/api/getdate', {
-            id: this.props.id
-        }).then((dateObj) => {
-            let tDay;
-            if (this.props.marketName === "One"){
-                tDay = dateObj.one
-            } else if (this.props.marketName === "Two"){
-                tDay = dateObj.two
-            } else if (this.props.marketName === "Two"){
-                tDay = dateObj.three
-            } else if (this.props.marketName === "Two"){
-                tDay = dateObj.four
-            }
-            console.log(tDay)
-            get('/api/graphData' , {
-                id: this.props.id,
-                day: tDay.toString(),
-                mn: this.props.marketName,
-            }).then((resultObj) => {
-                console.log(resultObj)
-            })
-        })
+        
     }
 
     // required method: whatever is returned defines what

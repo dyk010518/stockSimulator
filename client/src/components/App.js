@@ -203,6 +203,7 @@ class App extends Component {
                         valueUpdate: (parseFloat(tempTV) + parseFloat(this.state.cash)).toString(),
                       }).then((TVObj) => {
                         console.log("total value updated existent stocks " + TVObj.msg)
+                        /*
                         get('/api/graphData', {
                           id: this.state.userId,
                           day: this.state.day,
@@ -214,6 +215,7 @@ class App extends Component {
                             SPP: graphObj.SPPerf
                           })
                         })
+                        */
                       })
                     }
                   })
@@ -227,6 +229,7 @@ class App extends Component {
                     valueUpdate: this.state.cash.toString(),
                   }).then((TVObj) => {
                     console.log("total value updated " + TVObj.msg)
+                    /*
                     get('/api/graphData', {
                       id: this.state.userId,
                       day: this.state.day,
@@ -238,10 +241,12 @@ class App extends Component {
                         SPP: graphObj.SPPerf
                       })
                     })
+                    */
                   })
                 }
             }
           } else {
+            /*
             get('/api/graphData', {
               id: this.state.userId,
               day: this.state.day,
@@ -253,6 +258,7 @@ class App extends Component {
                 SPP: graphObj.SPPerf
               })
             })
+            */
           }
         })
       });
@@ -274,7 +280,13 @@ class App extends Component {
             cashFour: user.cashFour,
           },
           () => {
-            console.log("state set")
+            get('/api/getdate', {
+              id: this.state.userId
+            }).then((dateObj) => {
+              this.setState({
+                day: dateObj.one
+              })
+            })
           }
         );
       }
@@ -285,6 +297,13 @@ class App extends Component {
     console.log(`Logged in as ${res.profileObj.name}`);
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
+      get('/api/getdate', {
+        id: user._id
+      }).then((dateObj) => {
+        this.setState({
+          day: dateObj.one
+        })
+      })
       this.setState({
         userId: user._id,
         googleid: user.googleid,
