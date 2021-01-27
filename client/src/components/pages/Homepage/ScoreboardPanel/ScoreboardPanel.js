@@ -23,13 +23,13 @@ class Scoreboard extends Component {
     return (
       <div className="ScoreboardPanel-flexColumn">
         <p className="ScoreboardPanel-head">
-          Scoreboard
+          //Scoreboard
         </p>
-        <div className="ScoreboardPanel-grid">
-          <Scoreboard1 totalAccount={this.props.totalAccount}/>
-          {/* <Scoreboard2 />
-          <Scoreboard3 />
-          <Scoreboard4 /> */}
+        //<div className="ScoreboardPanel-grid">
+        <Scoreboard1 totalAccount={this.props.totalAccount}/>
+        {/* <Scoreboard2 />
+        <Scoreboard3 />
+        <Scoreboard4 /> */}
         </div>
       </div>
     );
