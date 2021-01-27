@@ -17,9 +17,14 @@
 
 .center{
     text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 .rm_decor{
     text-decoration: none;
 }
+
 

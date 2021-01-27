@@ -6,7 +6,7 @@ import {Link} from '@reach/router';
 import Market from '../../../Market/Market.js'
 import App from '../../../../App.js';
 
-const marketTypes = ["One", "Two", "Three", "Four"];
+const marketTypes = ["One"];
 
 class MarketSummaries extends Component {
 	// makes props available in this component
@@ -21,7 +21,7 @@ class MarketSummaries extends Component {
 		return (
 			<div className="MarketPanel-flexColumn">
 				<p className="MarketPanel-head">
-					Markets
+					Market:
         		</p>
 				<div className="MarketPanel-grid">
 
@@ -37,6 +37,7 @@ class MarketSummaries extends Component {
               </Link>
             ))
           }
+          	<p>Many more to come! Check for updates!</p>
 
 				</div>
 			</div>
