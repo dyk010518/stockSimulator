@@ -37,7 +37,11 @@ class MarketResearch extends Component {
             <StockSymbolSearch />
             <StockScreener />
           </div>
-          <StockList />
+          <StockList 
+            id={this.props.id}
+            marketName={this.props.marketName}
+            categories={this.props.categories}
+          />
         </div>
       </>
     );
