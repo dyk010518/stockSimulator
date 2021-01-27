@@ -358,6 +358,7 @@ class App extends Component {
             YP={this.state.YP}
             SPP={this.state.SPP}
             updateGraph={this.updateGraph}
+            totalValue={this.state.totalValue}
           />
           <MarketPortfolio
             path="/Game/Portfolio"
@@ -370,6 +371,7 @@ class App extends Component {
             day={this.state.day}
             updateDay={this.updateDay}
             updateTotalValue={this.updateTotalValue}
+            totalValue={this.state.totalValue}
           />
           <MarketResearch
             path="/Game/Research"
@@ -382,6 +384,7 @@ class App extends Component {
             day={this.state.day}
             updateDay={this.updateDay}
             updateTotalValue={this.updateTotalValue}
+            totalValue={this.state.totalValue}
           />
           <MarketTrade
             path="/Game/Trade"
@@ -396,6 +399,7 @@ class App extends Component {
             day={this.state.day}
             updateDay={this.updateDay}
             updateTotalValue={this.updateTotalValue}
+            totalValue={this.state.totalValue}
           />
           {/*
           <MarketImport

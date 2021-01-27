@@ -271,6 +271,7 @@ class MarketTrade extends Component {
           updateCash={this.props.updateCash}
           updateDay={this.props.updateDay}
           updateTotalValue={this.props.updateTotalValue}
+          totalValue={this.props.totalValue}
         />
         <div className="MarketTrade-row">
           <div className="MarketTrade-column">

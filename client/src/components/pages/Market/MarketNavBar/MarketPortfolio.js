@@ -28,6 +28,7 @@ class MarketPortfolio extends Component {
           updateCash={this.props.updateCash}
           updateDay={this.props.updateDay}
           updateTotalValue={this.props.updateTotalValue}
+          totalValue={this.props.totalValue}
         />
         <div className="MarketPortfolio-row">
           <StockPortfolio 

@@ -156,25 +156,37 @@ class MarketNavBar extends Component {
   }
 
   resetUser = () => {
+    alert("Your total account value was: " + this.props.totalValue.toString())
+    this.setState({
+      reset: true
+    })
     post('/api/resetTotalValues', {
       id: this.props.id,
     }).then(() => {
+      console.log("total val reset")
       post('/api/resetCash', {
         id: this.props.id,
       }).then(() => {
+        console.log("cash reset")
         post('/api/resetDate', {
           id: this.props.id,
         }).then(() => {
+          console.log("date reset")
           //delete Bought Stocks
           //delete Recent Activities
 
           //after resetting/deleting everything. redirects the user to the home page
-          this.setState({
-            reset: true
-          })
+          
           //Also Ronald, when you can implement this resetting functionality, you can also make it so that when the user's day >2500, they have to click reset button
           get('/api/deleteBoughtStocks', {
             id: this.props.id,
+          }).then(() => {
+            console.log("bs reset")
+            this.setState({
+              reset: true
+            }, () => {
+              console.log("reset complete")
+            })
           })
         })
       });

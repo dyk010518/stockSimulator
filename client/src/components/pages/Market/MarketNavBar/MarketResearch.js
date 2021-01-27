@@ -31,6 +31,7 @@ class MarketResearch extends Component {
           updateCash={this.props.updateCash}
           updateDay={this.props.updateDay}
           updateTotalValue={this.props.updateTotalValue}
+          totalValue={this.props.totalValue}
         />
         <div className="MarketResearch-row">
           {/* <div className="MarketResearch-column">

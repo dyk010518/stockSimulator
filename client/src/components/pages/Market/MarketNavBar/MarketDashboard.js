@@ -44,6 +44,7 @@ class MarketDashboard extends Component {
                     updateDay={this.props.updateDay}
                     updateTotalValue={this.props.updateTotalValue}
                     updateGraph={this.props.updateGraph}
+                    totalValue={this.props.totalValue}
                 />
                 <Graph 
                     YP={this.props.YP}
