@@ -86,7 +86,6 @@ router.get('/graphData', (req, res) => {
       tempPArray[count] = (markObj.stockPrice)
       count = count + 1;
       if (count === (totalDays)) {
-        console.log(tempPArray)
         let percentInc;
         for (let j = 0; j < tempPArray.length - 1; j++) {
           percentInc = (parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j])
@@ -106,12 +105,24 @@ router.get('/graphData', (req, res) => {
             tempTV = TVObj.fourTV
           }
           let tempTVArray = tempTV.split(",")
+          console.log(tempTVArray)
           if (tempTVArray[tempTVArray.length - 1] === "") {
             tempTVArray = tempTVArray.slice(0, tempTVArray.length - 1)
           }
           let returnTVA = []
           let TVPI;
           let countT = 0;
+          if (tempTVArray.length === 0){
+            res.send({
+              YourPerf: returnTVA,
+              SPPerf: SPP,
+            })
+          } else if (tempTVArray.length === 1){
+            res.send({
+              YourPerf: returnTVA,
+              SPPerf: SPP,
+            })
+          }
           for (let k = 0; k < tempTVArray.length - 1; k++) {
             TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])
             returnTVA.push(TVPI)

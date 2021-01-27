@@ -204,6 +204,9 @@ class App extends Component {
                         valueUpdate: (parseFloat(tempTV) + parseFloat(this.state.cash)).toString(),
                       }).then((TVObj) => {
                         console.log("total value updated existent stocks " + TVObj.msg)
+                        if (obj.conditionT){
+                          this.updateGraph(obj.newDay)
+                        }
                       })
                     }
                   })
@@ -217,16 +220,16 @@ class App extends Component {
                   valueUpdate: this.state.cash.toString(),
                 }).then((TVObj) => {
                   console.log("total value updated " + TVObj.msg)
+                  if (obj.conditionT){
+                    this.updateGraph(obj.newDay)
+                  }
                 })
               }
             }
           }
         })
       });
-      if (obj.conditionT){
-        console.log("condition2")
-        this.updateGraph(obj.newDay)
-      }
+      
     }
   }
 
@@ -259,9 +262,7 @@ class App extends Component {
   }
 
   updateGraph = (curDay) => {
-    console.log("condition3")
     if (this.state.userId) {
-      console.log("condition4")
       get('/api/graphData', {
         id: this.state.userId,
         day: curDay.toString(),
