@@ -5,7 +5,7 @@ import ScoreboardPanel from './ScoreboardPanel/ScoreboardPanel.js';
 import '../../../utilities.css';
 import SimulatorPanel from './SimulatorPanel/SimulatorPanel.js';
 import GoogleLogin, { GoogleLogout } from "react-google-login";
-
+import bull from '../../../bull.png';
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "861706660529-ij4qla5vskuqqfa90lqog4366eol4tch.apps.googleusercontent.com";
@@ -24,9 +24,12 @@ class Homepage extends Component {
 
   // const text = props.text;
   // const url = props.url;
+  
+
   render() {
     return (
-      <div className="Homepage-basics">
+      <div>
+        <div className="Homepage-basics" className="background">
         <TopBar
           handleLogin={this.props.handleLogin}
           handleLogout={this.props.handleLogout}
@@ -40,8 +43,13 @@ class Homepage extends Component {
           {/*<div className="Homepage-width">
             <ScoreboardPanel totalAccount={this.props.totalAccount}/>
           </div>*/}
+          
+          </div>
         </div>
       </div>
+      
+      
+      // </div>
     );
   }
 

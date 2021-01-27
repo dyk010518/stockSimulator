@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  background-image: url("https://www.thebalance.com/thmb/6HmkedkNEHE6G7CQAmKxbiDJTGo=/2121x1193/smart/filters:no_upscale()/wallstreet-be6e21ad26e546dd8b015d7be5d71528.jpg");
+  position: fixed;
+  min-width:100%;
+  min-height:100%;
+  background-size:cover;
+  background-position: center;
 }
 
 .App-logo {

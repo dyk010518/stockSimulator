@@ -20,6 +20,12 @@ class MarketSummaries extends Component {
 	render() {
 		return (
 			<div className="MarketPanel-flexColumn">
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+
 				<p className="MarketPanel-head">
 					Market:
         		</p>
@@ -28,6 +34,7 @@ class MarketSummaries extends Component {
           {
             marketTypes.map((marketNumber) => (
               <Link to="/Game" className="marketButton" >
+
                 <button onClick={()=>{
 					console.log("hit")
 					this.props.setMarketNum(marketNumber)
@@ -37,8 +44,8 @@ class MarketSummaries extends Component {
               </Link>
             ))
           }
-          	<p>Many more to come! Check for updates!</p>
-
+          	<h1>Many more to come! Check for updates!</h1>
+          	<h3 class = "border">WARNING: If the log in doesnt work or the market day doesnt show on the screen, close the tab and reopen it!</h3>
 				</div>
 			</div>
 		);

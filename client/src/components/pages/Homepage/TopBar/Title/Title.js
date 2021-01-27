@@ -16,7 +16,7 @@ class Title extends Component {
       <>
       
       <div className="loggedInAs">{this.props.username ? loggedIn : notLoggedIn}</div>
-      <h1 className="title" >Stock Simulator</h1>
+      <h1 className="title" >STOCK SIMULATOR</h1>
       
       </>
     );
