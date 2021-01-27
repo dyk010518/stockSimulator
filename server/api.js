@@ -84,65 +84,61 @@ router.get('/graphData', (req, res) => {
       day: tempDay,
       marketNumber: "1",
     }).then((markObj) => {
-      // while(!tempPArray){
-      //   null;
-      // }
-      // while(!markObj){
-      //   null;
-      // }
-      tempPArray[count] = (markObj.stockPrice);
-      count = count + 1;
-      if (count === (totalDays)) {
-        let percentInc;
-        for (let j = 0; j < tempPArray.length - 1; j++) {
-          percentInc = (parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j])
-          SPP.push(percentInc)
-        }
-        totalValues.findOne({
-          userID: req.query.id.toString(),
-        }).then((TVObj) => {
-          let tempTV;
-          if (req.query.mn === "One") {
-            tempTV = TVObj.oneTV
-          } else if (req.query.mn === "Two") {
-            tempTV = TVObj.twoTV
-          } else if (req.query.mn === "Three") {
-            tempTV = TVObj.threeTV
-          } else if (req.query.mn === "Four") {
-            tempTV = TVObj.fourTV
+      if(tempPArray && markObj){
+        tempPArray[count] = (markObj.stockPrice);
+        count = count + 1;
+        if (count === (totalDays)) {
+          let percentInc;
+          for (let j = 0; j < tempPArray.length - 1; j++) {
+            percentInc = (parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j])
+            SPP.push(percentInc)
           }
-          let tempTVArray = tempTV.split(",")
-          if (tempTVArray[tempTVArray.length - 1] === "") {
-            tempTVArray = tempTVArray.slice(0, tempTVArray.length - 1)
-          }
-          let returnTVA = []
-          let TVPI;
-          let countT = 0;
-          if (tempTVArray.length === 0){
-            res.send({
-              YourPerf: returnTVA,
-              SPPerf: SPP,
-            })
-          } else if (tempTVArray.length === 1){
-            res.send({
-              YourPerf: returnTVA,
-              SPPerf: SPP,
-            })
-          }
-          for (let k = 0; k < tempTVArray.length - 1; k++) {
-            TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])
-            returnTVA.push(TVPI)
-            countT = countT + 1
-            if (countT === (tempTVArray.length)-1) {
+          totalValues.findOne({
+            userID: req.query.id.toString(),
+          }).then((TVObj) => {
+            let tempTV;
+            if (req.query.mn === "One") {
+              tempTV = TVObj.oneTV
+            } else if (req.query.mn === "Two") {
+              tempTV = TVObj.twoTV
+            } else if (req.query.mn === "Three") {
+              tempTV = TVObj.threeTV
+            } else if (req.query.mn === "Four") {
+              tempTV = TVObj.fourTV
+            }
+            let tempTVArray = tempTV.split(",")
+            if (tempTVArray[tempTVArray.length - 1] === "") {
+              tempTVArray = tempTVArray.slice(0, tempTVArray.length - 1)
+            }
+            let returnTVA = []
+            let TVPI;
+            let countT = 0;
+            if (tempTVArray.length === 0){
+              res.send({
+                YourPerf: returnTVA,
+                SPPerf: SPP,
+              })
+            } else if (tempTVArray.length === 1){
               res.send({
                 YourPerf: returnTVA,
                 SPPerf: SPP,
               })
             }
-          }
-        })
-      } else {
-        forLoop()
+            for (let k = 0; k < tempTVArray.length - 1; k++) {
+              TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])
+              returnTVA.push(TVPI)
+              countT = countT + 1
+              if (countT === (tempTVArray.length)-1) {
+                res.send({
+                  YourPerf: returnTVA,
+                  SPPerf: SPP,
+                })
+              }
+            }
+          })
+        } else {
+          forLoop()
+        }
       }
     })
   }
@@ -208,6 +204,48 @@ router.get('/getStocksForTheDay', (req, res) => {
       })
     })
   }
+})
+
+//reset totalValues given id
+router.post('/resetTotalValues', (req, res) => {
+  totalValues.findOne({
+    userID: req.body.id,
+  }).then((TVObj) => {
+    TVObj.oneTV = "10000";
+    TVObj.save()
+    res.send({ obj: TVObj, msg: "success" })
+  })
+})
+
+//reset cash given id
+router.post('/resetCash', (req, res) => {
+  User.findOne({
+    _id: req.body.id,
+  }).then((UserObj) => {
+    UserObj.cashOne = "10000";
+    UserObj.save()
+    res.send({ obj: UserObj, msg: "success" })
+  })
+})
+
+//reset date given id
+router.post('/resetDate', (req, res) => {
+  date.findOne({
+    userId: req.body.id,
+  }).then((dateObj) => {
+    dateObj.one = "1";
+    dateObj.save()
+    res.send({ obj: dateObj, msg: "success" })
+  })
+})
+
+//delet Recent Activities given id
+router.get('/deleteRA', (req, res) => {
+  RecentActivity.deleteMany({
+    userId: req.body.id,
+  }).then((deletedRAObj) => {
+    res.send({msg: "success" })
+  })
 })
 
 //post totalValues given id, number, valueUpdate

@@ -8,6 +8,7 @@ import MarketPortfolio from "./MarketPortfolio.js";
 import MarketResearch from "./MarketResearch.js";
 import MarketTrade from "./MarketTrade.js";
 
+
 import { get, post } from "../../../../utilities.js";
 
 const routes = [
@@ -104,7 +105,34 @@ class MarketNavBar extends Component {
         alert("Please don't press any other buttons for the next 20 seconds!");
         setTimeout(() => {this.updateButton2(false)}, 20000);
       });
+
+      document.getElementById("reset").addEventListener("click", () => {
+        if(confirm("Are you sure you want to reset all of your progress so far?")){
+          this.resetUser();
+        }else{
+          null;
+        }
+      });
     }
+  }
+
+  resetUser = () => {
+    post('/api/resetTotalValues', {
+      id: this.props.id,
+    }).then(() => {
+      post('/api/resetCash', {
+        id: this.props.id,
+      }).then(() => {
+        post('/api/resetDate', {
+          id: this.props.id,
+        }).then(() => {
+          get('/api/deleteRA', {
+            id: this.props.id,
+          })
+        })
+      });
+    });
+
   }
 
   updateButton1 = (condition) => {
@@ -212,6 +240,7 @@ class MarketNavBar extends Component {
     let nextButton = "Next Day =>";
     let nextMonth = "Next Month =>";
     let nextQuarter = "Next Quarter =>";
+    let reset = "Reset";
     return (
       <>
         <header className="MNavBar-header1">
@@ -241,6 +270,9 @@ class MarketNavBar extends Component {
             </button>
             <button id="nextQuarter" className="nextQuarterButton" disabled={this.state.buttonOff2}>
               {nextQuarter}
+            </button>
+            <button id="reset" className="reset">
+              {reset}
             </button>
           </div>
         </header>
