@@ -48,6 +48,8 @@ header{
 
 .top-align{
   top:2px;
+  width:100%;
+  float: 0px;
 }
 
 .allButtons{
@@ -56,6 +58,7 @@ header{
   text-decoration: none;
   left: 10px;
   top: 42px;
+  margin:0px;
 }
 
 .rm_decor{
@@ -113,15 +116,61 @@ header{
   margin: 20px;
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1100px){
   .balance{
     color: white;
-    font-size: 12pt;
-    right: 4px;
+    font-size: 15px;
+    right: 10px;
   }
+  .allButtons{
+  display: flex;
+  position: absolute;
+  text-decoration: none;
+  font-size: 7px;
+  }
+  .top-align{
+  top:0px;
+  width:95%;
+  font-size:10px;
+  float: 0px;
+  text-align: center;
+  height:85%;
+}
+.nextButton{
+  font-weight:400;
+  font-size: 10px;
+  position: absolute;
+  top: 48px;
+  right: 15px;
 }
 
-@media (max-width: 900px){
+.nextMonthButton{
+  font-weight:400;
+  font-size: 10px;
+  position: absolute;
+  top: 48px;
+  right: 100px;
+}
+
+.nextQuarterButton{
+  font-weight:400;
+  font-size: 10px;
+  position: absolute;
+  top: 48px;
+  right: 200px;
+}
+
+.reset{
+  font-weight:400;
+  font-size: 10px;
+  position: absolute;
+  top: 48px;
+  right: 400px;
+}
+
+}
+
+@media (max-width: 970px){
   .balance{
     color: white;
     font-size: 10pt;
@@ -133,7 +182,10 @@ header{
     font-weight: bold;
   }
   .allButtons{
-    left: 0px;
+    display: flex;
+    position: absolute;
+    text-decoration: none;
+    font-size: 5px;
   }
   .top-align{
     font-size: 9pt;
@@ -149,31 +201,6 @@ header{
   }
   .nextQuarterButton{
     font-size: 10pt;
-    top: 50px;
-  }
-}
-
-@media (max-width: 750px){
-  .balance{
-    color: white;
-    font-size: 8pt;
-    right: 1px;
-  }
-  .title{
-    color: white;
-    font-size: 14pt;
-    font-weight: bold;
-  }
-  .top-align{
-    font-size: 7pt;
-    vertical-align: middle;
-  }
-  .nextButton{
-    font-size: 8pt;
-    top: 50px;
-  }
-  .nextQuarterButton{
-    font-size: 8pt;
     top: 50px;
   }
 }
