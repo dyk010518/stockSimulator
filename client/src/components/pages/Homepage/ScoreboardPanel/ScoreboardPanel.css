@@ -17,3 +17,26 @@
     align-items: center;
     justify-content: center;
 }
+
+
+@media (max-width: 900px){
+ .ScoreboardPanel-flexColumn{
+    width: 100px;
+    height: 100px;
+  }
+
+  .ScoreboardPanel-head{
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .ScoreboardPanel-grid{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+}

@@ -53,3 +53,31 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 1100px){
+ .Homepage-flexRow{
+  height: 100px;
+  font-size: 9pt;
+  width: 100%;
+ }
+ .Homepage-flexColumn{
+  font-size: 9pt;
+  size: scale-down;
+  height: 10%;
+ }
+.Homepage-width{
+  width: 40%;
+  justify-content: space-around;
+  }
+.Homepage--header {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(5px + 2vmin);
+  color: white;
+  }
+}
+
+

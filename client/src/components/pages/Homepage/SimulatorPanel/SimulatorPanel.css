@@ -3,3 +3,21 @@
     flex-direction: column;
     justify-content: space-around;
   }
+
+.SimulatorPanel-flexRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+@media (max-width: 900px){
+ .SimulatorPanel-flexColumn{
+    width:100px;
+    height:100px;
+
+  }
+.SimulatorPanel-flexRow{
+  width:100px;
+  height:100px;
+}
+
