@@ -106,7 +106,8 @@ class App extends Component {
             lossStockPercent: tempLoss,
           }, () => {
             console.log("graph day gain loss set")
-            this.updateTotalValue({ newDay: updateVal, condition: tf })
+            this.updateTotalValue({ newDay: updateVal, condition: tf , conditionT: true})
+
           })
         })
       }
@@ -151,7 +152,7 @@ class App extends Component {
           tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
         }
         this.setState({ cash: tcash }, () => {
-          this.updateTotalValue({ newDay: this.state.day, condition: false })
+          this.updateTotalValue({ newDay: this.state.day, condition: false, conditionT: true })
         })
       })
     }
@@ -203,65 +204,32 @@ class App extends Component {
                         valueUpdate: (parseFloat(tempTV) + parseFloat(this.state.cash)).toString(),
                       }).then((TVObj) => {
                         console.log("total value updated existent stocks " + TVObj.msg)
-                        /*
-                        get('/api/graphData', {
-                          id: this.state.userId,
-                          day: this.state.day,
-                          mn: this.state.marketName,
-                        }).then((graphObj) => {
-                          
-                          this.setState({
-                            YP: graphObj.YourPerf,
-                            SPP: graphObj.SPPerf
-                          })
-                        })
-                        */
+                        if (obj.conditionT){
+                          this.updateGraph(obj.newDay)
+                        }
                       })
                     }
                   })
                 }
               }
             } else {
-                if (obj.condition) {
-                  post('/api/updateTotalValues', {
-                    id: this.state.userId,
-                    number: tempNumber,
-                    valueUpdate: this.state.cash.toString(),
-                  }).then((TVObj) => {
-                    console.log("total value updated " + TVObj.msg)
-                    /*
-                    get('/api/graphData', {
-                      id: this.state.userId,
-                      day: this.state.day,
-                      mn: this.state.marketName,
-                    }).then((graphObj) => {
-                      
-                      this.setState({
-                        YP: graphObj.YourPerf,
-                        SPP: graphObj.SPPerf
-                      })
-                    })
-                    */
-                  })
-                }
+              if (obj.condition) {
+                post('/api/updateTotalValues', {
+                  id: this.state.userId,
+                  number: tempNumber,
+                  valueUpdate: this.state.cash.toString(),
+                }).then((TVObj) => {
+                  console.log("total value updated " + TVObj.msg)
+                  if (obj.conditionT){
+                    this.updateGraph(obj.newDay)
+                  }
+                })
+              }
             }
-          } else {
-            /*
-            get('/api/graphData', {
-              id: this.state.userId,
-              day: this.state.day,
-              mn: this.state.marketName,
-            }).then((graphObj) => {
-              
-              this.setState({
-                YP: graphObj.YourPerf,
-                SPP: graphObj.SPPerf
-              })
-            })
-            */
           }
         })
       });
+      
     }
   }
 
@@ -293,17 +261,27 @@ class App extends Component {
     });
   }
 
+  updateGraph = (curDay) => {
+    if (this.state.userId) {
+      get('/api/graphData', {
+        id: this.state.userId,
+        day: curDay.toString(),
+        mn: this.state.marketName,
+      }).then((resultObj) => {
+        this.setState({
+          YP: resultObj.YourPerf,
+          SPP: resultObj.SPPerf,
+        }, () => {
+          console.log("ypp spp set")
+        })
+      })
+    }
+  }
+
   handleLogin = (res) => {
     console.log(`Logged in as ${res.profileObj.name}`);
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
-      get('/api/getdate', {
-        id: user._id
-      }).then((dateObj) => {
-        this.setState({
-          day: dateObj.one
-        })
-      })
       this.setState({
         userId: user._id,
         googleid: user.googleid,
@@ -320,9 +298,15 @@ class App extends Component {
       })
       post("/api/recentactivities", {
         id: this.state.userId
-      });
+      })
       post("/api/marketdate", {
         id: this.state.userId
+      }).then((dateObj) => {
+        this.setState({
+          day: dateObj.one
+        }, () => {
+          console.log(dateObj)
+        })
       });
       post("/api/initsocket", {
         socketid: socket.id
@@ -373,6 +357,7 @@ class App extends Component {
             updateTotalValue={this.updateTotalValue}
             YP={this.state.YP}
             SPP={this.state.SPP}
+            updateGraph={this.updateGraph}
           />
           <MarketPortfolio
             path="/Game/Portfolio"
