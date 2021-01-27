@@ -15,11 +15,11 @@ class StockList extends Component {
 
     state = {
         categories: [
-            {stockSymbol: "CHEESE", industry: "ConsumerDiscretionary"},
-            {stockSymbol: "COOP", industry: "ConsumerDiscretionary"},
-            {stockSymbol: "STORE", industry: "ConsumerDiscretionary"},
-            {stockSymbol: "CELL", industry: "ConsumerStaples"},
-            {stockSymbol: "GROCE", industry: "ConsumerStaples"},
+            {stockSymbol: "CHEESE", industry: "Consumer Discretionary"},
+            {stockSymbol: "COOP", industry: "Consumer Discretionary"},
+            {stockSymbol: "STORE", industry: "Consumer Discretionary"},
+            {stockSymbol: "CELL", industry: "Consumer Staples"},
+            {stockSymbol: "GROCE", industry: "Consumer Staples"},
             {stockSymbol: "SOLAR", industry: "Utilities"},
             {stockSymbol: "OIL", industry: "Energy"},
             {stockSymbol: "INSUR", industry: "Finance"},
@@ -82,6 +82,8 @@ class StockList extends Component {
                             // below is hard-coded market number
                             number: "1",
                         }).then((stockObj) => {
+                            let thePrice = (Math.round(parseFloat(stockObj.obj.stockPrice) * 100) / 100).toString();
+
                             let theIndustry = "";
                             for(let j=0; j<this.state.categories.length; j++){
                                 if(this.state.marketOneSymbols[i] === this.state.categories[j].stockSymbol){
@@ -95,12 +97,24 @@ class StockList extends Component {
                                 // below is hard-coded market number
                                 number: "1",
                             }).then((MCObj) => {
+                                let theMC = parseInt(MCObj.stockMarketCap.replaceAll(",", ""));
+                                if(theMC > 999999999999){
+                                    theMC = Math.round(theMC/1000000000000).toString() + "T";
+                                }else if(theMC > 999999999){
+                                    theMC = Math.round(theMC/1000000000).toString() + "B"
+                                }else{
+                                    theMC = Math.round(theMC/1000000).toString() + "M"
+                                }
+                                    
+
                                 get('/api/getPEData', {
                                     symbol: this.state.marketOneSymbols[i],
                                     day: tempDay,
                                     // below is hard-coded market number
                                     number: "1",
                                 }).then((PEObj) => {
+                                    let thePE = (Math.round(parseFloat(PEObj.stockPE) * 100) / 100).toString();
+
                                     get('/api/getPBData', {
                                         symbol: this.state.marketOneSymbols[i],
                                         month: dayToMonth(tempDay),
@@ -147,10 +161,10 @@ class StockList extends Component {
 
                                                         theObject = {
                                                             stockSymbol: this.state.marketOneSymbols[i],
-                                                            stockPrice: stockObj.obj.stockPrice,
+                                                            stockPrice: thePrice,
                                                             stockIndustry: theIndustry,
-                                                            stockMarketCap: MCObj.stockMarketCap,
-                                                            stockPE: PEObj.stockPE,
+                                                            stockMarketCap: theMC,
+                                                            stockPE: thePE,
                                                             stockPB: PBObj.stockPB,
                                                             stockPS: revPerShare,
                                                             debtEquity: theDebtEquity,
@@ -194,14 +208,26 @@ class StockList extends Component {
                 </h2>
                 <div className="StockList-resultHeader">
                     <div className="StockList-resultDesctiption"> Symbol</div>
-                    <div className="StockList-resultDesctiption"> Company Name</div>
-                    <div className="StockList-resultDesctiption"> Screener</div>
+                    <div className="StockList-resultDesctiption"> Price</div>
+                    <div className="StockList-resultDesctiption"> Industry</div>
+                    <div className="StockList-resultDesctiption"> Market Cap</div>
+                    <div className="StockList-resultDesctiption"> Price/Earning</div>
+                    <div className="StockList-resultDesctiption"> Price/Book</div>
+                    <div className="StockList-resultDesctiption"> Price/Sales</div>
+                    <div className="StockList-resultDesctiption"> Debt/Equity</div>
+                    <div className="StockList-resultDesctiption"> Free Cash Flow/Share</div>
                     {/* {console.log(theStocks)} */}
                     {theStocks.map((stock) => (
                         <>
                             <div className="StockList-resultDesctiption"> {stock.stockSymbol}</div>
                             <div className="StockList-resultDesctiption"> {stock.stockPrice}</div>
                             <div className="StockList-resultDesctiption"> {stock.stockIndustry}</div>
+                            <div className="StockList-resultDesctiption"> {stock.stockMarketCap}</div>
+                            <div className="StockList-resultDesctiption"> {stock.stockPE}</div>
+                            <div className="StockList-resultDesctiption"> {stock.stockPB}</div>
+                            <div className="StockList-resultDesctiption"> {stock.stockPS}</div>
+                            <div className="StockList-resultDesctiption"> {stock.debtEquity}</div>
+                            <div className="StockList-resultDesctiption"> {stock.FCFperShare}</div>
                         </>
                     ))}
                 </div>
