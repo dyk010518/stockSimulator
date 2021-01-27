@@ -64,6 +64,7 @@ router.get('/graphData', (req, res) => {
   let startDay;
   let tempPArray = [];
   let tObj = {};
+  console.log(req.query.day)
   if (req.query.day < 6) {
     startDay = 1
     totalDays = parseInt(req.query.day)
@@ -88,7 +89,6 @@ router.get('/graphData', (req, res) => {
           percentInc = (parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j])
           SPP.push(percentInc)
         }
-        console.log(SPP)
         totalValues.findOne({
           userID: req.query.id.toString(),
         }).then((TVObj) => {
