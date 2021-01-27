@@ -25,7 +25,7 @@ class MarketDashboard extends Component {
     }
 
     componentDidMount() {
-        this.props.updateGraph(this.props.day)
+
     }
 
     

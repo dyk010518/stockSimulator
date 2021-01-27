@@ -70,20 +70,23 @@ router.get('/graphData', (req, res) => {
     startDay = parseInt(req.query.day) - 5
     totalDays = 6
   }
+  for (let i = 0; i < totalDays; i++) {
+    tempPArray.push(0)
+  }
   let tempDay;
   let count = 0;
-  for (let i = 0; i < totalDays; i++) {
+  let forLoop = () => {
     //console.log(parseInt(req.query.day))
-    tempDay = (parseInt(i) + parseInt(startDay)).toString()
-    
+    tempDay = (parseInt(count) + parseInt(startDay)).toString()
     stockPrice.findOne({
       stockSymbol: "MARKET",
       day: tempDay,
       marketNumber: "1",
     }).then((markObj) => {
-      tempPArray.push(markObj.stockPrice)
+      tempPArray[count] = (markObj.stockPrice)
       count = count + 1;
       if (count === (totalDays)) {
+        console.log(tempPArray)
         let percentInc;
         for (let j = 0; j < tempPArray.length - 1; j++) {
           percentInc = (parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j])
@@ -113,7 +116,7 @@ router.get('/graphData', (req, res) => {
             TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])
             returnTVA.push(TVPI)
             countT = countT + 1
-            if (countT === (tempTVArray.length - 1)){
+            if (countT === (tempTVArray.length)-1) {
               res.send({
                 YourPerf: returnTVA,
                 SPPerf: SPP,
@@ -121,9 +124,12 @@ router.get('/graphData', (req, res) => {
             }
           }
         })
+      } else {
+        forLoop()
       }
     })
   }
+  forLoop()
 })
 
 //create totalValues given id, values array

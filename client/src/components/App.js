@@ -106,7 +106,7 @@ class App extends Component {
             lossStockPercent: tempLoss,
           }, () => {
             console.log("graph day gain loss set")
-            this.updateTotalValue({ newDay: updateVal, condition: tf })
+            this.updateTotalValue({ newDay: updateVal, condition: tf , conditionT: true})
 
           })
         })
@@ -152,7 +152,7 @@ class App extends Component {
           tcash = (Math.round(parseFloat(userObj.cashOne) * 100) / 100).toString()
         }
         this.setState({ cash: tcash }, () => {
-          this.updateTotalValue({ newDay: this.state.day, condition: false })
+          this.updateTotalValue({ newDay: this.state.day, condition: false, conditionT: true })
         })
       })
     }
@@ -223,7 +223,10 @@ class App extends Component {
           }
         })
       });
-      this.updateGraph(obj.newDay)
+      if (obj.conditionT){
+        console.log("condition2")
+        this.updateGraph(obj.newDay)
+      }
     }
   }
 
@@ -256,12 +259,15 @@ class App extends Component {
   }
 
   updateGraph = (curDay) => {
+    console.log("condition3")
     if (this.state.userId) {
+      console.log("condition4")
       get('/api/graphData', {
         id: this.state.userId,
         day: curDay.toString(),
         mn: this.state.marketName,
       }).then((resultObj) => {
+        console.log("graphDataReach")
         console.log(resultObj)
       })
     }
