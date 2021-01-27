@@ -301,6 +301,39 @@ router.get("/getPEData", (req, res) => {
   })
 })
 
+//get stockPB Data given symbol, month, number
+router.get("/getPBData", (req, res) => {
+  stockPB.findOne({
+    stockSymbol: req.query.symbol,
+    month: req.query.month,
+    marketNumber: req.query.number,
+  }).then((PBObj) => {
+    res.send(PBObj)
+  })
+})
+
+//get revenue Data given symbol, quarter, number
+router.get("/getRevenueData", (req, res) => {
+  revenues.findOne({
+    stockSymbol: req.query.symbol,
+    quarter: req.query.quarter,
+    marketNumber: req.query.number,
+  }).then((revObj) => {
+    res.send(revObj)
+  })
+})
+
+//get shares Data given symbol, quarter, number
+router.get("/getShares", (req, res) => {
+  shares.findOne({
+    stockSymbol: req.query.symbol,
+    quarter: req.query.quarter,
+    marketNumber: req.query.number,
+  }).then((sharesObj) => {
+    res.send(sharesObj)
+  })
+})
+
 //insert freecashflow data
 router.post("/insertFCFData", (req, res) => {
   freeCashFlow.findOne({
