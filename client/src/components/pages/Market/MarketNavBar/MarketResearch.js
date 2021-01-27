@@ -33,10 +33,10 @@ class MarketResearch extends Component {
           updateTotalValue={this.props.updateTotalValue}
         />
         <div className="MarketResearch-row">
-          <div className="MarketResearch-column">
+          {/* <div className="MarketResearch-column">
             <StockSymbolSearch />
             <StockScreener />
-          </div>
+          </div> */}
           <StockList 
             id={this.props.id}
             marketName={this.props.marketName}

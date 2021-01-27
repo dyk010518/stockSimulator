@@ -87,11 +87,45 @@ class MarketNavBar extends Component {
       document.getElementById("nextDay").addEventListener("click", () => {
         this.goToNextDay();
       });
+      document.getElementById("nextMonth").addEventListener("click", () => {
+        this.updateButton1(true);
+        alert("Please don't press any other buttons for the next 5 seconds!");
+        for(let i=0; i < 20; i++){
+          this.goToNextDay(i);
+        }
+        setTimeout(() => {this.updateButton1(false)}, 5000);
+      });
+
+      document.getElementById("nextQuarter").addEventListener("click", () => {
+        this.updateButton2(true);
+        for(let i=0; i < 60; i++){
+          this.goToNextDay(i);
+        }
+        alert("Please don't press any other buttons for the next 20 seconds!");
+        setTimeout(() => {this.updateButton2(false)}, 20000);
+      });
     }
   }
 
-  goToNextDay = () => {
+  updateButton1 = (condition) => {
+    this.setState({
+      buttonOff1: condition,
+    }, () => {
+      console.log("button changed")
+    })
+  }
+
+  updateButton2 = (condition) => {
+    this.setState({
+      buttonOff2: condition,
+    }, () => {
+      console.log("button changed")
+    })
+  }
+
+  goToNextDay = (num) => {
     let tempDay;
+    console.log("Loading");
     if (this.props.marketName === "One") {
       tempDay = parseInt(this.state.dayOne) + 1;
       tempDay = tempDay.toString();
@@ -142,7 +176,10 @@ class MarketNavBar extends Component {
         } else if (this.props.marketName === "Four") {
           sendToParent = dayObj.four
         }
-        this.props.updateDay(sendToParent, true)
+        this.props.updateDay(sendToParent, true);
+        if(num == 19){
+          // this.updateButton(false);
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -168,11 +205,13 @@ class MarketNavBar extends Component {
     }
     let titleText;
     if (day) {
-      titleText = "Market " + this.props.marketName + ": Day " + day;
+      titleText = "Market " + this.props.marketName + ": Day " + day + "/2500";
     } else {
-      titleText = "Market " + this.props.marketName + ": Day ";
+      titleText = "Market " + this.props.marketName + ": Day " + "/2500";
     }
     let nextButton = "Next Day =>";
+    let nextMonth = "Next Month =>";
+    let nextQuarter = "Next Quarter =>";
     return (
       <>
         <header className="MNavBar-header1">
@@ -196,6 +235,12 @@ class MarketNavBar extends Component {
           <div className="nextContainer">
             <button id="nextDay" className="nextButton">
               {nextButton}
+            </button>
+            <button id="nextMonth" className="nextMonthButton" disabled={this.state.buttonOff1}>
+              {nextMonth}
+            </button>
+            <button id="nextQuarter" className="nextQuarterButton" disabled={this.state.buttonOff2}>
+              {nextQuarter}
             </button>
           </div>
         </header>

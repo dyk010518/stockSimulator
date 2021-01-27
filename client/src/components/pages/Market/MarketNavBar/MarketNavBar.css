@@ -82,6 +82,22 @@ header{
   font-size: 15px;
   position: absolute;
   top: 48px;
+  right: 280px;
+}
+
+.nextMonthButton{
+  font-weight:600;
+  font-size: 15px;
+  position: absolute;
+  top: 48px;
+  right: 150px;
+}
+
+.nextQuarterButton{
+  font-weight:600;
+  font-size: 15px;
+  position: absolute;
+  top: 48px;
   right: 10px;
 }
 
@@ -97,7 +113,7 @@ header{
   }
 }
 
-@media (max-width: 800px){
+@media (max-width: 900px){
   .balance{
     color: white;
     font-size: 10pt;
@@ -119,9 +135,17 @@ header{
     font-size: 10pt;
     top: 50px;
   }
+  .nextMonthButton{
+    font-size: 10pt;
+    top: 50px;
+  }
+  .nextQuarterButton{
+    font-size: 10pt;
+    top: 50px;
+  }
 }
 
-@media (max-width: 650px){
+@media (max-width: 750px){
   .balance{
     color: white;
     font-size: 8pt;
@@ -137,6 +161,10 @@ header{
     vertical-align: middle;
   }
   .nextButton{
+    font-size: 8pt;
+    top: 50px;
+  }
+  .nextQuarterButton{
     font-size: 8pt;
     top: 50px;
   }

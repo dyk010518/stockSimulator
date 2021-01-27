@@ -204,22 +204,22 @@ class StockList extends Component {
         return (
             <div className="StockList-container">
                 <h2 className="StockList-header">
-                    Stock Search Result
+                    Stocks List
                 </h2>
                 <div className="StockList-resultHeader">
-                    <div className="StockList-resultDesctiption"> Symbol</div>
-                    <div className="StockList-resultDesctiption"> Price</div>
-                    <div className="StockList-resultDesctiption"> Industry</div>
-                    <div className="StockList-resultDesctiption"> Market Cap</div>
-                    <div className="StockList-resultDesctiption"> Price/Earning</div>
-                    <div className="StockList-resultDesctiption"> Price/Book</div>
-                    <div className="StockList-resultDesctiption"> Price/Sales</div>
-                    <div className="StockList-resultDesctiption"> Debt/Equity</div>
-                    <div className="StockList-resultDesctiption"> Free Cash Flow/Share</div>
+                    <div className="StockList-resultDesctiption1"> Symbol</div>
+                    <div className="StockList-resultDesctiption1"> Price</div>
+                    <div className="StockList-resultDesctiption1"> Industry</div>
+                    <div className="StockList-resultDesctiption1"> Market Cap</div>
+                    <div className="StockList-resultDesctiption1"> Price/Earning</div>
+                    <div className="StockList-resultDesctiption1"> Price/Book</div>
+                    <div className="StockList-resultDesctiption1"> Price/Sales</div>
+                    <div className="StockList-resultDesctiption1"> Debt/Equity</div>
+                    <div className="StockList-resultDesctiption1"> Free Cash Flow/Share</div>
                     {/* {console.log(theStocks)} */}
                     {theStocks.map((stock) => (
                         <>
-                            <div className="StockList-resultDesctiption"> {stock.stockSymbol}</div>
+                            <div className="StockList-resultDesctiption1"> {stock.stockSymbol}</div>
                             <div className="StockList-resultDesctiption"> {stock.stockPrice}</div>
                             <div className="StockList-resultDesctiption"> {stock.stockIndustry}</div>
                             <div className="StockList-resultDesctiption"> {stock.stockMarketCap}</div>

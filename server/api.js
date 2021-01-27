@@ -84,7 +84,13 @@ router.get('/graphData', (req, res) => {
       day: tempDay,
       marketNumber: "1",
     }).then((markObj) => {
-      tempPArray[count] = (markObj.stockPrice)
+      // while(!tempPArray){
+      //   null;
+      // }
+      // while(!markObj){
+      //   null;
+      // }
+      tempPArray[count] = (markObj.stockPrice);
       count = count + 1;
       if (count === (totalDays)) {
         let percentInc;
