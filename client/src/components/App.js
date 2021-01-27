@@ -271,6 +271,8 @@ class App extends Component {
         this.setState({
           YP: resultObj.YourPerf,
           SPP: resultObj.SPPerf,
+        }, () => {
+          console.log("ypp spp set")
         })
       })
     }

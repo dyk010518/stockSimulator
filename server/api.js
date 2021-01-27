@@ -105,7 +105,6 @@ router.get('/graphData', (req, res) => {
             tempTV = TVObj.fourTV
           }
           let tempTVArray = tempTV.split(",")
-          console.log(tempTVArray)
           if (tempTVArray[tempTVArray.length - 1] === "") {
             tempTVArray = tempTVArray.slice(0, tempTVArray.length - 1)
           }
