@@ -90,7 +90,7 @@ router.get('/graphData', (req, res) => {
         if (count === (totalDays)) {
           let percentInc;
           for (let j = 0; j < tempPArray.length - 1; j++) {
-            percentInc = (parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j])
+            percentInc = ((parseFloat(tempPArray[j + 1]) - parseFloat(tempPArray[j])) / parseFloat(tempPArray[j]))*100
             SPP.push(percentInc)
           }
           totalValues.findOne({
@@ -125,7 +125,7 @@ router.get('/graphData', (req, res) => {
               })
             }
             for (let k = 0; k < tempTVArray.length - 1; k++) {
-              TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])
+              TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])*100
               returnTVA.push(TVPI)
               countT = countT + 1
               if (countT === (tempTVArray.length)-1) {

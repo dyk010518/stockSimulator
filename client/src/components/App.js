@@ -97,8 +97,8 @@ class App extends Component {
           day: this.state.day,
           number: tempNumber,
         }).then((returnObj) => {
-          let tempGain = (Math.round(parseFloat(returnObj.bgp) * 10000) / 10000).toString()
-          let tempLoss = (Math.round(parseFloat(returnObj.blp) * 10000) / 10000).toString()
+          let tempGain = (Math.round(parseFloat(returnObj.bgp) * 10000) / 10000)*(100).toString()
+          let tempLoss = (Math.round(parseFloat(returnObj.blp) * 10000) / 10000)*(100).toString()
           this.setState({
             gainStockName: returnObj.bgn.toString(),
             gainStockPercent: tempGain,
