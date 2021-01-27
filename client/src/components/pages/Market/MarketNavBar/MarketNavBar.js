@@ -126,9 +126,15 @@ class MarketNavBar extends Component {
         post('/api/resetDate', {
           id: this.props.id,
         }).then(() => {
-          get('/api/deleteRA', {
+          //delete Bought Stocks
+          //delete Recent Activities
+
+          //after resetting/deleting everything. redirects the user to the home page
+
+          //Also Ronald, when you can implement this resetting functionality, you can also make it so that when the user's day >2500, they have to click reset button
+          get('/api/deleteBoughtStocks', {
             id: this.props.id,
-          }).then(() => {console.log("Finished")})
+          })
         })
       });
     });

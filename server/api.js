@@ -242,9 +242,18 @@ router.post('/resetDate', (req, res) => {
 //delet Recent Activities given id
 router.get('/deleteRA', (req, res) => {
   Recentactivity.deleteMany({
-    userId: req.body.id,
+    userId: req.query.id
   }).then((tempObject) => {
     console.log("deleted");
+  })
+})
+
+//delete bought Stocks given id
+router.get("/deleteBoughtStocks", (req, res) => {
+  Boughtstocks.deleteMany({
+    userId: req.query.id,
+  }).then((tempObject) => {
+    console.log("deleted that shit")
   })
 })
 
