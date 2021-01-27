@@ -125,7 +125,7 @@ router.get('/graphData', (req, res) => {
               })
             }
             for (let k = 0; k < tempTVArray.length - 1; k++) {
-              TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])
+              TVPI = (parseFloat(tempTVArray[k + 1]) - parseFloat(tempTVArray[k])) / parseFloat(tempTVArray[k])*100
               returnTVA.push(TVPI)
               countT = countT + 1
               if (countT === (tempTVArray.length)-1) {
