@@ -133,7 +133,7 @@ class MarketNavBar extends Component {
           this.updateButton2(true);
           this.updateButton1(true);
           this.updateButtonSingleDay(true);
-          for (let i = 0; i < 1500; i++) {
+          for (let i = 0; i < 60; i++) {
             this.goToNextDay(i);
           }
           alert("Please don't press any other buttons for the next 20 seconds!");
