@@ -90,7 +90,7 @@ class MarketNavBar extends Component {
           );
         });
       document.getElementById("nextDay").addEventListener("click", () => {
-        if ((parseInt(this.state.dayOne) + 1) > 2167) {
+        if ((parseInt(this.state.dayOne) + 1) > 2500) {
           alert("You can't go to more than 2500 days! Click reset if you wish to start the simulator again (and lose your current progress).")
         } else {
           this.updateButton2(true);
@@ -106,7 +106,7 @@ class MarketNavBar extends Component {
 
       });
       document.getElementById("nextMonth").addEventListener("click", () => {
-        if ((parseInt(this.state.dayOne) + 20) > 2167) {
+        if ((parseInt(this.state.dayOne) + 20) > 2500) {
           alert("You can't go to more than 2500 days! Click reset if you wish to start the simulator again (and lose your current progress).")
         } else {
           this.updateButton2(true);
@@ -127,7 +127,7 @@ class MarketNavBar extends Component {
       });
 
       document.getElementById("nextQuarter").addEventListener("click", () => {
-        if ((parseInt(this.state.dayOne) + 20) > 2167) {
+        if ((parseInt(this.state.dayOne) + 20) > 2500) {
           alert("You can't go to more than 2500 days! Click reset if you wish to start the simulator again (and lose your current progress).")
         } else {
           this.updateButton2(true);
