@@ -20,14 +20,7 @@ class MarketSummaries extends Component {
 	render() {
 		return (
 			<div className="MarketPanel-flexColumn">
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
 
-				<p className="MarketPanel-head">
-        		</p>
 				<div className="MarketPanel-grid">
 
           {
