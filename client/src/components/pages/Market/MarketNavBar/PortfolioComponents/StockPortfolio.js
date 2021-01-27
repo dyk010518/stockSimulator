@@ -9,45 +9,17 @@ class StockPortfolio extends Component {
   // makes props available in this component
   constructor(props) {
     super(props);
+    this.state = {
+      stockDay: undefined,
+      stocks: [],
+      userCash: {
+        cashValue: undefined,
+        accountTotal: undefined,
+        cashPercentage: undefined,
+      },
+    }
   }
 
-  state = {
-    stockDay: undefined,
-    userCash: {
-      cashValue: undefined,
-      accountTotal: undefined,
-      cashPercentage: undefined,
-    },
-    stocks: [],
-    //   {
-    //   //   stockSymbol: "PFE",
-    //   //   lastPrice: 10000.0,
-    //   //   todayDollarChange: 10000.0,
-    //   //   todayPercentChange: 56.5,
-    //   //   totalDollarChange: 112300.0,
-    //   //   totalPercentChange: 156.5,
-    //   //   currentValue: 12459071,
-    //   //   accountPercent: 47,
-    //   //   quantity: 1208,
-    //   //   costBasisPS: 1234,
-    //   //   costBasis: 1084,
-    //   // },
-
-    //   // {
-    //   //   stockSymbol: "PFE",
-    //   //   lastPrice: 10000.0,
-    //   //   todayDollarChange: 10000.0,
-    //   //   todayPercentChange: 56.5,
-    //   //   totalDollarChange: 112300.0,
-    //   //   totalPercentChange: 156.5,
-    //   //   currentValue: 12459071,
-    //   //   accountPercent: 47,
-    //   //   quantity: 1208,
-    //   //   costBasisPS: 1234,
-    //   //   costBasis: 1084,
-    //   },
-    // ],
-  };
 
   componentDidMount = () => {
     this.updateUserInfo();
@@ -136,7 +108,7 @@ class StockPortfolio extends Component {
                   theStocks.push(theObject);
                   this.setState({
                     stocks: theStocks,
-                  }, () => {console.log(this.state.stocks)});
+                  });
                 })
 
                 
@@ -148,11 +120,11 @@ class StockPortfolio extends Component {
             
         })
       })
-      .then(() => {
-        // this.setState({
-        //   stocks: theStocks,
-        // }, () => {console.log(this.state.stocks)});
-      })
+      // .then(() => {
+      //   this.setState({
+      //     stocks: theStocks,
+      //   });
+      // })
 
       
     }
@@ -162,8 +134,8 @@ class StockPortfolio extends Component {
   // required method: whatever is returned defines what
   // shows up on screen
   render() {
-    let space = " "
-    
+    let space = " "    
+    console.log(this.state.stocks.length);
     return (
       <>
         {}

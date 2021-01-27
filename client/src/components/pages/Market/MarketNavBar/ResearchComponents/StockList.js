@@ -4,6 +4,7 @@ import { Router } from '@reach/router';
 import { Link } from '@reach/router';
 import './StockList.css'
 import { get, dayToMonth, dayToQuarter, dayToYear } from "../../../../../utilities";
+// import { parse } from "dotenv/types";
 
 
 class StockList extends Component {
@@ -14,7 +15,7 @@ class StockList extends Component {
 
     state = {
         categories: [
-            {stockSymbol: "CAKE", industry: "ConsumerDiscretionary"},
+            {stockSymbol: "CHEESE", industry: "ConsumerDiscretionary"},
             {stockSymbol: "COOP", industry: "ConsumerDiscretionary"},
             {stockSymbol: "STORE", industry: "ConsumerDiscretionary"},
             {stockSymbol: "CELL", industry: "ConsumerStaples"},
@@ -56,7 +57,8 @@ class StockList extends Component {
         "PHONE",
         "CAR",
         "SHIP"],
-        stocks: [1,2,3,4,5],
+
+        stocks: [],
     }
 
     componentDidMount = () => {
@@ -121,7 +123,7 @@ class StockList extends Component {
                                                 let theShare = sharesObj.shares.replaceAll(",", "")
 
                                                 let revPerShare = 4*parseInt(theRevenue)/parseInt(theShare);
-                                                revPerShare = (Math.round(parseFloat(revPerShare) * 100) / 100).toString()
+                                                revPerShare = (Math.round(parseFloat(revPerShare) * 100) / 100).toString();
 
                                                 get('/api/getDebt', {
                                                     symbol: this.state.marketOneSymbols[i],
@@ -129,44 +131,62 @@ class StockList extends Component {
                                                     // below is hard-coded market number
                                                     number: "1",
                                                 }).then((debtObj) => {
+                                                    let netDebt = parseFloat(debtObj.stockDebtEquity.replaceAll(",", ""));
+                                                    let thePB = parseFloat(PBObj.stockPB.replaceAll(",", ""));
+                                                    let theEquity = (parseFloat(stockObj.obj.stockPrice)/thePB)*parseFloat(theShare);
+                                                    let theDebtEquity = (Math.round(parseFloat(netDebt/theEquity) * 100) / 100).toString();
 
-                                                    console.log(debtObj.stockDebtEquity);
+                                                    get('/api/getFCF', {
+                                                        symbol: this.state.marketOneSymbols[i],
+                                                        quarter: dayToQuarter(tempDay),
+                                                        // below is hard-coded market number
+                                                        number: "1",
+                                                    }).then((FCFObj) => {
+                                                        let theFCF = 4*parseFloat(FCFObj.freeCashFlow.replaceAll(",", ""));
+                                                        let theFCFperShare = (Math.round(parseFloat(theFCF/parseInt(theShare)) * 100) / 100).toString();
 
-                                                    theObject = {
-                                                        stockSymbol: this.state.marketOneSymbols[i],
-                                                        stockPrice: stockObj.obj.stockPrice,
-                                                        stockIndustry: theIndustry,
-                                                        stockMarketCap: MCObj.stockMarketCap,
-                                                        stockPE: PEObj.stockPE,
-                                                        stockPB: PBObj.stockPB,
-                                                        stockPS: revPerShare,
-                                                        stockREV: parseInt(theRevenue)*4,
-                                                        stockSHARES: sharesObj.shares,
-                                                    }
-                                                    theArray.push(theObject);
-                                                })
-
-                                            
+                                                        theObject = {
+                                                            stockSymbol: this.state.marketOneSymbols[i],
+                                                            stockPrice: stockObj.obj.stockPrice,
+                                                            stockIndustry: theIndustry,
+                                                            stockMarketCap: MCObj.stockMarketCap,
+                                                            stockPE: PEObj.stockPE,
+                                                            stockPB: PBObj.stockPB,
+                                                            stockPS: revPerShare,
+                                                            debtEquity: theDebtEquity,
+                                                            FCFperShare: theFCFperShare,
+                                                        }
+                                                        theArray.push(theObject);
+                                                        if(i===19){
+                                                            this.setState({
+                                                                stocks: theArray,
+                                                            })
+                                                        }                                              
+                                                    })                                               
+                                                })                                            
                                             })
-
-                                        })
-                                          
-
-                                        
+                                        })                                  
                                     })
                                 })
                             })
                         })
                     }
-                    console.log(theArray);
                 })
             })
+            // .then(() => {
+            //     this.setState({
+            //       stocks: theArray,
+            //     }, () => {console.log(this.state.stocks)});
+            // })
+            
         }
     }
 
     // required method: whatever is returned defines what
     // shows up on screen
     render() {
+        const theStocks = this.state.stocks;
+        console.log(theStocks);
         return (
             <div className="StockList-container">
                 <h2 className="StockList-header">
@@ -176,12 +196,12 @@ class StockList extends Component {
                     <div className="StockList-resultDesctiption"> Symbol</div>
                     <div className="StockList-resultDesctiption"> Company Name</div>
                     <div className="StockList-resultDesctiption"> Screener</div>
-
-                    {this.state.stocks.map((stock) => (
+                    {/* {console.log(theStocks)} */}
+                    {theStocks.map((stock) => (
                         <>
-                            <div className="StockList-resultDesctiption"> {stock}</div>
-                            <div className="StockList-resultDesctiption"> Company Name</div>
-                            <div className="StockList-resultDesctiption"> Screener</div>
+                            <div className="StockList-resultDesctiption"> {stock.stockSymbol}</div>
+                            <div className="StockList-resultDesctiption"> {stock.stockPrice}</div>
+                            <div className="StockList-resultDesctiption"> {stock.stockIndustry}</div>
                         </>
                     ))}
                 </div>

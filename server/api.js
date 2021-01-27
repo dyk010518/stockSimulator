@@ -35,6 +35,7 @@ const router = express.Router();
 
 //initialize socket
 const socketManager = require("./server-socket");
+const freecashflow = require("./models/freecashflow.js");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -340,7 +341,7 @@ router.get("/getShares", (req, res) => {
   })
 })
 
-//get shares Data given symbol, quarter, number
+//get debt Data given symbol, quarter, number
 router.get("/getDebt", (req, res) => {
   stockDebtEquity.findOne({
     stockSymbol: req.query.symbol,
@@ -348,6 +349,17 @@ router.get("/getDebt", (req, res) => {
     marketNumber: req.query.number,
   }).then((debtObj) => {
     res.send(debtObj)
+  })
+})
+
+//get shares FCF given symbol, quarter, number
+router.get("/getFCF", (req, res) => {
+  freeCashFlow.findOne({
+    stockSymbol: req.query.symbol,
+    quarter: req.query.quarter,
+    marketNumber: req.query.number,
+  }).then((FCFObj) => {
+    res.send(FCFObj)
   })
 })
 
