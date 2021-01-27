@@ -157,9 +157,6 @@ class MarketNavBar extends Component {
 
   resetUser = () => {
     alert("Your total account value was: " + this.props.totalValue.toString())
-    this.setState({
-      reset: true
-    })
     post('/api/resetTotalValues', {
       id: this.props.id,
     }).then(() => {

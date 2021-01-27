@@ -235,6 +235,7 @@ router.post('/resetDate', (req, res) => {
   }).then((dateObj) => {
     dateObj.one = "1";
     dateObj.save()
+    res.send((dateObj))
   })
 })
 
@@ -253,6 +254,7 @@ router.get("/deleteBoughtStocks", (req, res) => {
     userID: req.query.id,
   }).then((tempObject) => {
     console.log("deleted that shit")
+    res.send({msg: "blargh"})
   })
 })
 
