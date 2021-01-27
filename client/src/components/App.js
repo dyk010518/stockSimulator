@@ -268,8 +268,10 @@ class App extends Component {
         day: curDay.toString(),
         mn: this.state.marketName,
       }).then((resultObj) => {
-        console.log("graphDataReach")
-        console.log(resultObj)
+        this.setState({
+          YP: resultObj.YourPerf,
+          SPP: resultObj.SPPerf,
+        })
       })
     }
   }
