@@ -4,6 +4,8 @@
     justify-content: center;
     text-align: center;
     font-size: x-large;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 
@@ -13,6 +15,8 @@
     justify-content: center;
     text-align: center;
     font-size: x-large;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .center{
@@ -21,10 +25,20 @@
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .rm_decor{
     text-decoration: none;
 }
 
-
+.center2{
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

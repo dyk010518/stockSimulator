@@ -50,7 +50,7 @@ class Market extends Component {
         <p className="Market-summary">
           {history}
         </p>
-        <div className="center">
+        <div className="center2">
           <Link to="/Game/Dashboard" className="rm_decor"><button className="Market-button">Start</button></Link>
 
         </div>
