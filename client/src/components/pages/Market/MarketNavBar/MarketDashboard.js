@@ -29,7 +29,6 @@ class MarketDashboard extends Component {
     }
 
     updateGraph = (curDay) => {
-        console.log(curDay)
         get('/api/graphData' , {
             id: this.props.id,
             day: curDay.toString(),
