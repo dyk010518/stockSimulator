@@ -337,6 +337,17 @@ router.get("/getShares", (req, res) => {
   })
 })
 
+//get shares Data given symbol, quarter, number
+router.get("/getDebt", (req, res) => {
+  stockDebtEquity.findOne({
+    stockSymbol: req.query.symbol,
+    quarter: req.query.quarter,
+    marketNumber: req.query.number,
+  }).then((debtObj) => {
+    res.send(debtObj)
+  })
+})
+
 //insert freecashflow data
 router.post("/insertFCFData", (req, res) => {
   freeCashFlow.findOne({

@@ -117,19 +117,36 @@ class StockList extends Component {
                                                 // below is hard-coded market number
                                                 number: "1",
                                             }).then((sharesObj) => {
-                                                let revPerShare = parseInt(revObj.revenue)/parseInt(sharesObj.shares);
+                                                let theRevenue = revObj.revenue.replaceAll(",", "")
+                                                let theShare = sharesObj.shares.replaceAll(",", "")
+
+                                                let revPerShare = 4*parseInt(theRevenue)/parseInt(theShare);
                                                 revPerShare = (Math.round(parseFloat(revPerShare) * 100) / 100).toString()
 
-                                                theObject = {
-                                                    stockSymbol: this.state.marketOneSymbols[i],
-                                                    stockPrice: stockObj.obj.stockPrice,
-                                                    stockIndustry: theIndustry,
-                                                    stockMarketCap: MCObj.stockMarketCap,
-                                                    stockPE: PEObj.stockPE,
-                                                    stockPB: PBObj.stockPB,
-                                                    stockPS: revPerShare,
-                                                }
-                                                theArray.push(theObject);
+                                                get('/api/getDebt', {
+                                                    symbol: this.state.marketOneSymbols[i],
+                                                    quarter: dayToQuarter(tempDay),
+                                                    // below is hard-coded market number
+                                                    number: "1",
+                                                }).then((debtObj) => {
+
+                                                    console.log(debtObj.stockDebtEquity);
+
+                                                    theObject = {
+                                                        stockSymbol: this.state.marketOneSymbols[i],
+                                                        stockPrice: stockObj.obj.stockPrice,
+                                                        stockIndustry: theIndustry,
+                                                        stockMarketCap: MCObj.stockMarketCap,
+                                                        stockPE: PEObj.stockPE,
+                                                        stockPB: PBObj.stockPB,
+                                                        stockPS: revPerShare,
+                                                        stockREV: parseInt(theRevenue)*4,
+                                                        stockSHARES: sharesObj.shares,
+                                                    }
+                                                    theArray.push(theObject);
+                                                })
+
+                                            
                                             })
 
                                         })
