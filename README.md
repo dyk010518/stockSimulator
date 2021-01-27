@@ -1,3 +1,13 @@
+# Simple Stock Simulator
+
+## Info
+Beginner friendly stock trading simulator with options to see user vs. market performance, current portfolio, stock statistics, and trading capabilities.
+
+## Citations
+used chartjs package
+
+
+
 # Project Skeleton
 
 ## What we provide

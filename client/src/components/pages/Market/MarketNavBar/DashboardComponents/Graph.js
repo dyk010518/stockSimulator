@@ -147,6 +147,7 @@ class Graph extends Component {
                 <>
 
                     <div >
+                        {/*using chartjs!*/}
                         <Scatter
                             data={{
                                 datasets: [{
