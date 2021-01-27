@@ -208,7 +208,7 @@ class App extends Component {
                           day: this.state.day,
                           mn: this.state.marketName,
                         }).then((graphObj) => {
-                          console.log(graphObj)
+                          
                           this.setState({
                             YP: graphObj.YourPerf,
                             SPP: graphObj.SPPerf
@@ -232,7 +232,7 @@ class App extends Component {
                       day: this.state.day,
                       mn: this.state.marketName,
                     }).then((graphObj) => {
-                      console.log(graphObj)
+                      
                       this.setState({
                         YP: graphObj.YourPerf,
                         SPP: graphObj.SPPerf
@@ -247,7 +247,7 @@ class App extends Component {
               day: this.state.day,
               mn: this.state.marketName,
             }).then((graphObj) => {
-              console.log(graphObj)
+              
               this.setState({
                 YP: graphObj.YourPerf,
                 SPP: graphObj.SPPerf

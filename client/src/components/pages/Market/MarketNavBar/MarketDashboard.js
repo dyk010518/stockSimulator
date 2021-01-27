@@ -46,6 +46,9 @@ class MarketDashboard extends Component {
                 <Graph 
                     YP={this.props.YP}
                     SPP={this.props.SPP}
+                    id={this.props.id}
+                    marketName={this.props.marketName}
+                    day={this.props.day}
                 />
                 <div className="MarketDashboard-row">
                     <MarketActivity

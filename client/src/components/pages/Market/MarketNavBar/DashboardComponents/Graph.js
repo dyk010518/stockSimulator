@@ -19,8 +19,13 @@ class Graph extends Component {
     }
     //marketName is One, Two, Three, or Four
     componentDidMount() {
-        console.log(this.props.YP)
-        console.log(this.props.SPP)
+        get('/api/graphData' , {
+            id: this.props.id,
+            day: this.props.day,
+            mn: this.props.marketName,
+        }).then((resultObj) => {
+            
+        })
     }
 
     // required method: whatever is returned defines what
