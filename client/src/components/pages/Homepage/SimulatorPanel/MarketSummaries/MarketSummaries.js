@@ -27,7 +27,6 @@ class MarketSummaries extends Component {
 				<p></p>
 
 				<p className="MarketPanel-head">
-					Market:
         		</p>
 				<div className="MarketPanel-grid">
 
@@ -35,11 +34,11 @@ class MarketSummaries extends Component {
             marketTypes.map((marketNumber) => (
               <Link to="/Game" className="marketButton" >
 
-                <button onClick={()=>{
+                <button className="MarketPanel-start" onClick={()=>{
 					console.log("hit")
 					this.props.setMarketNum(marketNumber)
 					}}>
-                  Market {marketNumber}
+                  Click Here to Start
                 </button>
               </Link>
             ))
